@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SettlersOfValgard.building;
+using SettlersOfValgard.resource;
 using SettlersOfValgard.settler;
 using SettlersOfValgard.time;
 
@@ -19,7 +21,11 @@ namespace SettlersOfValgard
         
         public List<Settler> Settlers = new List<Settler>();
         public List<Building> Buildings = new List<Building>();
+        public StockPile StockPile = new StockPile();
         public Age Age { get; } = new Age();
+
+        public LifeStage [] FeedOrder = {LifeStage.Child, LifeStage.Elder, LifeStage.Adult};
+        public int EatCount = 0;
 
         public void PassTime()
         {
@@ -39,12 +45,28 @@ namespace SettlersOfValgard
 
         public void EveningRoutine()
         {
+            FeedSettlers();
             
+            foreach (var settler in Settlers)
+            {
+                settler.EveningRoutine();
+            }
         }
 
         public void NightRoutine()
         {
             
+        }
+
+        public void FeedSettlers()
+        {
+            foreach (var lifeStage in FeedOrder)
+            {
+                foreach (var settler in Settlers.Where(settler => settler.LifeStage == lifeStage))
+                {
+                    settler.Eat();
+                }
+            }
         }
 
         public void DoAging()

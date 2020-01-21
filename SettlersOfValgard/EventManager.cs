@@ -11,7 +11,7 @@ namespace SettlersOfValgard
     {
         public static List<List<Event>> EventHistory { get; } = new List<List<Event>>();
         public static List<Event> TodaysEvents { get; set; } = new List<Event>();
-        public static List<Event.EventType> IgnoreEvents = new List<Event.EventType>();
+        public static List<EventType> IgnoreEvents = new List<EventType>();
 
         public static void AddEvent(Event e)
         {

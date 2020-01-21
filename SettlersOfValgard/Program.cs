@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualBasic.CompilerServices;
 using SettlersOfValgard.building;
+using SettlersOfValgard.resource;
 using SettlersOfValgard.settler;
 using SettlersOfValgard.time;
 
@@ -31,6 +32,8 @@ namespace SettlersOfValgard
             _settlement.Settlers.Add(new Settler("Falka", 30));
             _settlement.Settlers.Add(new Settler("Geirr", 30));
             _settlement.Settlers.Add(new Settler("Valmunda", 30));
+            
+            _settlement.StockPile.Add(Resource.Meat, 200);
 
             while (!_endGame)
             {

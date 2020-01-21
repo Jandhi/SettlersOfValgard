@@ -1,14 +1,19 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
+using SettlersOfValgard.resource;
 using SettlersOfValgard.settler;
 
 namespace SettlersOfValgard
 {
+    public enum EventType
+    {
+        Birthday,
+        SettlerAte,
+        SettlerStarved
+    }
+    
     public class Event
     {
-        public enum EventType
-        {
-            Birthday
-        }
         public Event(string contents, EventType type)
         {
             Contents = contents;
@@ -18,11 +23,6 @@ namespace SettlersOfValgard
         public string Contents { get; }
         public EventType Type { get; }
 
-        public static Event Birthday(Settler settler)
-        {
-            string contents = "It's " + Console.Cyan + "{0}'s" + Console.White + " birthday!";
-            contents = string.Format(contents, settler.Name);
-            return new Event(contents, EventType.Birthday);
-        }
+        
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace SettlersOfValgard.resource
+﻿using System;
+
+namespace SettlersOfValgard.resource
 {
-    public enum ResourceType
+    public enum ResourceCategory
     {
         Material,
         Food
@@ -8,16 +10,23 @@
 
     public class Resource : INamed
     {
-        private Resource(string name, ResourceType type)
+        private Resource(string name, ResourceCategory category, ConsoleColor color)
         {
             Name = name;
-            Type = type;
+            Category = category;
+            Color = color;
         }
 
         public string Name { get; }
-        public ResourceType Type { get;  }
+        public ConsoleColor Color { get; }
+        public ResourceCategory Category { get;  }
 
-        public static Resource Wood { get; } = new Resource("Wood", ResourceType.Material);
-        public static Resource Meat { get; } = new Resource("Meat", ResourceType.Food);
+        public static Resource Wood { get; } = new Resource("Wood", ResourceCategory.Material, ConsoleColor.DarkGreen);
+        public static Resource Meat { get; } = new Resource("Meat", ResourceCategory.Food, ConsoleColor.Red);
+
+        public override string ToString()
+        {
+            return Console.Color(Name, Color);
+        }
     }
 }

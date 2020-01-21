@@ -33,6 +33,8 @@ namespace SettlersOfValgard
                 {
                     chunks.Add(s.Substring(start, i - start));
                     s = s.Substring(i);
+                    start = 0;
+                    i = 0;
                 }
             }
 
@@ -82,6 +84,25 @@ namespace SettlersOfValgard
             if (s == Yellow) return ConsoleColor.Yellow;
             return ConsoleColor.White; // default is white
         }
+        
+        public static string ColorToString(ConsoleColor s)
+        {
+            if (s == ConsoleColor.Black) return Black;
+            if (s == ConsoleColor.DarkBlue) return DarkBlue;
+            if (s == ConsoleColor.DarkGreen) return DarkGreen;
+            if (s == ConsoleColor.DarkCyan) return DarkCyan;
+            if (s == ConsoleColor.DarkRed) return DarkRed;
+            if (s == ConsoleColor.DarkMagenta) return DarkMagenta;
+            if (s == ConsoleColor.DarkYellow) return DarkYellow;
+            if (s == ConsoleColor.DarkGray) return DarkGray;
+            if (s == ConsoleColor.Blue) return Blue;
+            if (s == ConsoleColor.Green) return Green;
+            if (s == ConsoleColor.Cyan) return Cyan;
+            if (s == ConsoleColor.Red) return Red;
+            if (s == ConsoleColor.Magenta) return Magenta;
+            if (s == ConsoleColor.Yellow) return Yellow;
+            return White; // default is white
+        }
 
         public static void Clear()
         {
@@ -91,6 +112,11 @@ namespace SettlersOfValgard
         public static string ReadLine()
         {
             return System.Console.ReadLine();
+        }
+
+        public static string Color(string s, ConsoleColor color)
+        {
+            return ColorToString(color) + s + White;
         }
     }
 }

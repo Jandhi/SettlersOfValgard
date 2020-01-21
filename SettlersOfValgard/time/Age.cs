@@ -24,6 +24,8 @@
             Days = years * Time.DaysInYear + birthday;
         }
 
+        public int Years => Days / Time.DaysInYear;
+
         public void doAging()
         {
             Days++;
