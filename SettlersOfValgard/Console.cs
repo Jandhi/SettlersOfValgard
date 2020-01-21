@@ -23,6 +23,10 @@ namespace SettlersOfValgard
         public static string Yellow { get; } = ColorToken + "y";
 
         public static string White { get; } = ColorToken + "w";
+
+
+        public static List<string> PreviousList { get; set; }
+
         public static void WriteLine(string s = "")
         {
             var chunks = new List<string>();
@@ -117,6 +121,17 @@ namespace SettlersOfValgard
         public static string Color(string s, ConsoleColor color)
         {
             return ColorToString(color) + s + White;
+        }
+        
+        
+        public static void ListInConsole<T> (IEnumerable<T> list) where T : INamed 
+        {
+            PreviousList = new List<string>();
+            foreach (var item in list)
+            {
+                Console.WriteLine(item.Name);
+                PreviousList.Add(item.Name);
+            }
         }
     }
 }

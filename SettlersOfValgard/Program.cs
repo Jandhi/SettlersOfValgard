@@ -11,9 +11,8 @@ namespace SettlersOfValgard
     class Program
     {
         private static Settlement _settlement;
+        public static bool EndGame = false;
         
-        private static bool _endGame = false;
-        private static int _maxDaysPassed = 30;
         static void Main(string[] args)
         {
             _settlement = Settlement.Get();
@@ -35,11 +34,10 @@ namespace SettlersOfValgard
             
             _settlement.StockPile.Add(Resource.Meat, 200);
 
-            while (!_endGame)
+            while (!EndGame)
             {
                 var input = Console.ReadLine();
                 Console.Clear();
-                Console.WriteLine(input);
                 ParseInput(input);
             }
         }
@@ -61,74 +59,7 @@ namespace SettlersOfValgard
                     args.Add(split[i]);
                 }
             }
-            ExecuteCommand(command, args, tags);
-        }
-
-        private static void ExecuteCommand(string command, List<string> args, List<string> tags)
-        {
-            if (command == "s")
-            {
-                ListInConsole(_settlement.Settlers);
-            }
-
-            if (command == "b")
-            {
-                ListInConsole(_settlement.Buildings);
-            }
-
-            if (command == "d")
-            {
-                if (args.Count == 0)
-                {
-                    Console.WriteLine(Console.Red + "Format is: d [#number of days]");
-                }
-                else
-                {
-                    try
-                    {
-                        var days = IntegerType.FromString(args[0]);
-                        if(days <= _maxDaysPassed) {
-                            PassDays(days);
-                        }
-                        else
-                        {
-                            Console.WriteLine(Console.Red + "Maximum days you can pass is " + _maxDaysPassed);
-                            Console.WriteLine("Change maxDaysPassed with ");
-                        }
-                    }
-                    catch (InvalidCastException e)
-                    {
-                        Console.WriteLine(Console.Red + "Format is: d [#number of days]");
-                    }
-                }
-            }
-
-            if (command == "q")
-            {
-                Console.WriteLine("Goodbye!");
-                _endGame = true;
-            }
-        }
-
-        private static void PassDays(int days)
-        {
-            for (var i = 0; i < days; i++)
-            {
-                Console.WriteLine();
-                _settlement.PassTime();
-                Console.WriteLine(Time.Date + ":");
-                EventManager.ListEvents();
-                EventManager.ArchiveEvents();
-                System.Threading.Thread.Sleep(100);
-            }
-        }
-
-        private static void ListInConsole<T> (IEnumerable<T> list) where T : INamed 
-        {
-            foreach (var item in list)
-            {
-                Console.WriteLine(item.Name);
-            }
+            Command.ExecuteCommand(command, args, tags);
         }
     }
 }

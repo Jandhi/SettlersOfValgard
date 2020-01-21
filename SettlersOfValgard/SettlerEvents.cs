@@ -26,5 +26,12 @@ namespace SettlersOfValgard
             contents = string.Format(contents, settler);
             return new Event(contents, EventType.SettlerStarved);
         }
+
+        public static Event SkillIncreased(Settler settler, Skill skill)
+        {
+            string contents = "{0} became a {1} {2}";
+            contents = string.Format(contents, settler, Skill.LevelToString(skill.Level), skill.Type);
+            return new Event(contents, EventType.SettlerSkillIncrease);
+        }
     }
 }

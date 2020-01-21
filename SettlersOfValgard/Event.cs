@@ -9,7 +9,8 @@ namespace SettlersOfValgard
     {
         Birthday,
         SettlerAte,
-        SettlerStarved
+        SettlerStarved,
+        SettlerSkillIncrease
     }
     
     public class Event
