@@ -17,8 +17,13 @@ namespace SettlersOfValgard.settler
         Karl,
         Jarl
     }
+
+    public enum Trait
+    {
+        
+    }
     
-    public class Settler : INamed, IAgeable, IDoesRoutines
+    public class Settler : INamed, IAgeable, IDoesRoutines, ISkillIncreaseListener
     {
         public const int AdultAge = 16;
         public const int ElderAge = 60;
@@ -31,13 +36,14 @@ namespace SettlersOfValgard.settler
             get
             {
                 if (Age.Years < AdultAge) return LifeStage.Child;
-                if (Age.Years < ElderAge) return LifeStage.Adult;
-                return LifeStage.Elder;
+                return Age.Years < ElderAge ? LifeStage.Adult : LifeStage.Elder;
             }
         }
         
         public WorkBuilding Work { get; set; }
         public ResidentialBuilding Home { get; set; }
+
+        private bool _idle = false;
 
         public Settler(string name, int years)
         {
@@ -50,7 +56,18 @@ namespace SettlersOfValgard.settler
         {
             if (Age.IsBirthday())
             {
-                EventManager.AddEvent(SettlerEvents.Birthday(this));
+                SettlerEvents.Birthday(this);
+            }
+
+            if (Work != null)
+            {
+                _idle = false;
+            }
+            else
+            {
+                _idle = true;
+                SettlerEvents.Idle(this);
+                Settlement.Get().IdleCount++;
             }
         }
 
@@ -68,15 +85,20 @@ namespace SettlersOfValgard.settler
         {
             var stockpile = Settlement.Get().StockPile;
             var resource = stockpile.GreatestResourceOfCategory(ResourceCategory.Food);
-            if (resource != null && stockpile.Remove(resource, 1)) // Eats
+            if (resource != null && stockpile.Remove(resource, 1))
             {
                 Settlement.Get().EatCount++;
-                EventManager.AddEvent(SettlerEvents.Ate(this, resource));
+                SettlerEvents.Ate(this, resource); // Ate
             }
             else
             {
-                EventManager.AddEvent(SettlerEvents.Starved(this));
+                SettlerEvents.Starved(this); // Starve
             }
+        }
+
+        public void SkillIncreased(Skill skill)
+        {
+            SettlerEvents.SkillIncreased(this, skill);
         }
 
         public override string ToString()

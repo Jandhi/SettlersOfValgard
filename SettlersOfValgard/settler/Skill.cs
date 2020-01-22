@@ -18,6 +18,11 @@ namespace SettlersOfValgard.settler
         Master
     }
     
+    public interface ISkillIncreaseListener
+    {
+        void SkillIncreased(Skill skill);
+    }
+
     public class Skill
     {
         public const int NoviceXpThreshold = 20;
@@ -25,9 +30,23 @@ namespace SettlersOfValgard.settler
         public const int JourneymanXpThreshold = 300;
         public const int ExpertXpThreshold = 600;
         public const int MasterXpThreshold = 1000;
-        
+
+        public static int[] Thresholds
+        {
+            get
+            {
+                return new int[] {NoviceXpThreshold, ApprenticeXpThreshold, JourneymanXpThreshold, ExpertXpThreshold, MasterXpThreshold};
+            }
+        }
+
         public SkillType Type;
         public int Xp { get; set; }  = 0;
+        private ISkillIncreaseListener _listener;
+
+        public Skill(ISkillIncreaseListener listener)
+        {
+            _listener = listener;
+        }
 
         public SkillLevel Level
         {
@@ -44,7 +63,17 @@ namespace SettlersOfValgard.settler
 
         public void GainXp(int xp)
         {
+            bool levelUp = false;
+            foreach (var threshold in Thresholds)
+            {
+                if (Xp < threshold && Xp + xp >= threshold)
+                {
+                    levelUp = true;
+                }
+            }
+            
             Xp += xp;
+            if(levelUp) _listener.SkillIncreased(this);
         }
 
         public static string LevelToString(SkillLevel level)

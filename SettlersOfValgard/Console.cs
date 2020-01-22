@@ -124,12 +124,15 @@ namespace SettlersOfValgard
         }
         
         
-        public static void ListInConsole<T> (IEnumerable<T> list) where T : INamed 
+        public static void ListInConsole<T> (IEnumerable<T> list, bool numbered = false) where T : INamed 
         {
             PreviousList = new List<string>();
+            int count = 1;
             foreach (var item in list)
             {
-                Console.WriteLine(item.Name);
+                var contents = (numbered ? count + " " : "") + item.Name; 
+                Console.WriteLine( contents);
+                count++;
                 PreviousList.Add(item.Name);
             }
         }

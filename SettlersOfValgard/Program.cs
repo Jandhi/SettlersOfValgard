@@ -20,8 +20,6 @@ namespace SettlersOfValgard
             _settlement.Buildings.Add(new ResidentialBuilding("House", 5));
             _settlement.Buildings.Add(new ResidentialBuilding("House", 5));
             _settlement.Buildings.Add(new ResidentialBuilding("Tent", 3));
-            _settlement.Buildings.Add(new WorkBuilding("Woodcutter's Hut", 5));
-            _settlement.Buildings.Add(new WorkBuilding("Hunter's Tent", 3));
             
             _settlement.Settlers.Add(new Settler("Eriksen", 30));
             _settlement.Settlers.Add(new Settler("Rudolf", 30));

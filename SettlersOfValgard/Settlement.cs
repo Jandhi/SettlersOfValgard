@@ -7,6 +7,11 @@ using SettlersOfValgard.time;
 
 namespace SettlersOfValgard
 {
+
+    public enum PlayerRank
+    {
+        
+    }
     public class Settlement : INamed, IAgeable, IDoesRoutines
     {
         private static Settlement _singleton = new Settlement();
@@ -23,9 +28,9 @@ namespace SettlersOfValgard
         public List<Building> Buildings = new List<Building>();
         public StockPile StockPile = new StockPile();
         public Age Age { get; } = new Age();
-
-        public LifeStage [] FeedOrder = {LifeStage.Child, LifeStage.Elder, LifeStage.Adult};
+        
         public int EatCount = 0;
+        public int IdleCount = 0;
 
         public void PassTime()
         {
@@ -60,7 +65,7 @@ namespace SettlersOfValgard
 
         public void FeedSettlers()
         {
-            foreach (var lifeStage in FeedOrder)
+            foreach (var lifeStage in SettlementSettings.FeedOrder)
             {
                 foreach (var settler in Settlers.Where(settler => settler.LifeStage == lifeStage))
                 {

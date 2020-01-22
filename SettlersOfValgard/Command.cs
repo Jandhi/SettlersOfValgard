@@ -16,12 +16,14 @@ namespace SettlersOfValgard
             
             if (command == "s")
             {
-                Console.ListInConsole(Settlement.Get().Settlers);
+                var numbered = tags.Contains("-n");
+                Console.ListInConsole(Settlement.Get().Settlers, numbered);
             }
 
             if (command == "b")
             {
-                Console.ListInConsole(Settlement.Get().Buildings);
+                var numbered = tags.Contains("-n");
+                Console.ListInConsole(Settlement.Get().Buildings, numbered);
             }
 
             if (command == "d")
@@ -35,12 +37,12 @@ namespace SettlersOfValgard
                     try
                     {
                         var days = IntegerType.FromString(args[0]);
-                        if(days <= Variables.MaxDaysPassed) {
+                        if(days <= Settings.MaxDaysPassed) {
                             PassDays(days);
                         }
                         else
                         {
-                            Console.WriteLine(Console.Red + "Maximum days you can pass is " + Variables.MaxDaysPassed);
+                            Console.WriteLine(Console.Red + "Maximum days you can pass is " + Settings.MaxDaysPassed);
                             Console.WriteLine("Change maxDaysPassed with ");
                         }
                     }
@@ -59,9 +61,9 @@ namespace SettlersOfValgard
 
             if (command == "god")
             {
-                if(Variables.GodMode)
+                if(Settings.GodMode)
                 {
-                    Variables.GodMode = false;
+                    Settings.GodMode = false;
                     Console.WriteLine("GodMode disabled.");
                 }
                 else
@@ -80,7 +82,7 @@ namespace SettlersOfValgard
 
                     if (input == "y")
                     {
-                        Variables.GodMode = true;
+                        Settings.GodMode = true;
                     }
                 }
             }
