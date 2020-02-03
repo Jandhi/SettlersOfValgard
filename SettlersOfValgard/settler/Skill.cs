@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace SettlersOfValgard.settler
 {
@@ -17,7 +18,7 @@ namespace SettlersOfValgard.settler
         Expert,
         Master
     }
-    
+
     public interface ISkillIncreaseListener
     {
         void SkillIncreased(Skill skill);
@@ -30,23 +31,39 @@ namespace SettlersOfValgard.settler
         public const int JourneymanXpThreshold = 300;
         public const int ExpertXpThreshold = 600;
         public const int MasterXpThreshold = 1000;
+        private readonly ISkillIncreaseListener _listener;
+
+        public SkillType Type;
+
+        public Skill(ISkillIncreaseListener listener, SkillType type)
+        {
+            _listener = listener;
+            Type = type;
+        }
 
         public static int[] Thresholds
         {
             get
             {
-                return new int[] {NoviceXpThreshold, ApprenticeXpThreshold, JourneymanXpThreshold, ExpertXpThreshold, MasterXpThreshold};
+                return new[]
+                {
+                    NoviceXpThreshold, ApprenticeXpThreshold, JourneymanXpThreshold, ExpertXpThreshold,
+                    MasterXpThreshold
+                };
             }
         }
 
-        public SkillType Type;
-        public int Xp { get; set; }  = 0;
-        private ISkillIncreaseListener _listener;
-
-        public Skill(ISkillIncreaseListener listener)
+        public static string AgentFromSkillType(SkillType type)
         {
-            _listener = listener;
+            return type switch
+            {
+                SkillType.Woodcutting => "Woodcutter",
+                SkillType.Hunting => "Hunter",
+                _ => ""
+            };
         }
+
+        public int Xp { get; set; }
 
         public SkillLevel Level
         {
@@ -63,7 +80,7 @@ namespace SettlersOfValgard.settler
 
         public void GainXp(int xp)
         {
-            bool levelUp = false;
+            var levelUp = false;
             foreach (var threshold in Thresholds)
             {
                 if (Xp < threshold && Xp + xp >= threshold)
@@ -71,9 +88,9 @@ namespace SettlersOfValgard.settler
                     levelUp = true;
                 }
             }
-            
+
             Xp += xp;
-            if(levelUp) _listener.SkillIncreased(this);
+            if (levelUp) _listener.SkillIncreased(this);
         }
 
         public static string LevelToString(SkillLevel level)

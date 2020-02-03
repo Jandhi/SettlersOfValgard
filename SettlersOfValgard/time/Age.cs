@@ -2,10 +2,8 @@
 {
     public class Age
     {
-        
-        public int Days { get; set; }
-        private int birthday;
-        
+        private readonly int birthday;
+
         public Age()
         {
             birthday = Time.Days;
@@ -23,6 +21,8 @@
             this.birthday = birthday;
             Days = years * Time.DaysInYear + birthday;
         }
+
+        public int Days { get; set; }
 
         public int Years => Days / Time.DaysInYear;
 

@@ -1,36 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualBasic.CompilerServices;
-using SettlersOfValgard.building;
-using SettlersOfValgard.resource;
+﻿using System.Collections.Generic;
+using SettlersOfValgard.building.harvest;
+using SettlersOfValgard.building.Residential;
+using SettlersOfValgard.command;
+using SettlersOfValgard.events;
 using SettlersOfValgard.settler;
-using SettlersOfValgard.time;
+using SettlersOfValgard.tech;
 
 namespace SettlersOfValgard
 {
-    class Program
+    internal class Program
     {
         private static Settlement _settlement;
         public static bool EndGame = false;
-        
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
-            _settlement = Settlement.Get();
+            Init();
+            //SettlersOfValgard.Menu();
             
-            _settlement.Buildings.Add(new ResidentialBuilding("House", 5));
-            _settlement.Buildings.Add(new ResidentialBuilding("House", 5));
-            _settlement.Buildings.Add(new ResidentialBuilding("Tent", 3));
+            Settlement.Get().TechManager.Discover(new BasicTech());
+            var hut = new HuntersHut();
+            var valin = new Settler("Valin", 20, Gender.Male);
+            valin.Work = hut;
+            Settlement.Get().Buildings.Add(hut);
+            Settlement.Get().Settlers.Add(valin);
             
-            _settlement.Settlers.Add(new Settler("Eriksen", 30));
-            _settlement.Settlers.Add(new Settler("Rudolf", 30));
-            _settlement.Settlers.Add(new Settler("Alfa", 30));
-            _settlement.Settlers.Add(new Settler("Ylur", 30));
-            _settlement.Settlers.Add(new Settler("Arngeir", 30));
-            _settlement.Settlers.Add(new Settler("Falka", 30));
-            _settlement.Settlers.Add(new Settler("Geirr", 30));
-            _settlement.Settlers.Add(new Settler("Valmunda", 30));
-            
-            _settlement.StockPile.Add(Resource.Meat, 200);
 
             while (!EndGame)
             {
@@ -47,17 +41,16 @@ namespace SettlersOfValgard
             var args = new List<string>();
             var tags = new List<string>();
             for (var i = 1; i < split.Length; i++)
-            {
                 if (split[i].StartsWith("-"))
-                {
                     tags.Add(split[i]);
-                }
                 else
-                {
                     args.Add(split[i]);
-                }
-            }
-            Command.ExecuteCommand(command, args, tags);
+            Command.ExecuteCommand(new Command(command, args, tags));
+        }
+
+        public static void Init()
+        {
+            EventManager.InitializeLists();
         }
     }
 }

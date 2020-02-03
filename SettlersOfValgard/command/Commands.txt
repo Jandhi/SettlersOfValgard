@@ -1,0 +1,13 @@
+﻿s - settlers
+b - buildings
+bd - build
+r - resources
+h - homes
+u - unemployed
+w - workers
+d - pass days
+sp - stockpile
+tc - technology
+god - god mode
+gen - generate
+q - quit

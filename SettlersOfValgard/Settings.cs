@@ -11,5 +11,6 @@ namespace SettlersOfValgard
     public class SettlementSettings
     {
         public static LifeStage[] FeedOrder = {LifeStage.Child, LifeStage.Elder, LifeStage.Adult};
+        public static int[] GenderWeights = {10, 10, 1};
     }
 }

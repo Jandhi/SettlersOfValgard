@@ -4,13 +4,7 @@ namespace SettlersOfValgard.building
 {
     public abstract class WorkBuilding : Building
     {
-        public readonly int MaxOccupants;
-        
-        public WorkBuilding(string name, int maxOccupants) : base(name)
-        {
-            MaxOccupants = maxOccupants;
-        }
-
+        public abstract int MaxOccupants { get; }
         public abstract void HostWorker(Settler worker);
     }
 }

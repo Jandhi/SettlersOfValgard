@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 
 namespace SettlersOfValgard.resource
 {
@@ -17,12 +20,13 @@ namespace SettlersOfValgard.resource
             Color = color;
         }
 
-        public string Name { get; }
         public ConsoleColor Color { get; }
-        public ResourceCategory Category { get;  }
+        public ResourceCategory Category { get; }
 
         public static Resource Wood { get; } = new Resource("Wood", ResourceCategory.Material, ConsoleColor.DarkGreen);
         public static Resource Meat { get; } = new Resource("Meat", ResourceCategory.Food, ConsoleColor.Red);
+
+        public string Name { get; }
 
         public override string ToString()
         {

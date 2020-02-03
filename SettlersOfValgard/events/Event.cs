@@ -1,19 +1,26 @@
-﻿using System;
-using System.Runtime.Serialization;
-using SettlersOfValgard.resource;
-using SettlersOfValgard.settler;
-
-namespace SettlersOfValgard
+﻿namespace SettlersOfValgard.events
 {
     public enum EventType
     {
-        Birthday,
+        //Settler
+        SettlerBirthday,
         SettlerAte,
         SettlerStarved,
         SettlerSkillIncrease,
-        SettlerIdle
+        SettlerIdle,
+        SettlerHomeless,
+        SettlerRehomed,
+
+        //Settlement
+        SettlementStarved,
+        SettlementAte,
+        SettlementIdle,
+        SettlementHomeless,
+        
+        //Stockpile
+        DailyStockPileTally,
     }
-    
+
     public class Event
     {
         public Event(string contents, EventType type)
@@ -24,7 +31,5 @@ namespace SettlersOfValgard
 
         public string Contents { get; }
         public EventType Type { get; }
-
-        
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IAgeable
     {
-        Age Age { get; } 
+        Age Age { get; }
     }
 }

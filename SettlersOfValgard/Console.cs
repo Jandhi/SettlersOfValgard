@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SettlersOfValgard
 {
@@ -27,12 +28,11 @@ namespace SettlersOfValgard
 
         public static List<string> PreviousList { get; set; }
 
-        public static void WriteLine(string s = "")
+        public static void Write(string s = "")
         {
             var chunks = new List<string>();
-            int start = 0;
-            for (int i = 0; i < s.Length; i++)
-            {
+            var start = 0;
+            for (var i = 0; i < s.Length; i++)
                 if (s.Substring(i).StartsWith(ColorToken) && i - start > 0)
                 {
                     chunks.Add(s.Substring(start, i - start));
@@ -40,25 +40,16 @@ namespace SettlersOfValgard
                     start = 0;
                     i = 0;
                 }
-            }
 
-            if (s.Length > 0)
-            {
-                chunks.Add(s);
-            }
+            if (s.Length > 0) chunks.Add(s);
 
             var colorPairs = new List<KeyValuePair<ConsoleColor, string>>();
             foreach (var chunk in chunks)
-            {
                 if (chunk.StartsWith(ColorToken))
-                {
-                    colorPairs.Add(new KeyValuePair<ConsoleColor, string>(StringToColor(chunk.Substring(0, 3)), chunk.Substring(3)));
-                }
+                    colorPairs.Add(new KeyValuePair<ConsoleColor, string>(StringToColor(chunk.Substring(0, 3)),
+                        chunk.Substring(3)));
                 else
-                {
                     colorPairs.Add(new KeyValuePair<ConsoleColor, string>(ConsoleColor.White, chunk));
-                }
-            }
 
             foreach (var pair in colorPairs)
             {
@@ -67,6 +58,11 @@ namespace SettlersOfValgard
             }
 
             System.Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void WriteLine(string s = "")
+        {
+            Write(s);
             System.Console.WriteLine();
         }
 
@@ -88,7 +84,7 @@ namespace SettlersOfValgard
             if (s == Yellow) return ConsoleColor.Yellow;
             return ConsoleColor.White; // default is white
         }
-        
+
         public static string ColorToString(ConsoleColor s)
         {
             if (s == ConsoleColor.Black) return Black;
@@ -122,18 +118,43 @@ namespace SettlersOfValgard
         {
             return ColorToString(color) + s + White;
         }
-        
-        
-        public static void ListInConsole<T> (IEnumerable<T> list, bool numbered = false) where T : INamed 
+
+
+        public static void ListInConsole<T>(List<T> list, bool numbered = false, bool separated = false)
+            where T : INamed
         {
-            PreviousList = new List<string>();
-            int count = 1;
-            foreach (var item in list)
+            if (!separated)
             {
-                var contents = (numbered ? count + " " : "") + item.Name; 
-                Console.WriteLine( contents);
-                count++;
-                PreviousList.Add(item.Name);
+                //Converts to dictionary
+                var dictionary = new Dictionary<string, int>();
+                foreach (var name in list.Select(item => item.Name))
+                    if (!dictionary.ContainsKey(name))
+                        dictionary.Add(name, 1);
+                    else
+                        dictionary[name] += 1;
+
+                //Outputs
+                var count = 1;
+                PreviousList = new List<string>();
+                foreach (var (name, amount) in dictionary)
+                {
+                    if (numbered) Write(count + " ");
+                    WriteLine(name + (amount > 1 ? " x" + amount : ""));
+                    count++;
+                    PreviousList.Add(name);
+                }
+            }
+            else
+            {
+                var count = 1;
+                PreviousList = new List<string>();
+                foreach (var name in list.Select(item => item.Name))
+                {
+                    if (numbered) Write(count + " ");
+                    WriteLine(name);
+                    count++;
+                    PreviousList.Add(name);
+                }
             }
         }
     }

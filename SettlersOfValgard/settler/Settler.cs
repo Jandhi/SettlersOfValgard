@@ -1,16 +1,26 @@
-﻿using SettlersOfValgard.building;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SettlersOfValgard.building;
+using SettlersOfValgard.events;
 using SettlersOfValgard.resource;
 using SettlersOfValgard.time;
 
 namespace SettlersOfValgard.settler
 {
+    public enum Gender
+    {
+        Male,
+        Female,
+        NonConforming
+    }
+
     public enum LifeStage
     {
         Child,
         Adult,
         Elder
     }
-    
+
     public enum Caste
     {
         Thrall,
@@ -20,16 +30,23 @@ namespace SettlersOfValgard.settler
 
     public enum Trait
     {
-        
     }
-    
+
     public class Settler : INamed, IAgeable, IDoesRoutines, ISkillIncreaseListener
     {
         public const int AdultAge = 16;
         public const int ElderAge = 60;
-        
-        public string Name { get; }
-        public Age Age { get; }
+
+        private bool _idle;
+
+        public Settler(string name, int years, Gender gender)
+        {
+            Name = name;
+            Gender = gender;
+            Age = new Age(years);
+        }
+
+        public Gender Gender { get; }
 
         public LifeStage LifeStage
         {
@@ -39,29 +56,22 @@ namespace SettlersOfValgard.settler
                 return Age.Years < ElderAge ? LifeStage.Adult : LifeStage.Elder;
             }
         }
-        
+
         public WorkBuilding Work { get; set; }
+
         public ResidentialBuilding Home { get; set; }
-
-        private bool _idle = false;
-
-        public Settler(string name, int years)
-        {
-            Name = name;
-            Age = new Age(years);
-        }
+        public Age Age { get; }
+        public List<Skill> Skills = new List<Skill>();
 
 
         public void DayRoutine()
         {
-            if (Age.IsBirthday())
-            {
-                SettlerEvents.Birthday(this);
-            }
+            if (Age.IsBirthday()) SettlerEvents.Birthday(this);
 
             if (Work != null)
             {
                 _idle = false;
+                Work.HostWorker(this);
             }
             else
             {
@@ -73,12 +83,35 @@ namespace SettlersOfValgard.settler
 
         public void EveningRoutine()
         {
-            
         }
 
         public void NightRoutine()
         {
-            
+            if (Home == null)
+            {
+                Settlement.Get().HomelessCount++;
+                SettlerEvents.Homeless(this);
+            }
+        }
+
+        public string Name { get; }
+
+        public void GainXp(SkillType type, int amount)
+        {
+            foreach (var t in Skills.Where(t => t.Type == type))
+            {
+                t.GainXp(amount);
+                return;
+            }
+
+            var skill = new Skill(this, type);
+            skill.GainXp(amount);
+            Skills.Add(skill);
+        }
+
+        public void SkillIncreased(Skill skill)
+        {
+            SettlerEvents.SkillIncreased(this, skill);
         }
 
         public void Eat()
@@ -92,19 +125,31 @@ namespace SettlersOfValgard.settler
             }
             else
             {
+                Settlement.Get().StarveCount++;
                 SettlerEvents.Starved(this); // Starve
             }
         }
 
-        public void SkillIncreased(Skill skill)
+        public void Rehome(ResidentialBuilding home)
         {
-            SettlerEvents.SkillIncreased(this, skill);
+            Home = home;
+            SettlerEvents.Rehomed(this, Home);
         }
 
         public override string ToString()
         {
-            var contents = "{0}";
-            return string.Format(contents, Name);
+            var contents = "{0} ({1}), {2}.";
+            return string.Format(contents, Name, GenderSymbol(Gender), Age.Years);
+        }
+
+        public static string GenderSymbol(Gender gender)
+        {
+            return gender switch
+            {
+                Gender.Male => "M",
+                Gender.Female => "F",
+                _ => "X"
+            };
         }
     }
 }
