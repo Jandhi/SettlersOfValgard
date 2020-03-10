@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SettlersOfValgard.building;
 using SettlersOfValgard.events;
+using SettlersOfValgard.Old.settler;
 using SettlersOfValgard.resource;
 using SettlersOfValgard.settler;
 using SettlersOfValgard.tech;

@@ -1,0 +1,27 @@
+﻿COMMANDS
+------------
+'r' Resource
+lists resources contained in Stockpile
+
+------------
+'s' Settlers
+lists living settlers in Settlement
+
+'s X' displays the details of the settler with name X
+
+------------
+'c' Construct
+lists blueprints you have the resources to construct
+'-a' lists all blueprints regardless of cost
+
+'c X' tries to construct a blueprint with name X 
+
+------------
+'b' Buildings
+lists buildings in Settlement 
+
+------------
+'d' Day
+passes a day
+
+'d X' passes X days

@@ -1,5 +1,6 @@
 ﻿using System;
 using SettlersOfValgard.building;
+using SettlersOfValgard.Old.settler;
 using SettlersOfValgard.resource;
 using SettlersOfValgard.settler;
 

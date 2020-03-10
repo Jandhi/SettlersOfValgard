@@ -1,4 +1,5 @@
-﻿using SettlersOfValgard.settler;
+﻿using SettlersOfValgard.Old.settler;
+using SettlersOfValgard.settler;
 
 namespace SettlersOfValgard.building
 {

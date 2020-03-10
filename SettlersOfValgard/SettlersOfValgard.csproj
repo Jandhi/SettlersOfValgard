@@ -5,4 +5,20 @@
         <TargetFramework>netcoreapp3.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="Old\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Old\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Old\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Model\Time" />
+    </ItemGroup>
+
 </Project>

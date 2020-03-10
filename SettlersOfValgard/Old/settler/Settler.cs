@@ -3,9 +3,10 @@ using System.Linq;
 using SettlersOfValgard.building;
 using SettlersOfValgard.events;
 using SettlersOfValgard.resource;
+using SettlersOfValgard.settler;
 using SettlersOfValgard.time;
 
-namespace SettlersOfValgard.settler
+namespace SettlersOfValgard.Old.settler
 {
     public enum Gender
     {

@@ -5,7 +5,7 @@
         public static void Quit(Command command)
         {
             Console.WriteLine("Goodbye!");
-            Program.EndGame = true;
+            OldProgram.EndGame = true;
         }
     }
 }

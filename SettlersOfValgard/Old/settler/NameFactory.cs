@@ -1,4 +1,6 @@
-﻿namespace SettlersOfValgard.settler
+﻿using SettlersOfValgard.Old.settler;
+
+namespace SettlersOfValgard.settler
 {
     public abstract class NameFactory
     {

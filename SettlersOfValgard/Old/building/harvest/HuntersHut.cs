@@ -1,4 +1,5 @@
-﻿using SettlersOfValgard.resource;
+﻿using SettlersOfValgard.Old.settler;
+using SettlersOfValgard.resource;
 using SettlersOfValgard.settler;
 
 namespace SettlersOfValgard.building.harvest
