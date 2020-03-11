@@ -1,4 +1,6 @@
-﻿namespace SettlersOfValgard.Model.Building
+﻿using SettlersOfValgard.Model.Name;
+
+namespace SettlersOfValgard.Model.Building
 {
     public abstract class Building : INamed
     {

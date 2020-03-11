@@ -1,4 +1,5 @@
 ﻿using SettlersOfValgard.Model.Building.Workplace;
+using SettlersOfValgard.Model.Name;
 
 namespace SettlersOfValgard.Model.Settler
 {

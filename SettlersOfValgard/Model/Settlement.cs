@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SettlersOfValgard.Model.Building;
+using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.Model.Settler;
 
 namespace SettlersOfValgard.Model

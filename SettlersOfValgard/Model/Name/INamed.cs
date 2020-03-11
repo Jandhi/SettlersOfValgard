@@ -1,4 +1,4 @@
-﻿namespace SettlersOfValgard.Model
+﻿namespace SettlersOfValgard.Model.Name
 {
     public interface INamed
     {

@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Model\Time" />
+      <Folder Include="ConsoleLibrary" />
     </ItemGroup>
 
 </Project>
