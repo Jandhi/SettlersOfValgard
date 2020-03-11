@@ -2,6 +2,6 @@
 {
     public interface IDescribed
     {
-        public abstract string Description { get; }
+        string Description { get; }
     }
 }
