@@ -7,7 +7,8 @@ namespace SettlersOfValgard.View
     {
         private readonly string Title = $"{CustomConsole.Red}Settlers of Valgard";
 
-        private Settlement _settlement = new Settlement("Vangr");
+        public Settlement Settlement { get; set; }
+        public string PlayerName { get; set; }
         private bool _endGame = false;
         
         public override void Execute()
@@ -15,7 +16,7 @@ namespace SettlersOfValgard.View
             CustomConsole.WriteLine($"Welcome to {Title}");
             while (!_endGame)
             {
-                IOManager.ReceiveCommmands();
+                IOManager.GetCommand(this);
             }
         }
     }

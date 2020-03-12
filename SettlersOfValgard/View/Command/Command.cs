@@ -10,13 +10,13 @@ namespace SettlersOfValgard.View.Command
         public abstract bool NeedsValidation { get; }
         public abstract bool AvailableInMenu { get; }
         
-        protected abstract void Execute(string [] args);
+        protected abstract void Execute(string [] args, Game game);
 
-        public bool AttemptExecution(string [] args)
+        public bool AttemptExecution(string [] args, Game game)
         {
             try
             {
-                Execute(args);
+                Execute(args, game);
             }
             catch (Exception e)
             {

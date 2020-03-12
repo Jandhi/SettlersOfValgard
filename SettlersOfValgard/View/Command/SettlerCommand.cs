@@ -9,7 +9,7 @@ namespace SettlersOfValgard.View.Command
         public override bool NeedsValidation { get; } = false;
         public override bool AvailableInMenu { get; } = false;
 
-        protected override void Execute(string [] args)
+        protected override void Execute(string [] args, Game game)
         {
             if (args.Length == 0)
             {

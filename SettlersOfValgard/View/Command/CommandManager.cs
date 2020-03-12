@@ -7,12 +7,17 @@ namespace SettlersOfValgard.View
 {
     public class CommandManager
     {
-        private Command.Command[] _commands =
+        private Command.Command[] _gameCommands =
         {
             new SettlerCommand()
         };
 
-        public void FindAndExecute(string input, string [] args)
+        private Command.Command[] _menuCommands =
+        {
+            
+        };
+
+        public void FindAndExecute(string input, string [] args, Game game)
         {
             Command.Command command = FindCommand(input);
             if (command == null)
@@ -26,14 +31,14 @@ namespace SettlersOfValgard.View
                     return;
                 }
                 
-                ExecuteCommand(command, args);
+                ExecuteCommand(command, args, game);
             }
         }
 
         private Command.Command FindCommand(string input)
         {
             //Returns command if any aliases match
-            return _commands.FirstOrDefault(command => command.Aliases.Any(alias => input == alias));
+            return _gameCommands.FirstOrDefault(command => command.Aliases.Any(alias => input == alias));
         }
 
         private bool ValidateCommand(Command.Command command)
@@ -41,9 +46,9 @@ namespace SettlersOfValgard.View
             return IOManager.GetYesNo($"Run command \"{command.Name}\"? (y/n)");
         }
 
-        private void ExecuteCommand(Command.Command command, string [] args)
+        private void ExecuteCommand(Command.Command command, string [] args, Game game)
         {
-            bool success = command.AttemptExecution(args);
+            bool success = command.AttemptExecution(args, game);
 
             if (!success)
             {

@@ -13,9 +13,9 @@ namespace SettlersOfValgard.View
         private static readonly string[] No = {"n", "N", "no", "No"};
         
         public static List<string> PreviousList { get; set; } = new List<string>();
-        private static CommandManager _commandManager = new CommandManager();
+        private static readonly CommandManager CommandManager = new CommandManager();
 
-        public static string ReceiveName()
+        public static string GetName()
         {
             return CustomConsole.ReadLine();
         }
@@ -34,7 +34,7 @@ namespace SettlersOfValgard.View
             return Yes.Contains(input);
         }
 
-        public static void ReceiveCommmands()
+        public static void GetCommand(Game game)
         {
             var inputLine = CustomConsole.ReadLine();
             var input = inputLine.Split(" ");
@@ -42,7 +42,7 @@ namespace SettlersOfValgard.View
             if (input.Length <= 0) return; // Don't take empty lines
             
             var command = input[0];
-            _commandManager.FindAndExecute(command, ParseArgs(input));
+            CommandManager.FindAndExecute(command, ParseArgs(input), game);
         }
 
         private static string [] ParseArgs(string [] input)
