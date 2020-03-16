@@ -4,29 +4,61 @@ namespace SettlersOfValgard.Model.Varsk
 {
     public class VarskNameFactories
     {
-        public readonly string[] Prefix =
+        public static readonly string[] Prefix =
         {
-            "rag", "ragn", "ravn", "regn"
+            "Alf", "Arn", "As",
+            "Berg", "Bloth",
+            "Eld",
+            "Fast",
+            "Gis", "Guth",
+            "Hall", "Heim", "Holm",
+            "Katl",
+            "Magn",
+            "Odd", "Oy",
+            "Rag", "Ragn", "Ravn", "Regn",
+            "Skjald", "Sig",
+            "Thjoth", "Thor",
+            "Veig",
+            "Yng"
         };
         
-        public readonly string[] MaleSuffix =
+        public static readonly string[] MaleSuffix =
         {
-            "ar",
-            "mund"
+            "ar", "ald",
+            "bjorn",
+            "finn", "froed",
+            "geirr",
+            "kaell",
+            "i",
+            "leif",
+            "marr", "mothr", "mund",
+            "r", "rid", "rik",
+            "ulf",
+            "vald"
         };
         
-        public readonly string[] FemaleSuffix =
+        public static readonly string[] FemaleSuffix =
         {
-            "a",
-            "hild"
+            "a", "ja",
+            "bjorg", "borg",
+            "dis",
+            "frid",
+            "hild",
+            "laug",
+            "mod",
+            "mod",
+            "ny",
+            "unn",
+            "vild",
+            "vi"
         };
         
-        public NameFactory Male()
+        public static NameFactory Male()
         {
             return new RandomPrefixSuffixFactory(Prefix, MaleSuffix);
         }
         
-        public NameFactory Female()
+        public static NameFactory Female()
         {
             return new RandomPrefixSuffixFactory(Prefix, FemaleSuffix);
         }

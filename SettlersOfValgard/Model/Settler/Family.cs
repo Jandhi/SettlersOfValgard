@@ -5,7 +5,7 @@ namespace SettlersOfValgard.Model.Settler
 {
     public class Family
     {
-        public List<Settler> Members { get; set; }
+        public List<Settler> Members { get; } = new List<Settler>();
         public Residence Home { get; set; }
     }
 }

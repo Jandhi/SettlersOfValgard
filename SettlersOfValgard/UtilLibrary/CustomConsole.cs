@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using SettlersOfValgard.Model.Name;
 
-namespace SettlersOfValgard.CustomConsoleLibrary
+namespace SettlersOfValgard.UtilLibrary
 {
     public class CustomConsole
     {
         private static string ColorToken { get; } = "`c";
 
         public static string Black { get; } = ColorToken + "k";
+        public static string Gray { get; } = ColorToken + "a";
         public static string DarkBlue { get; } = ColorToken + "B";
         public static string DarkGreen { get; } = ColorToken + "G";
         public static string DarkCyan { get; } = ColorToken + "C";
@@ -67,6 +66,7 @@ namespace SettlersOfValgard.CustomConsoleLibrary
         public static ConsoleColor StringToColor(string s)
         {
             if (s == Black) return ConsoleColor.Black;
+            if (s == Gray) return ConsoleColor.Gray;
             if (s == DarkBlue) return ConsoleColor.DarkBlue;
             if (s == DarkGreen) return ConsoleColor.DarkGreen;
             if (s == DarkCyan) return ConsoleColor.DarkCyan;
@@ -86,6 +86,7 @@ namespace SettlersOfValgard.CustomConsoleLibrary
         public static string ColorToString(ConsoleColor s)
         {
             if (s == ConsoleColor.Black) return Black;
+            if (s == ConsoleColor.Gray) return Gray;
             if (s == ConsoleColor.DarkBlue) return DarkBlue;
             if (s == ConsoleColor.DarkGreen) return DarkGreen;
             if (s == ConsoleColor.DarkCyan) return DarkCyan;
@@ -115,6 +116,11 @@ namespace SettlersOfValgard.CustomConsoleLibrary
         public static string Color(string s, ConsoleColor color)
         {
             return ColorToString(color) + s + White;
+        }
+
+        public static void VerticalLine()
+        {
+            WriteLine("----------");
         }
     }
 }

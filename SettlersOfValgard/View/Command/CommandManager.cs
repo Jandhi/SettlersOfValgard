@@ -1,25 +1,34 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SettlersOfValgard.CustomConsoleLibrary;
-using SettlersOfValgard.View.Command;
+﻿using System.Linq;
+using SettlersOfValgard.UtilLibrary;
+using SettlersOfValgard.View.Command.Info;
+using SettlersOfValgard.View.Command.Menu;
+using SettlersOfValgard.View.Command.Resource;
+using SettlersOfValgard.View.Command.Settlement;
+using SettlersOfValgard.View.Command.Settler;
 
-namespace SettlersOfValgard.View
+namespace SettlersOfValgard.View.Command
 {
     public class CommandManager
     {
-        private Command.Command[] _gameCommands =
+        private SettlersOfValgard.View.Command.Command[] _gameCommands =
         {
-            new SettlerCommand()
+            new ListCommand(), 
+            new BuildingCommand(),
+            new SettlerCommand(),
+            new StatusCommand(), 
+            new ResourceCommand(), 
+            new DayCommand(), 
         };
 
-        private Command.Command[] _menuCommands =
+        private SettlersOfValgard.View.Command.Command[] _menuCommands =
         {
-            
+            new ListCommand(), 
+            new StartNewSettlementCommand()
         };
 
         public void FindAndExecute(string input, string [] args, Game game)
         {
-            Command.Command command = FindCommand(input);
+            SettlersOfValgard.View.Command.Command command = FindCommand(input, game.IsInMenu);
             if (command == null)
             {
                 CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: The command \"{input}\" does not exist!");
@@ -35,18 +44,25 @@ namespace SettlersOfValgard.View
             }
         }
 
-        private Command.Command FindCommand(string input)
+        private SettlersOfValgard.View.Command.Command FindCommand(string input, bool inMenu)
         {
             //Returns command if any aliases match
-            return _gameCommands.FirstOrDefault(command => command.Aliases.Any(alias => input == alias));
+            if (inMenu)
+            {
+                return _menuCommands.FirstOrDefault(command => command.Aliases.Any(alias => input == alias));
+            }
+            else
+            {
+                return _gameCommands.FirstOrDefault(command => command.Aliases.Any(alias => input == alias));   
+            }
         }
 
-        private bool ValidateCommand(Command.Command command)
+        private bool ValidateCommand(SettlersOfValgard.View.Command.Command command)
         {
             return IOManager.GetYesNo($"Run command \"{command.Name}\"? (y/n)");
         }
 
-        private void ExecuteCommand(Command.Command command, string [] args, Game game)
+        private void ExecuteCommand(SettlersOfValgard.View.Command.Command command, string [] args, Game game)
         {
             bool success = command.AttemptExecution(args, game);
 
@@ -54,6 +70,19 @@ namespace SettlersOfValgard.View
             {
                 
             }
+        }
+
+        public SettlersOfValgard.View.Command.Command FindCommand(SettlersOfValgard.View.Command.Command commandType, bool inMenu)
+        {
+            foreach (var command in inMenu ? _menuCommands : _gameCommands)
+            {
+                if (command.GetType() == commandType.GetType())
+                {
+                    return command;
+                }
+            }
+
+            return null;
         }
     }
 }

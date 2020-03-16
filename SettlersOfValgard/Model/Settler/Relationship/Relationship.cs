@@ -4,6 +4,6 @@ namespace SettlersOfValgard.Model.Settler.Relationship
 {
     public abstract class Relationship
     {
-        public List<Settler> Members { get; set; }
+        public abstract List<Settler> Members { get; }
     }
 }

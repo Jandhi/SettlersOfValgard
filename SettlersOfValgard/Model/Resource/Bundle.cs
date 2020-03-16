@@ -1,17 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Resource
 {
     public class Bundle
     {
-        public Dictionary<ResourceType, int> Contents { get; set; }
+        public Dictionary<Resource, int> Contents { get; set; }
 
         public Bundle()
         {
-            
+            Contents = new Dictionary<Resource, int>();
         }
 
-        public Bundle(Dictionary<ResourceType, int> contents)
+        public Bundle(Dictionary<Resource, int> contents)
         {
             Contents = contents;
         }
@@ -30,11 +33,11 @@ namespace SettlersOfValgard.Model.Resource
         }
 
         /*
-         * Creates new Bundle that contains resources both in a and b
+         * Creates new Bundle that contains the resources both in a and b
          */
         public static Bundle operator +(Bundle a, Bundle b)
         {
-            Dictionary<ResourceType, int> contents = new Dictionary<ResourceType, int>();
+            Dictionary<Resource, int> contents = new Dictionary<Resource, int>();
             
             foreach (var (type, amount) in a.Contents)
             {
@@ -54,6 +57,17 @@ namespace SettlersOfValgard.Model.Resource
             }
             
             return new Bundle(contents);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder s = new StringBuilder();
+            foreach (var (resource, amount) in Contents)
+            {
+                if(amount > 0) s.AppendLine($"{resource} x{amount}");
+            }
+
+            return s.ToString();
         }
     }
 }

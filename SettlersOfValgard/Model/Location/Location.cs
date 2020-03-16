@@ -1,7 +1,7 @@
 ﻿namespace SettlersOfValgard.Model.Location
 {
-    public class Location
+    public abstract class Location
     {
-        
+        public abstract Weather.Weather GenerateWeather();
     }
 }

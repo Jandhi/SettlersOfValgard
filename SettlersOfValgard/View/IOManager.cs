@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualBasic.CompilerServices;
-using SettlersOfValgard.CustomConsoleLibrary;
 using SettlersOfValgard.Model.Name;
+using SettlersOfValgard.UtilLibrary;
+using SettlersOfValgard.View.Command;
 
 namespace SettlersOfValgard.View
 {
@@ -13,7 +14,7 @@ namespace SettlersOfValgard.View
         private static readonly string[] No = {"n", "N", "no", "No"};
         
         public static List<string> PreviousList { get; set; } = new List<string>();
-        private static readonly CommandManager CommandManager = new CommandManager();
+        public static readonly CommandManager CommandManager = new CommandManager();
 
         public static string GetName()
         {
@@ -48,18 +49,18 @@ namespace SettlersOfValgard.View
         private static string [] ParseArgs(string [] input)
         {
             var args = new string[input.Length - 1];
-            for (var i = 1; i < input.Length; i++)
+            for (var i = 0; i < input.Length - 1; i++)
             {
-                args[0] = input[1];
+                args[i] = input[i + 1];
                 
-                if (args[0].StartsWith("$"))
+                if (args[i].StartsWith("$"))
                 {
                     try
                     {
-                        int num = IntegerType.FromString(args[0].Substring(1));
+                        int num = IntegerType.FromString(args[i].Substring(1));
                         if (num < PreviousList.Count)
                         {
-                            args[0] = PreviousList[num];
+                            args[i] = PreviousList[num];
                         }
                     }
                     catch (InvalidCastException e)
@@ -72,14 +73,20 @@ namespace SettlersOfValgard.View
             return args;
         }
 
-        public static void ListInConsole<T>(List<T> list, bool numbered = false, bool separated = false)
+        public static void ListInConsole<T>(T[] arr, bool numbered = false, bool separated = false) 
+            where T : INamed
+        {
+            ListInConsole<T>(new List<T>(arr), numbered, separated);
+        }
+
+        public static void ListInConsole<T>(IEnumerable<T> list, bool numbered = false, bool separated = false)
             where T : INamed
         {
             if (!separated)
             {
                 //Converts to dictionary
                 var dictionary = new Dictionary<string, int>();
-                foreach (var name in list.Select(item => item.Name))
+                foreach (var name in list.Select(item => item.ToString()))
                     if (!dictionary.ContainsKey(name))
                         dictionary.Add(name, 1);
                     else
@@ -103,7 +110,7 @@ namespace SettlersOfValgard.View
             {
                 var count = 1;
                 PreviousList = new List<string>();
-                foreach (var name in list.Select(item => item.Name))
+                foreach (var name in list.Select(item => item.ToString()))
                 {
                     if (numbered)
                     {

@@ -6,10 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Model\Time" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Compile Remove="Old\**" />
     </ItemGroup>
 

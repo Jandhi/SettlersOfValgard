@@ -10,7 +10,7 @@ lists living settlers in Settlement
 's X' displays the details of the settler with name X
 
 ------------
-'c' Construct
+'bp' Blueprints
 lists blueprints you have the resources to construct
 '-a' lists all blueprints regardless of cost
 

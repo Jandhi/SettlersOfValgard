@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using SettlersOfValgard.Model.Resource;
+using SettlersOfValgard.Model.Settler.Skill;
+
+namespace SettlersOfValgard.Model.Building.Workplace.Harvest
+{
+    public abstract class Harvester : Workplace
+    {
+        public abstract Dictionary<Resource.Resource, double> BaseRates { get; }
+        public abstract Skill Skill { get; }
+
+        public abstract double BuildingEfficiency(Settlement settlement, Resource.Resource resource, Settler.Settler worker);
+
+        public double WorkerEfficiency(Settler.Settler worker)
+        {
+            var level = worker.SkillLevel(Skill);
+            if (level == SkillLevel.Unskilled)
+            {
+                return 0.5;
+            }
+
+            if (level == SkillLevel.Novice)
+            {
+                return 0.8;
+            }
+
+            if (level == SkillLevel.Apprentice)
+            {
+                return 1;
+            }
+
+            if (level == SkillLevel.Journeyman)
+            {
+                return 1.25;
+            }
+
+            if (level == SkillLevel.Expert)
+            {
+                return 1.5;
+            }
+
+            if (level == SkillLevel.Master)
+            {
+                return 2;
+            }
+
+            return 1;
+        }
+
+        public override void HostWork(Settler.Settler worker, Settlement settlement)
+        {
+            var bundle = new Bundle();
+            foreach (var (resource, rate) in BaseRates)
+            {
+                var amount = GetHarvest(settlement, resource, rate, worker);
+            
+                if (amount > 0)
+                {
+                    bundle.Contents.Add(resource, amount);
+                }
+            }
+            
+            worker.GainXp(settlement, Skill, 1);
+        }
+
+        private int GetHarvest(Settlement settlement, Resource.Resource resource, Double rate, Settler.Settler worker)
+        {
+            var efficiency = BuildingEfficiency(settlement, resource, worker) * WorkerEfficiency(worker);
+            var guaranteedHarvest = (int) (rate * efficiency);
+            var uncertainHarvest = guaranteedHarvest - rate * efficiency;
+            return guaranteedHarvest + (new Random().NextDouble() < uncertainHarvest ? 1 : 0);
+        }
+    }
+}

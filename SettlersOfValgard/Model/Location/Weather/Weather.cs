@@ -2,6 +2,13 @@
 {
     public class Weather
     {
+        public Temperature Temperature { get; }
+        public Precipitation Precipitation { get; }
         
+        public Weather(Temperature temperature, Precipitation precipitation)
+        {
+            Temperature = temperature;
+            Precipitation = precipitation;
+        }
     }
 }
