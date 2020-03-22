@@ -14,9 +14,35 @@ namespace SettlersOfValgard.Model.Resource
             Contents = new Dictionary<Resource, int>();
         }
 
+        public Bundle(Resource resource, int amount)
+        {
+            Contents = new Dictionary<Resource, int> {{resource, amount}};
+        }
+
         public Bundle(Dictionary<Resource, int> contents)
         {
             Contents = contents;
+        }
+
+        public bool Contains(Resource resource)
+        {
+            return Contents.ContainsKey(resource) && Contents[resource] > 0;
+        }
+
+        public bool Remove(Bundle other)
+        {
+            if (!Contains(other))
+            {
+                return false;
+            }
+            else
+            {
+                foreach (var (resource, amount) in other.Contents)
+                {
+                    Contents[resource] -= amount;
+                }
+                return true;
+            }
         }
 
         public bool Contains(Bundle other)
@@ -61,13 +87,18 @@ namespace SettlersOfValgard.Model.Resource
 
         public override string ToString()
         {
-            StringBuilder s = new StringBuilder();
+            var stringBuilder = new StringBuilder();
+            var first = true;
             foreach (var (resource, amount) in Contents)
             {
-                if(amount > 0) s.AppendLine($"{resource} x{amount}");
+                var start = first ? "(" : ", ";
+                if(amount > 0) stringBuilder.Append($"{start}{resource} x{amount}");
+                if(first) first = false;
             }
 
-            return s.ToString();
+            stringBuilder.Append(")");
+
+            return stringBuilder.ToString();
         }
     }
 }

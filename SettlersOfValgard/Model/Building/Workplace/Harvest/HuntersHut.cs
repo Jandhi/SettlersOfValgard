@@ -12,27 +12,13 @@ namespace SettlersOfValgard.Model.Building.Workplace.Harvest
         public override string Description => "Performs worse during bad weather.";
         public override Skill Skill => Skill.Hunter;
 
-        public override int Insulation(Settlement settlement)
-        {
-            return 0;
-        }
+        public override int Insulation(Settlement settlement) => 0;
 
-        public override Building Construct()
-        {
-            return new HuntersHut();
-        }
+        public override Building Construct() => new HuntersHut();
 
-        public override int MaxWorkers { get; } = 5;
+        public override int MaxWorkers => 5;
 
-        public override Dictionary<Resource.Resource, double> BaseRates
-        {
-            get
-            {
-                var dictionary = new Dictionary<Resource.Resource, double>();
-                dictionary.Add(Food.Meat, 2);
-                return dictionary;
-            }
-        }
+        public override Dictionary<Resource.Resource, double> BaseRates => new Dictionary<Resource.Resource, double> {{Food.Meat, 2}};
 
         public override double BuildingEfficiency(Settlement settlement, Resource.Resource resource, Settler.Settler worker)
         {

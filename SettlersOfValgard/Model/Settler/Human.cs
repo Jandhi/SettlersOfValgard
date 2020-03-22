@@ -1,4 +1,6 @@
-﻿using SettlersOfValgard.Model.Time;
+﻿using SettlersOfValgard.Model.Resource;
+using SettlersOfValgard.Model.Settler.Event;
+using SettlersOfValgard.Model.Time;
 
 namespace SettlersOfValgard.Model.Settler
 {
@@ -13,7 +15,17 @@ namespace SettlersOfValgard.Model.Settler
 
         public override void GoEat(Settlement settlement)
         {
-            //TODO
+            var food = settlement.Stockpile.GetHighestOfType(ResourceType.Food);
+            if (food == null)
+            {
+                settlement.AddEvent(new SettlerStarvedEvent(this));
+            }
+            else
+            {
+                var meal = new Bundle(food, 1);
+                settlement.Stockpile.Remove(meal);
+                settlement.AddEvent(new SettlerAteEvent(this, meal));
+            }
         }
     }
 }

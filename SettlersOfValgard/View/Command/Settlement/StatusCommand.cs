@@ -1,6 +1,6 @@
 ﻿using SettlersOfValgard.UtilLibrary;
 
-namespace SettlersOfValgard.View.Command.Resource
+namespace SettlersOfValgard.View.Command.Settlement
 {
     public class StatusCommand : Command
     {
@@ -11,12 +11,12 @@ namespace SettlersOfValgard.View.Command.Resource
         protected override void Execute(string[] args, Game game)
         {
             CustomConsole.WriteLine($"Status of {game.Settlement}:");
-            CustomConsole.WriteLine("----------");
+            CustomConsole.VerticalLine();
             CustomConsole.WriteLine($"Population: {game.Settlement.Settlers.Count}");
             CustomConsole.WriteLine($"Buildings: {game.Settlement.Buildings.Count}");
-            CustomConsole.WriteLine("----------");
+            CustomConsole.VerticalLine();
             CustomConsole.WriteLine($"Stockpile:");
-            CustomConsole.Write($"{game.Settlement.Stockpile}");
+            CustomConsole.WriteLine($"{game.Settlement.Stockpile}");
         }
     }
 }

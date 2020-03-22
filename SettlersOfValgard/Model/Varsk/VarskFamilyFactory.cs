@@ -16,8 +16,8 @@ namespace SettlersOfValgard.Model.Varsk
             Varsk mother = _factory.Generate(false) as Varsk;
             family.Members.Add(mother);
             //Generate kids
-            int children = new Random().Next(5);
-            for(int i = 0; i < children; i++) family.Members.Add(_factory.GenerateChild(father, mother));
+            var children = new Random().Next(5);
+            for(var i = 0; i < children; i++) family.Members.Add(_factory.GenerateChild(father, mother));
             return family;
         }
     }

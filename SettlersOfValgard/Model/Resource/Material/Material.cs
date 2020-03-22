@@ -10,6 +10,9 @@ namespace SettlersOfValgard.Model.Resource.Material
 
         protected Material(string name, int value, string color, string description) : base(name, value, color, description)
         {
+            
         }
+
+        public override ResourceType type => ResourceType.Material;
     }
 }

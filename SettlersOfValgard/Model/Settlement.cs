@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SettlersOfValgard.Model.Building;
+using SettlersOfValgard.Model.Event;
 using SettlersOfValgard.Model.Location.Weather;
 using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.Model.Rank;
@@ -21,6 +22,9 @@ namespace SettlersOfValgard.Model
         public Weather TodaysWeather { get; set; }
         
         public Stockpile Stockpile { get; }
+
+        public EventManager EventManager { get; } = new EventManager();
+        public bool StopDayPass { get; set; } = false;
 
         public List<Settler.Settler> Settlers
         {
@@ -56,6 +60,11 @@ namespace SettlersOfValgard.Model
         {
             StartDay();
             DoWork();
+            FeedSettlers();
+            
+            EventManager.GoThroughEvents(this);
+            EventManager.ArchiveTodaysEvents();
+            EventManager.ClearTodaysEvents();
         }
 
         public void StartDay()
@@ -84,6 +93,11 @@ namespace SettlersOfValgard.Model
         public override string ToString()
         {
             return $"{Rank.Color}{Name}{CustomConsole.White}";
+        }
+
+        public void AddEvent(IEvent evn)
+        {
+            EventManager.TodaysEvents.Add(evn);
         }
     }
 }

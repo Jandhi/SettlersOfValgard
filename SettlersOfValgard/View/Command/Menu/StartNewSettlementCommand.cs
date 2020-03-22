@@ -1,12 +1,17 @@
 ﻿using SettlersOfValgard.Model;
+using SettlersOfValgard.Model.Building;
 using SettlersOfValgard.Model.Building.Residence;
+using SettlersOfValgard.Model.Building.Workplace.Harvest;
 using SettlersOfValgard.Model.Location;
 using SettlersOfValgard.Model.Rank;
+using SettlersOfValgard.Model.Resource;
+using SettlersOfValgard.Model.Resource.Food;
 using SettlersOfValgard.Model.Resource.Material;
 using SettlersOfValgard.Model.Settler;
 using SettlersOfValgard.Model.Varsk;
 using SettlersOfValgard.UtilLibrary;
 using SettlersOfValgard.View.Command.Resource;
+using SettlersOfValgard.View.Command.Settlement;
 
 namespace SettlersOfValgard.View.Command.Menu
 {
@@ -34,11 +39,17 @@ namespace SettlersOfValgard.View.Command.Menu
 
         private void SetUpSettlement(Model.Settlement settlement)
         {
-            settlement.Settlers.Add(new Varsk(null, "Org", "Orgsson"));
-            settlement.Stockpile.Contents.Add(Material.Wood, 30);
-            settlement.Stockpile.Contents.Add(Material.Stone, 10);
+            AddStockpile(settlement);
+            AddBluePrints(settlement);
             
             for(int i = 0; i < 3; i++) AddFamilyWithHome(settlement);
+        }
+
+        private void AddStockpile(Model.Settlement settlement)
+        {
+            settlement.Stockpile.Contents.Add(Material.Wood, 30);
+            settlement.Stockpile.Contents.Add(Material.Stone, 10);
+            settlement.Stockpile.Contents.Add(Food.Grain, 50);
         }
 
         private void AddFamilyWithHome(Model.Settlement settlement)
@@ -48,6 +59,12 @@ namespace SettlersOfValgard.View.Command.Menu
             Residence residence = new Hut();
             settlement.Buildings.Add(residence);
             residence.AddResident(family);
+        }
+
+        private void AddBluePrints(Model.Settlement settlement)
+        {
+            settlement.Blueprints.Add(new Blueprint("Hut", new Hut(), new Bundle(Material.Wood, 10)));
+            settlement.Blueprints.Add(new Blueprint("Hunter's Hut", new HuntersHut(), new Bundle(Material.Wood, 10)));
         }
     }
 }
