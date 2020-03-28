@@ -2,6 +2,6 @@
 {
     public interface IDated
     {
-        public Date Birthday { get; }
+        Date Birthday { get; }
     }
 }

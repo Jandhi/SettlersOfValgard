@@ -2,8 +2,8 @@
 {
     public interface IEvent
     {
-        public EventType Type { get; }
-        public EventPriority Priority { get; }
+        EventType Type { get; }
+        EventPriority Priority { get; }
         void Trigger(Settlement settlement);
     }
 }
