@@ -1,4 +1,6 @@
-﻿namespace SettlersOfValgard.View.Command.Settlement
+﻿using SettlersOfValgard.UtilLibrary;
+
+namespace SettlersOfValgard.View.Command.Settlement
 {
     public class BlueprintCommand : Command
     {
@@ -8,6 +10,7 @@
         public override bool AvailableInMenu => false;
         protected override void Execute(string[] args, Game game)
         {
+            CustomConsole.WriteLine("Blueprints:");
             IOManager.ListInConsole(game.Settlement.Blueprints);
         }
     }

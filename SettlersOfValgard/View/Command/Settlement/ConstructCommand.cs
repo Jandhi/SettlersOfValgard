@@ -1,13 +1,15 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.View.Command.Settlement
 {
+    
     public class ConstructCommand : Command
     {
         public override string Name => "Construct";
         public override string[] Aliases { get; } = {"c", "construct", "Construct"};
-        public override bool NeedsValidation => true;
+        public override bool NeedsValidation => false;
         public override bool AvailableInMenu => false;
         protected override void Execute(string[] args, Game game)
         {
@@ -20,6 +22,11 @@ namespace SettlersOfValgard.View.Command.Settlement
                 var stringBuilder = new StringBuilder(args[0]);
                 for (int i = 1; i < args.Length; i++) stringBuilder.Append($" {args[i]}");
                 var name = stringBuilder.ToString();
+                var blueprint = game.Settlement.Blueprints.FirstOrDefault(bp => bp.Name == name);
+                if (blueprint == null)
+                {
+                    
+                }
             }
         }
     }

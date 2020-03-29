@@ -17,4 +17,8 @@
       <None Remove="Old\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Model\Town\Event" />
+    </ItemGroup>
+
 </Project>

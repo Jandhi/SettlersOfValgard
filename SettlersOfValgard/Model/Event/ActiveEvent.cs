@@ -7,7 +7,7 @@
 
         public void Trigger(Settlement settlement)
         {
-            if (settlement.EventManager.ActiveEventPriorityIgnoreThreshold <= Priority)
+            if (settlement.EventManager.ActiveEventIgnoreThreshold <= Priority)
             {
                 settlement.StopDayPass = true;
                 Dialogue(settlement);

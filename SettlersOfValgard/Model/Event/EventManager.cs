@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SettlersOfValgard.Model.Event
 {
@@ -6,12 +7,15 @@ namespace SettlersOfValgard.Model.Event
     {
         public List<IEvent> TodaysEvents { get; set; } = new List<IEvent>();
         public List<List<IEvent>> EventHistory { get; }  = new List<List<IEvent>>();
-        
-        public EventPriority ActiveEventPriorityIgnoreThreshold { get; } = EventPriority.Negligible;
+        public EventFilter Filter { get; } = new EventFilter();
+        public EventPriority ActiveEventIgnoreThreshold { get; }
 
         public void GoThroughEvents(Settlement settlement)
         {
-            TodaysEvents.ForEach(e => e.Trigger(settlement));
+            foreach (var ev in TodaysEvents.Where(ev => Filter.OutputEvent(ev)))
+            {
+                ev.Trigger(settlement);
+            }
         }
 
         public void ArchiveTodaysEvents()

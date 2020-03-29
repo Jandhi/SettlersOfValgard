@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SettlersOfValgard.Model.Building;
 using SettlersOfValgard.Model.Event;
 using SettlersOfValgard.Model.Location.Weather;
@@ -6,6 +7,7 @@ using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.Model.Rank;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Settler;
+using SettlersOfValgard.Model.Settler.Event;
 using SettlersOfValgard.Model.Time;
 using SettlersOfValgard.UtilLibrary;
 
@@ -48,7 +50,6 @@ namespace SettlersOfValgard.Model
         public List<Tech.Tech> UnlockedTech { get; } = new List<Tech.Tech>();
         public List<Blueprint> Blueprints { get; } = new List<Blueprint>();
 
-
         public Settlement(string name, Location.Location location)
         {
             Name = name;
@@ -88,6 +89,26 @@ namespace SettlersOfValgard.Model
             {
                 settler.GoEat(this);
             }
+            
+            AddCumulativeSettlerAteEvent();
+            AddCumulativeSettlerStarvedEvent();
+        }
+
+        private void AddCumulativeSettlerAteEvent()
+        {
+            var eatCount = EventManager.TodaysEvents.OfType<SettlerAteEvent>().Count();
+            var meals = new Bundle();
+            foreach (var settlerAte in EventManager.TodaysEvents.OfType<SettlerAteEvent>())
+            {
+                meals += settlerAte.Meal;
+            }
+            EventManager.TodaysEvents.Add(new CumulativeSettlerAteEvent(eatCount, meals));
+        }
+        
+        private void AddCumulativeSettlerStarvedEvent()
+        {
+            var starveCount = EventManager.TodaysEvents.OfType<SettlerStarvedEvent>().Count();
+            EventManager.TodaysEvents.Add(new CumulativeSettlerStarvedEvent(starveCount));
         }
 
         public override string ToString()

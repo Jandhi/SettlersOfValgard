@@ -15,6 +15,7 @@ namespace SettlersOfValgard.View.Command
             new ListCommand(), 
             new BuildingCommand(),
             new BlueprintCommand(), 
+            new ConstructCommand(),
             new SettlerCommand(),
             new StatusCommand(), 
             new ResourceCommand(), 
