@@ -2,6 +2,7 @@
 using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.Model.Settler;
 using SettlersOfValgard.Model.Settler.Gender;
+using SettlersOfValgard.Model.Settler.Relationship;
 using SettlersOfValgard.Model.Time;
 
 namespace SettlersOfValgard.Model.Varsk
@@ -36,7 +37,10 @@ namespace SettlersOfValgard.Model.Varsk
             int age = new Random().Next(minParentAge - Varsk.VarskAdultYears * Date.DaysInYear);
             bool isMale = new Random().Next(2) == 0;
             NameFactory name = isMale ? VarskNameFactories.Male() : VarskNameFactories.Female();
-            return new Varsk(new Date(-1 * age), name.Generate(), $"{father.GivenName}sson", isMale ? BinaryGender.Male : BinaryGender.Female);
+            var child = new Varsk(new Date(-1 * age), name.Generate(), $"{father.GivenName}sson", isMale ? BinaryGender.Male : BinaryGender.Female);
+            ParentChildRelationship.Make(0, father, child);
+            ParentChildRelationship.Make(0, mother, child);
+            return child;
         }
     }
 }

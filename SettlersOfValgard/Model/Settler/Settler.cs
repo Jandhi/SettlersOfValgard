@@ -11,11 +11,14 @@ namespace SettlersOfValgard.Model.Settler
     public abstract class Settler : INamed, IDated
     {
         public abstract string Name { get; }
-        public Family Family { get; set; }
+        public Family Family { get; set; } // Home is determined by family
         public abstract Date Birthday { get; }
         public Workplace Workplace { get; set; }
-        public abstract bool CanWork(Settlement settlement);
         public Dictionary<Model.Settler.Skill.Skill, int> Experience { get; } = new Dictionary<Model.Settler.Skill.Skill, int>();
+
+        public List<Relationship.Relationship> Relationships = new List<Relationship.Relationship>();
+        
+        public abstract bool CanWork(Settlement settlement);
 
         public int AgeInDays(Settlement settlement)
         {

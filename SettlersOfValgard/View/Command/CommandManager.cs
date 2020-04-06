@@ -21,6 +21,7 @@ namespace SettlersOfValgard.View.Command
             new GodModeCommand(),
             new HomeStatusCommand(),
             new ListCommand(), 
+            new RelationshipCommand(), 
             new ResourceCommand(),
             new SettlerCommand(),
             new StatusCommand(), 
