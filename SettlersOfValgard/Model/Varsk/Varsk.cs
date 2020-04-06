@@ -1,4 +1,5 @@
 ﻿using SettlersOfValgard.Model.Settler;
+using SettlersOfValgard.Model.Settler.Gender;
 using SettlersOfValgard.Model.Time;
 
 namespace SettlersOfValgard.Model.Varsk
@@ -17,7 +18,7 @@ namespace SettlersOfValgard.Model.Varsk
         public override int ElderYears { get; } = VarskElderYears;
 
 
-        public Varsk(Date birthday, string givenName, string parentName)
+        public Varsk(Date birthday, string givenName, string parentName, BinaryGender gender) : base(gender)
         {
             Birthday = birthday;
             GivenName = givenName;

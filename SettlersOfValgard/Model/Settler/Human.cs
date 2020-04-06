@@ -1,12 +1,18 @@
 ﻿using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Settler.Event;
+using SettlersOfValgard.Model.Settler.Gender;
 using SettlersOfValgard.Model.Time;
 
 namespace SettlersOfValgard.Model.Settler
 {
-    public abstract class Human : Model.Settler.Settler
+    public abstract class Human : Settler, IGendered<BinaryGender>
     {
+        protected Human(BinaryGender gender)
+        {
+            Gender = gender;
+        }
+
         public abstract int AdultYears { get; }
         public abstract int ElderYears { get; }
 
@@ -37,5 +43,7 @@ namespace SettlersOfValgard.Model.Settler
                 settlement.AddEvent(new SettlerAteMessage(this, meal));
             }
         }
+
+        public BinaryGender Gender { get; }
     }
 }
