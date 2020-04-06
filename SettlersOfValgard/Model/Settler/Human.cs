@@ -1,4 +1,5 @@
-﻿using SettlersOfValgard.Model.Resource;
+﻿using SettlersOfValgard.Model.Core;
+using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Settler.Event;
 using SettlersOfValgard.Model.Time;
 
@@ -8,9 +9,18 @@ namespace SettlersOfValgard.Model.Settler
     {
         public abstract int AdultYears { get; }
         public abstract int ElderYears { get; }
+
+        /*
+         * Humans can work if they are not underage
+         */
+        public override bool CanWork(Settlement settlement)
+        {
+            return !IsUnderage(settlement);
+        }
+
         public override bool IsUnderage(Settlement settlement)
         {
-            return Date.DaysToYears(AgeInDays(settlement)) >= AdultYears;
+            return Date.DaysToYears(AgeInDays(settlement)) <= AdultYears;
         }
 
         public override void GoEat(Settlement settlement)

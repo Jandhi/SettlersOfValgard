@@ -22,6 +22,13 @@ namespace SettlersOfValgard.Model.Varsk
             return new Varsk(new Date(-1 * age), name.Generate(), $"{VarskNameFactories.Male().Generate()}sson");
         }
 
+        public Settler.Settler GenerateParent(bool isMale)
+        {
+            int age = (int) (Math.Pow(new Random().NextDouble(), 0.2) * Varsk.VarskElderYears + Varsk.VarskAdultYears) * Date.DaysInYear;
+            NameFactory name = isMale ? VarskNameFactories.Male() : VarskNameFactories.Female();
+            return new Varsk(new Date(-1 * age), name.Generate(), $"{VarskNameFactories.Male().Generate()}sson");
+        }
+
         public Settler.Settler GenerateChild(Varsk father, Varsk mother)
         {
             int minParentAge = Math.Min(-1 * father.Birthday.DaysSinceSettlement, -1 * mother.Birthday.DaysSinceSettlement);

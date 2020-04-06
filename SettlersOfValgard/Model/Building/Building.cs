@@ -1,4 +1,5 @@
 ﻿using System;
+using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Location.Weather;
 using SettlersOfValgard.Model.Name;
 

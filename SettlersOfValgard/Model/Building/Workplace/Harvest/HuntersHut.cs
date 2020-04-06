@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Location.Weather;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Resource.Food;

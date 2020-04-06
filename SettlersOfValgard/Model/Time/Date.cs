@@ -1,4 +1,6 @@
-﻿namespace SettlersOfValgard.Model.Time
+﻿using SettlersOfValgard.Model.Core;
+
+namespace SettlersOfValgard.Model.Time
 {
     public class Date
     {

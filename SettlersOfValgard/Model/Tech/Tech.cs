@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SettlersOfValgard.Model.Building;
+using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Name;
 
 namespace SettlersOfValgard.Model.Tech

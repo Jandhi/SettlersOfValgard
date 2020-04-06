@@ -1,4 +1,6 @@
-﻿namespace SettlersOfValgard.Model.Building.Residence
+﻿using SettlersOfValgard.Model.Core;
+
+namespace SettlersOfValgard.Model.Building.Residence
 {
     public class Hut : Residence
     {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SettlersOfValgard.Model.Core;
 
 namespace SettlersOfValgard.Model.Building.Workplace
 {

@@ -9,8 +9,9 @@ namespace SettlersOfValgard.View.Command.Info
     {
         public override string Name { get; } = "List";
         public override string[] Aliases { get; } = {"list"};
-        public override bool NeedsValidation { get; } = false;
-        public override bool AvailableInMenu { get; } = true;
+        public override bool AvailableInMenu => true;
+        public override string ToolTip => $"Use \"{Aliases[0]}\" to list enumerated values in console.";
+
         protected override void Execute(string[] args, Game game)
         {
             if (args.Length == 1)

@@ -7,8 +7,10 @@ namespace SettlersOfValgard.View.Command
     {
         public abstract string Name { get; }
         public abstract string [] Aliases { get; }
-        public abstract bool NeedsValidation { get; }
-        public abstract bool AvailableInMenu { get; }
+        public virtual bool NeedsValidation => false;
+        public virtual bool NeedsGodMode => false;
+        public virtual bool AvailableInMenu => false;
+        public abstract string ToolTip { get; }
         
         protected abstract void Execute(string [] args, Game game);
 

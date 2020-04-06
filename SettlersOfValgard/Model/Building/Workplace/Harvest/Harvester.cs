@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Settler.Skill;
 
@@ -50,17 +51,19 @@ namespace SettlersOfValgard.Model.Building.Workplace.Harvest
 
         public override void HostWork(Settler.Settler worker, Settlement settlement)
         {
-            var bundle = new Bundle();
+            var harvest = new Bundle();
             foreach (var (resource, rate) in BaseRates)
             {
                 var amount = GetHarvest(settlement, resource, rate, worker);
             
                 if (amount > 0)
                 {
-                    bundle.Contents.Add(resource, amount);
+                    harvest.Contents.Add(resource, amount);
                 }
             }
             
+            //TODO Transactions
+            settlement.Stockpile.Add(harvest);
             worker.GainXp(settlement, Skill, 1);
         }
 

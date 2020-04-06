@@ -11,7 +11,7 @@ using SettlersOfValgard.Model.Settler.Event;
 using SettlersOfValgard.Model.Time;
 using SettlersOfValgard.UtilLibrary;
 
-namespace SettlersOfValgard.Model
+namespace SettlersOfValgard.Model.Core
 {
     public class Settlement : INamed, IDated
     {

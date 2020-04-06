@@ -1,4 +1,6 @@
-﻿namespace SettlersOfValgard.Model.Event
+﻿using SettlersOfValgard.Model.Core;
+
+namespace SettlersOfValgard.Model.Event
 {
     public abstract class ActiveEvent : IEvent
     {

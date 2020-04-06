@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Resource.Food;
 using SettlersOfValgard.Model.Settler.Skill;
 

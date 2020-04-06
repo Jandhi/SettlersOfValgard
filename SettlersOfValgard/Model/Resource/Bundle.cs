@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SettlersOfValgard.Model.Building.Residence;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Resource
@@ -22,6 +23,21 @@ namespace SettlersOfValgard.Model.Resource
         public Bundle(Dictionary<Resource, int> contents)
         {
             Contents = contents;
+        }
+
+        public void Add(Bundle other)
+        {
+            foreach (var (resource, amount) in other.Contents)
+            {
+                if (Contents.ContainsKey(resource))
+                {
+                    Contents[resource] += amount;
+                }
+                else
+                {
+                    Contents.Add(resource, amount);
+                }
+            }
         }
 
         public bool Contains(Resource resource)
@@ -80,6 +96,36 @@ namespace SettlersOfValgard.Model.Resource
                 {
                     contents[type] = amount;
                 }
+            }
+            
+            return new Bundle(contents);
+        }
+        
+        /*
+         * Creates new Bundle that contains the resources in bundle times num
+         */
+        public static Bundle operator * (int num, Bundle bundle)
+        {
+            Dictionary<Resource, int> contents = new Dictionary<Resource, int>();
+            
+            foreach (var (type, amount) in bundle.Contents)
+            {
+                contents[type] = amount * num;
+            }
+            
+            return new Bundle(contents);
+        }
+        
+        /*
+         * Creates new Bundle that contains the resources in bundle times num
+         */
+        public static Bundle operator *(Bundle bundle, int num)
+        {
+            Dictionary<Resource, int> contents = new Dictionary<Resource, int>();
+            
+            foreach (var (type, amount) in bundle.Contents)
+            {
+                contents[type] = amount * num;
             }
             
             return new Bundle(contents);

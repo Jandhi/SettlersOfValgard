@@ -1,4 +1,5 @@
-﻿using SettlersOfValgard.Model.Event;
+﻿using SettlersOfValgard.Model.Core;
+using SettlersOfValgard.Model.Event;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Building.Event

@@ -11,8 +11,9 @@ namespace SettlersOfValgard.View.Command.Settlement
     {
         public override string Name => "Building";
         public override string[] Aliases { get; } = {"b", "building", "Building"};
-        public override bool NeedsValidation => false;
         public override bool AvailableInMenu => false;
+        public override string ToolTip => $"Use \"";
+
         protected override void Execute(string[] args, Game game)
         {
             var stringBuilder = new StringBuilder();

@@ -6,8 +6,9 @@ namespace SettlersOfValgard.View.Command.Settlement
     {
         public override string Name => "Status";
         public override string[] Aliases { get; } = {"st", "status"};
-        public override bool NeedsValidation => false;
         public override bool AvailableInMenu => false;
+        public override string ToolTip => $"Use \"{Aliases[0]}\" to get a status report of your settlement";
+
         protected override void Execute(string[] args, Game game)
         {
             CustomConsole.WriteLine($"Status of {game.Settlement}:");

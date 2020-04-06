@@ -7,5 +7,11 @@ namespace SettlersOfValgard.Model.Settler
     {
         public List<Settler> Members { get; } = new List<Settler>();
         public Residence Home { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString();
+            //TODO
+        }
     }
 }

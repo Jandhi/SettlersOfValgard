@@ -23,7 +23,7 @@ namespace SettlersOfValgard.View
 
         public static bool GetYesNo(string question)
         {
-            CustomConsole.WriteLine(question);
+            CustomConsole.WriteLine($"{question} [y/n]");
             string input = CustomConsole.ReadLine();
             while (!Yes.Contains(input) && !No.Contains(input))
             {
@@ -39,9 +39,17 @@ namespace SettlersOfValgard.View
         {
             var inputLine = CustomConsole.ReadLine();
             var input = inputLine.Split(" ");
+
+            //Remove extra whitespace
+            for (int i = 0; i < input.Length; i++)
+            {
+                input[i] = input[i].Replace(" ", "");
+            }
+            
+            input = input.Where(i => !i.Equals("")).ToArray(); // Remove empty inputs
             
             if (input.Length <= 0) return; // Don't take empty lines
-            
+
             var command = input[0];
             CommandManager.FindAndExecute(command, ParseArgs(input), game);
         }
@@ -69,7 +77,7 @@ namespace SettlersOfValgard.View
                     }
                 }
             }
-
+            
             return args;
         }
 
@@ -79,29 +87,33 @@ namespace SettlersOfValgard.View
             ListInConsole<T>(new List<T>(arr), numbered, separated);
         }
 
-        public static void ListInConsole<T>(IEnumerable<T> list, bool numbered = false, bool separated = false)
+        public static void ListInConsole<T>(IEnumerable<T> list, bool numbered = false, bool separated = false, Func<T, string> func = null)
             where T : INamed
         {
             if (!separated)
             {
                 //Converts to dictionary
-                var dictionary = new Dictionary<string, int>();
-                foreach (var name in list.Select(item => item.ToString()))
-                    if (!dictionary.ContainsKey(name))
-                        dictionary.Add(name, 1);
+                var dictionary = new Dictionary<string, List<T>>();
+                foreach (var item in list)
+                    if (!dictionary.ContainsKey(item.Name))
+                        dictionary.Add(item.Name, new List<T>{item});
                     else
-                        dictionary[name] += 1;
+                        dictionary[item.Name].Add(item);
 
                 //Outputs
                 var count = 1;
                 PreviousList = new List<string>();
-                foreach (var (name, amount) in dictionary)
+                foreach (var (name, items) in dictionary)
                 {
                     if (numbered)
                     {
-                        CustomConsole.Write(count + " ");
+                        CustomConsole.Write($"{count} ");
                     }
-                    CustomConsole.WriteLine(name + (amount > 1 ? " x" + amount : ""));
+                    
+                    CustomConsole.Write($"{name}");
+                    CustomConsole.Write(items.Count > 1 ? $" x{items.Count}" : ""); // amount
+                    CustomConsole.Write(func == null ? "" : $" {func(items[0])}"); // additional function
+                    CustomConsole.WriteLine();
                     count++;
                     PreviousList.Add(name);
                 }

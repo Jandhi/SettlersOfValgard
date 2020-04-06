@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using SettlersOfValgard.UtilLibrary;
+using SettlersOfValgard.View.Command.Cheats;
 using SettlersOfValgard.View.Command.Info;
 using SettlersOfValgard.View.Command.Menu;
-using SettlersOfValgard.View.Command.Resource;
 using SettlersOfValgard.View.Command.Settlement;
 using SettlersOfValgard.View.Command.Settler;
 
@@ -12,14 +12,19 @@ namespace SettlersOfValgard.View.Command
     {
         private SettlersOfValgard.View.Command.Command[] _gameCommands =
         {
-            new ListCommand(), 
+            new AddFamilyCommand(), 
+            new AutoHomeCommand(),
             new BuildingCommand(),
             new BlueprintCommand(), 
             new ConstructCommand(),
+            new DayCommand(),
+            new GodModeCommand(),
+            new HomeStatusCommand(),
+            new ListCommand(), 
+            new ResourceCommand(),
             new SettlerCommand(),
             new StatusCommand(), 
-            new ResourceCommand(), 
-            new DayCommand(), 
+            new WorkCommand(), 
         };
 
         private SettlersOfValgard.View.Command.Command[] _menuCommands =
@@ -34,6 +39,11 @@ namespace SettlersOfValgard.View.Command
             if (command == null)
             {
                 CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: The command \"{input}\" does not exist!");
+            }
+            else if(command.NeedsGodMode && !game.IsGodMode)
+            {
+                CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: The command \"{input}\" requires {CustomConsole.DarkYellow}God Mode{CustomConsole.White} to run.");
+                CustomConsole.WriteLine($"Use the command \"{new GodModeCommand().Aliases[0]}\" to enter {CustomConsole.DarkYellow}God Mode{CustomConsole.White}.");
             }
             else
             {

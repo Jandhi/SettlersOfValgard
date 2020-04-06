@@ -1,4 +1,5 @@
 ﻿using SettlersOfValgard.Model;
+using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.UtilLibrary;
 using SettlersOfValgard.View.Command.Menu;
@@ -12,6 +13,7 @@ namespace SettlersOfValgard.View
         public Settlement Settlement { get; set; }
         public string PlayerName { get; set; }
         public bool IsInMenu { get; set; } = true;
+        public bool IsGodMode { get; set; } = false;
         
         private bool _endGame = false;
 

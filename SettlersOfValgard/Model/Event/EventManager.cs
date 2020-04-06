@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SettlersOfValgard.Model.Core;
 
 namespace SettlersOfValgard.Model.Event
 {

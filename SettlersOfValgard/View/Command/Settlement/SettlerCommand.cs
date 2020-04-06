@@ -13,15 +13,24 @@ namespace SettlersOfValgard.View.Command.Settler
     {
         public override string Name => "Settler";
         public override string[] Aliases { get; } = {"s", "Settler", "settler"};
-        public override bool NeedsValidation => false;
         public override bool AvailableInMenu => false;
+
+        public override string ToolTip =>
+            $"Use \"{Aliases[0]}\" to list your settlers. Use \"{Aliases[0]} [name]\" to get information on a settler named [name]";
+
         protected override void Execute(string[] args, Game game)
         {
             if (args.Length == 0)
             {
-                ListSettlers(game);
+                
+                IOManager.ListInConsole(game.Settlement.Settlers);
             }
-            else
+            else if(args.Length == 1 && args[0] == "-age")
+            {
+                string DisplayAge(Model.Settler.Settler s) => $"(Age: {s.AgeInDays(game.Settlement) / Date.DaysInYear})";
+                IOManager.ListInConsole<Model.Settler.Settler>(game.Settlement.Settlers, false, false, DisplayAge);
+            }
+            else 
             {
                 StringBuilder s = new StringBuilder();
                 s.Append(args[0]);
@@ -65,11 +74,6 @@ namespace SettlersOfValgard.View.Command.Settler
                     CustomConsole.WriteLine($"{SkillLevel.XPtoLevel(xp)} {skill}");
                 }
             }
-        }
-
-        private void ListSettlers(Game game)
-        {
-            IOManager.ListInConsole(game.Settlement.Settlers);
         }
     }
 }
