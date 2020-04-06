@@ -1,4 +1,5 @@
-﻿using SettlersOfValgard.Model.Name;
+﻿using System;
+using SettlersOfValgard.Model.Name;
 
 namespace SettlersOfValgard.UtilLibrary
 {
@@ -15,6 +16,23 @@ namespace SettlersOfValgard.UtilLibrary
             Color = color;
         }
         
+        public static bool operator == (CustomEnum obj1, CustomEnum obj2)
+        {
+            if (obj1 is null)
+            {
+                return obj2 is null;
+            }
+
+            if (obj2 is null) return false;
+            
+            return obj1.Value == obj2.Value && obj1.GetType() == obj2.GetType();
+        }
+
+        public static bool operator !=(CustomEnum obj1, CustomEnum obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
         public static bool operator <(CustomEnum obj1, CustomEnum obj2)
         {
             return obj1.Value < obj2.Value;
