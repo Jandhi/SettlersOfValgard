@@ -1,18 +1,19 @@
 ﻿using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Event;
+using SettlersOfValgard.Model.Message;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Settler.Event
 {
-    public class SettlerStarvedEvent : IEvent
+    public class SettlerStarvedMessage : IMessage
     {
-        public SettlerStarvedEvent(Model.Settler.Settler settler)
+        public SettlerStarvedMessage(Model.Settler.Settler settler)
         {
             Settler = settler;
         }
 
-        public EventType Type => EventType.Settler;
-        public EventPriority Priority => EventPriority.Uncommon;
+        public MessageType Type => MessageType.Settler;
+        public MessagePriority Priority => MessagePriority.Uncommon;
         
         public Model.Settler.Settler Settler { get; }
         

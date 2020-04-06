@@ -1,20 +1,21 @@
 ﻿using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Event;
+using SettlersOfValgard.Model.Message;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Building.Event
 {
-    public class ConstructionEvent : IEvent
+    public class ConstructionMessage : IMessage
     {
-        public ConstructionEvent(Building building)
+        public ConstructionMessage(Building building)
         {
             Building = building;
         }
 
         public Building Building { get; }
         
-        public EventType Type => EventType.Building;
-        public EventPriority Priority => EventPriority.Uncommon;
+        public MessageType Type => MessageType.Building;
+        public MessagePriority Priority => MessagePriority.Uncommon;
         public void Trigger(Settlement settlement)
         {
             CustomConsole.WriteLine($"Constructed a {Building}");

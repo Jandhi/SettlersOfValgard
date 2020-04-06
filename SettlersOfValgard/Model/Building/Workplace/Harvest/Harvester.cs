@@ -6,10 +6,9 @@ using SettlersOfValgard.Model.Settler.Skill;
 
 namespace SettlersOfValgard.Model.Building.Workplace.Harvest
 {
-    public abstract class Harvester : Workplace
+    public abstract class Harvester : SkilledWorkplace
     {
         public abstract Dictionary<Resource.Resource, double> BaseRates { get; }
-        public abstract Skill Skill { get; }
 
         public abstract double BuildingEfficiency(Settlement settlement, Resource.Resource resource, Settler.Settler worker);
 
@@ -67,7 +66,7 @@ namespace SettlersOfValgard.Model.Building.Workplace.Harvest
             worker.GainXp(settlement, Skill, 1);
         }
 
-        private int GetHarvest(Settlement settlement, Resource.Resource resource, Double rate, Settler.Settler worker)
+        private int GetHarvest(Settlement settlement, Resource.Resource resource, double rate, Settler.Settler worker)
         {
             var efficiency = BuildingEfficiency(settlement, resource, worker) * WorkerEfficiency(worker);
             var guaranteedHarvest = (int) (rate * efficiency);

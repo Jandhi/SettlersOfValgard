@@ -1,18 +1,19 @@
 ﻿using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Event;
+using SettlersOfValgard.Model.Message;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Settler.Event
 {
-    public class CumulativeSettlerStarvedEvent : IEvent
+    public class CumulativeSettlerStarvedMessage : IMessage
     {
-        public CumulativeSettlerStarvedEvent(int eatCount)
+        public CumulativeSettlerStarvedMessage(int eatCount)
         {
             EatCount = eatCount;
         }
 
-        public EventType Type => EventType.Settlement;
-        public EventPriority Priority => EventPriority.Important;
+        public MessageType Type => MessageType.Settlement;
+        public MessagePriority Priority => MessagePriority.Important;
         public int EatCount { get; }
 
         public void Trigger(Settlement settlement)

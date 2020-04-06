@@ -1,20 +1,21 @@
 ﻿using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Event;
+using SettlersOfValgard.Model.Message;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Settler.Event
 {
-    public class CumulativeSettlerAteEvent : IEvent
+    public class CumulativeSettlerAteMessage : IMessage
     {
-        public CumulativeSettlerAteEvent(int eatCount, Bundle meals)
+        public CumulativeSettlerAteMessage(int eatCount, Bundle meals)
         {
             EatCount = eatCount;
             Meals = meals;
         }
 
-        public EventType Type => EventType.Settlement;
-        public EventPriority Priority => EventPriority.Important;
+        public MessageType Type => MessageType.Settlement;
+        public MessagePriority Priority => MessagePriority.Important;
         public int EatCount { get; }
         public Bundle Meals { get; }
         

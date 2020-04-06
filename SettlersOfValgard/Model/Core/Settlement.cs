@@ -3,6 +3,7 @@ using System.Linq;
 using SettlersOfValgard.Model.Building;
 using SettlersOfValgard.Model.Event;
 using SettlersOfValgard.Model.Location.Weather;
+using SettlersOfValgard.Model.Message;
 using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.Model.Rank;
 using SettlersOfValgard.Model.Resource;
@@ -25,7 +26,7 @@ namespace SettlersOfValgard.Model.Core
         
         public Stockpile Stockpile { get; }
 
-        public EventManager EventManager { get; } = new EventManager();
+        public MessageManager MessageManager { get; } = new MessageManager();
         public bool StopDayPass { get; set; } = false;
 
         public List<Settler.Settler> Settlers
@@ -63,9 +64,9 @@ namespace SettlersOfValgard.Model.Core
             DoWork();
             FeedSettlers();
             
-            EventManager.GoThroughEvents(this);
-            EventManager.ArchiveTodaysEvents();
-            EventManager.ClearTodaysEvents();
+            MessageManager.GoThroughEvents(this);
+            MessageManager.ArchiveTodaysEvents();
+            MessageManager.ClearTodaysEvents();
         }
 
         public void StartDay()
@@ -96,19 +97,19 @@ namespace SettlersOfValgard.Model.Core
 
         private void AddCumulativeSettlerAteEvent()
         {
-            var eatCount = EventManager.TodaysEvents.OfType<SettlerAteEvent>().Count();
+            var eatCount = MessageManager.TodaysEvents.OfType<SettlerAteMessage>().Count();
             var meals = new Bundle();
-            foreach (var settlerAte in EventManager.TodaysEvents.OfType<SettlerAteEvent>())
+            foreach (var settlerAte in MessageManager.TodaysEvents.OfType<SettlerAteMessage>())
             {
                 meals += settlerAte.Meal;
             }
-            EventManager.TodaysEvents.Add(new CumulativeSettlerAteEvent(eatCount, meals));
+            MessageManager.TodaysEvents.Add(new CumulativeSettlerAteMessage(eatCount, meals));
         }
         
         private void AddCumulativeSettlerStarvedEvent()
         {
-            var starveCount = EventManager.TodaysEvents.OfType<SettlerStarvedEvent>().Count();
-            EventManager.TodaysEvents.Add(new CumulativeSettlerStarvedEvent(starveCount));
+            var starveCount = MessageManager.TodaysEvents.OfType<SettlerStarvedMessage>().Count();
+            MessageManager.TodaysEvents.Add(new CumulativeSettlerStarvedMessage(starveCount));
         }
 
         public override string ToString()
@@ -116,9 +117,9 @@ namespace SettlersOfValgard.Model.Core
             return $"{Rank.Color}{Name}{CustomConsole.White}";
         }
 
-        public void AddEvent(IEvent evn)
+        public void AddEvent(IMessage evn)
         {
-            EventManager.TodaysEvents.Add(evn);
+            MessageManager.TodaysEvents.Add(evn);
         }
     }
 }

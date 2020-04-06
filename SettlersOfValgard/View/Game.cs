@@ -1,6 +1,4 @@
-﻿using SettlersOfValgard.Model;
-using SettlersOfValgard.Model.Core;
-using SettlersOfValgard.Model.Resource;
+﻿using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.UtilLibrary;
 using SettlersOfValgard.View.Command.Menu;
 

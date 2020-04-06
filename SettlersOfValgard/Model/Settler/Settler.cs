@@ -2,6 +2,7 @@
 using SettlersOfValgard.Model.Building.Workplace;
 using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Name;
+using SettlersOfValgard.Model.Settler;
 using SettlersOfValgard.Model.Settler.Skill;
 using SettlersOfValgard.Model.Time;
 
@@ -14,7 +15,7 @@ namespace SettlersOfValgard.Model.Settler
         public abstract Date Birthday { get; }
         public Workplace Workplace { get; set; }
         public abstract bool CanWork(Settlement settlement);
-        public Dictionary<Skill.Skill, int> Experience { get; } = new Dictionary<Skill.Skill, int>();
+        public Dictionary<Model.Settler.Skill.Skill, int> Experience { get; } = new Dictionary<Model.Settler.Skill.Skill, int>();
 
         public int AgeInDays(Settlement settlement)
         {
@@ -27,19 +28,19 @@ namespace SettlersOfValgard.Model.Settler
             return Name;
         }
 
-        public SkillLevel SkillLevel(Skill.Skill skill)
+        public SkillLevel SkillLevel(Model.Settler.Skill.Skill skill)
         {
             if (Experience.ContainsKey(skill))
             {
-                return Skill.SkillLevel.XPtoLevel(Experience[skill]);
+                return Model.Settler.Skill.SkillLevel.XPtoLevel(Experience[skill]);
             }
             else
             {
-                return Skill.SkillLevel.Unskilled;
+                return Model.Settler.Skill.SkillLevel.Unskilled;
             }
         }
 
-        public void GainXp(Settlement settlement, Skill.Skill skill, int amount)
+        public void GainXp(Settlement settlement, Model.Settler.Skill.Skill skill, int amount)
         {
             var before = SkillLevel(skill);
             if (Experience.ContainsKey(skill))

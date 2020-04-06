@@ -5,7 +5,7 @@ using SettlersOfValgard.Model.Time;
 
 namespace SettlersOfValgard.Model.Settler
 {
-    public abstract class Human : Settler
+    public abstract class Human : Model.Settler.Settler
     {
         public abstract int AdultYears { get; }
         public abstract int ElderYears { get; }
@@ -28,13 +28,13 @@ namespace SettlersOfValgard.Model.Settler
             var food = settlement.Stockpile.GetHighestOfType(ResourceType.Food);
             if (food == null)
             {
-                settlement.AddEvent(new SettlerStarvedEvent(this));
+                settlement.AddEvent(new SettlerStarvedMessage(this));
             }
             else
             {
                 var meal = new Bundle(food, 1);
                 settlement.Stockpile.Remove(meal);
-                settlement.AddEvent(new SettlerAteEvent(this, meal));
+                settlement.AddEvent(new SettlerAteMessage(this, meal));
             }
         }
     }
