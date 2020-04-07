@@ -64,9 +64,13 @@ namespace SettlersOfValgard.Model.Core
             DoWork();
             FeedSettlers();
             
-            MessageManager.GoThroughEvents(this);
-            MessageManager.ArchiveTodaysEvents();
-            MessageManager.ClearTodaysEvents();
+            Stockpile.AddTodaysTransactionsMessage(MessageManager);
+            Stockpile.ArchiveTodaysTransactions();
+            Stockpile.ClearTodaysTransactions();
+            
+            MessageManager.GoThroughMessages(this);
+            MessageManager.ArchiveTodaysMessages();
+            MessageManager.ClearTodaysMessages();
         }
 
         public void StartDay()
@@ -97,19 +101,19 @@ namespace SettlersOfValgard.Model.Core
 
         private void AddCumulativeSettlerAteEvent()
         {
-            var eatCount = MessageManager.TodaysEvents.OfType<SettlerAteMessage>().Count();
+            var eatCount = MessageManager.TodaysMessages.OfType<SettlerAteMessage>().Count();
             var meals = new Bundle();
-            foreach (var settlerAte in MessageManager.TodaysEvents.OfType<SettlerAteMessage>())
+            foreach (var settlerAte in MessageManager.TodaysMessages.OfType<SettlerAteMessage>())
             {
                 meals += settlerAte.Meal;
             }
-            MessageManager.TodaysEvents.Add(new CumulativeSettlerAteMessage(eatCount, meals));
+            if(eatCount > 0) MessageManager.TodaysMessages.Add(new CumulativeSettlerAteMessage(eatCount, meals));
         }
         
         private void AddCumulativeSettlerStarvedEvent()
         {
-            var starveCount = MessageManager.TodaysEvents.OfType<SettlerStarvedMessage>().Count();
-            MessageManager.TodaysEvents.Add(new CumulativeSettlerStarvedMessage(starveCount));
+            var starveCount = MessageManager.TodaysMessages.OfType<SettlerStarvedMessage>().Count();
+            MessageManager.TodaysMessages.Add(new CumulativeSettlerStarvedMessage(starveCount));
         }
 
         public override string ToString()
@@ -117,9 +121,9 @@ namespace SettlersOfValgard.Model.Core
             return $"{Rank.Color}{Name}{CustomConsole.White}";
         }
 
-        public void AddEvent(IMessage evn)
+        public void AddEvent(Messages.Message evn)
         {
-            MessageManager.TodaysEvents.Add(evn);
+            MessageManager.TodaysMessages.Add(evn);
         }
     }
 }

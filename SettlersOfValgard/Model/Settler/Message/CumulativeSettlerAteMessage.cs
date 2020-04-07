@@ -6,7 +6,7 @@ using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Settler.Event
 {
-    public class CumulativeSettlerAteMessage : IMessage
+    public class CumulativeSettlerAteMessage : Messages.Message
     {
         public CumulativeSettlerAteMessage(int eatCount, Bundle meals)
         {
@@ -14,14 +14,10 @@ namespace SettlersOfValgard.Model.Settler.Event
             Meals = meals;
         }
 
-        public MessageType Type => MessageType.Settlement;
-        public MessagePriority Priority => MessagePriority.Important;
+        public override MessageType Type => MessageType.Settlement;
+        public override MessagePriority Priority => MessagePriority.Important;
         public int EatCount { get; }
         public Bundle Meals { get; }
-        
-        public void Trigger(Settlement settlement)
-        {
-            CustomConsole.WriteLine($"{EatCount} settlers ate. {Meals}");
-        }
+        public override string Contents => $"{EatCount} settlers ate. {Meals}";
     }
 }

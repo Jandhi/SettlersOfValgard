@@ -7,6 +7,7 @@ namespace SettlersOfValgard.Model.Building
 {
     public abstract class Building : INamed, IDescribed
     {
+
         public abstract string Name { get; }
         public abstract string Description { get; }
         public Temperature DefaultTemperature { get; } = Temperature.Warm;

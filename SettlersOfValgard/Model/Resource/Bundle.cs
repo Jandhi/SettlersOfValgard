@@ -6,73 +6,17 @@ using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Resource
 {
-    public class Bundle
+    public class Bundle : PositiveResourceLedger
     {
-        public Dictionary<Resource, int> Contents { get; set; }
+        /*
+         * An amount of resources that exists- a positive resource ledger that can be manipulated
+         */
 
-        public Bundle()
-        {
-            Contents = new Dictionary<Resource, int>();
-        }
+        public Bundle() {}
 
-        public Bundle(Resource resource, int amount)
-        {
-            Contents = new Dictionary<Resource, int> {{resource, amount}};
-        }
+        public Bundle(Resource resource, int amount) : base(resource, amount) {}
 
-        public Bundle(Dictionary<Resource, int> contents)
-        {
-            Contents = contents;
-        }
-
-        public void Add(Bundle other)
-        {
-            foreach (var (resource, amount) in other.Contents)
-            {
-                if (Contents.ContainsKey(resource))
-                {
-                    Contents[resource] += amount;
-                }
-                else
-                {
-                    Contents.Add(resource, amount);
-                }
-            }
-        }
-
-        public bool Contains(Resource resource)
-        {
-            return Contents.ContainsKey(resource) && Contents[resource] > 0;
-        }
-
-        public bool Remove(Bundle other)
-        {
-            if (!Contains(other))
-            {
-                return false;
-            }
-            else
-            {
-                foreach (var (resource, amount) in other.Contents)
-                {
-                    Contents[resource] -= amount;
-                }
-                return true;
-            }
-        }
-
-        public bool Contains(Bundle other)
-        {
-            foreach (var (type, amount) in other.Contents)
-            {
-                if (!Contents.ContainsKey(type) || Contents[type] < amount)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
+        public Bundle(Dictionary<Resource, int> contents) : base(contents) {}
 
         /*
          * Creates new Bundle that contains the resources both in a and b
@@ -133,6 +77,8 @@ namespace SettlersOfValgard.Model.Resource
 
         public override string ToString()
         {
+            if (Contents.Count == 0) return "-";
+            
             var stringBuilder = new StringBuilder();
             var first = true;
             foreach (var (resource, amount) in Contents)

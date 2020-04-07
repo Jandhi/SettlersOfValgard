@@ -3,7 +3,7 @@ using SettlersOfValgard.Model.Resource;
 
 namespace SettlersOfValgard.Model.Building
 {
-    public class Blueprint : INamed
+    public class Blueprint : INamed, IDescribed
     {
         public string Name { get; }
         public Building Building { get; }
@@ -20,5 +20,7 @@ namespace SettlersOfValgard.Model.Building
         {
             return $"{Name}: {Cost}";
         }
+
+        public string Description => Building.Description;
     }
 }

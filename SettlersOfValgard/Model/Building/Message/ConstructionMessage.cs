@@ -5,7 +5,7 @@ using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Building.Event
 {
-    public class ConstructionMessage : IMessage
+    public class ConstructionMessage : Messages.Message
     {
         public ConstructionMessage(Building building)
         {
@@ -14,11 +14,8 @@ namespace SettlersOfValgard.Model.Building.Event
 
         public Building Building { get; }
         
-        public MessageType Type => MessageType.Building;
-        public MessagePriority Priority => MessagePriority.Uncommon;
-        public void Trigger(Settlement settlement)
-        {
-            CustomConsole.WriteLine($"Constructed a {Building}");
-        }
+        public override MessageType Type => MessageType.Building;
+        public override MessagePriority Priority => MessagePriority.Uncommon;
+        public override string Contents => $"Constructed a {Building}";
     }
 }

@@ -5,21 +5,17 @@ using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Settler.Event
 {
-    public class SettlerStarvedMessage : IMessage
+    public class SettlerStarvedMessage : Messages.Message
     {
         public SettlerStarvedMessage(Model.Settler.Settler settler)
         {
             Settler = settler;
         }
 
-        public MessageType Type => MessageType.Settler;
-        public MessagePriority Priority => MessagePriority.Uncommon;
+        public override MessageType Type => MessageType.Settler;
+        public override MessagePriority Priority => MessagePriority.Uncommon;
         
         public Model.Settler.Settler Settler { get; }
-        
-        public void Trigger(Settlement settlement)
-        {
-            CustomConsole.WriteLine($"{CustomConsole.Red}{Settler} starved!{CustomConsole.White}");
-        }
+        public override string Contents => $"{CustomConsole.Red}{Settler} starved!{CustomConsole.White}";
     }
 }

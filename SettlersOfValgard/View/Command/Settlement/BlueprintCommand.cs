@@ -1,4 +1,7 @@
-﻿using SettlersOfValgard.UtilLibrary;
+﻿using System;
+using System.Linq;
+using System.Text;
+using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.View.Command.Settlement
 {
@@ -13,9 +16,35 @@ namespace SettlersOfValgard.View.Command.Settlement
 
         protected override void Execute(string[] args, Game game)
         {
-            CustomConsole.WriteLine("Blueprints:");
-            CustomConsole.VerticalLine();
-            IOManager.ListInConsole(game.Settlement.Blueprints);
+            if (args.Length == 0)
+            {
+                CustomConsole.WriteLine("Blueprints:");
+                CustomConsole.VerticalLine();
+                IOManager.ListInConsole(game.Settlement.Blueprints);
+            }
+            else
+            {
+                string name;
+                var sb = new StringBuilder(args[0]);
+                for (int i = 1; i < args.Length; i++)
+                {
+                    sb.Append(" ").Append(args[1]);
+                }
+
+                name = sb.ToString();
+                var bp = game.Settlement.Blueprints.FirstOrDefault(b =>
+                    string.Equals(b.Name, name, StringComparison.CurrentCultureIgnoreCase));
+
+                if (bp == null)
+                {
+                    CustomConsole.WriteLine($"{CustomConsole.Red}No Blueprint named {name} found!");
+                }
+                else
+                {
+                    CustomConsole.WriteLine($"{bp.Name}: {bp.Description}");
+                }
+            }
+            
         }
     }
 }

@@ -1,8 +1,16 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using SettlersOfValgard.Model.Message;
+using SettlersOfValgard.Model.Resource.Transactions;
 
 namespace SettlersOfValgard.Model.Resource
 {
-    public class Stockpile : Bundle {
+    public class Stockpile : PositiveResourceLedger
+    {
+        public List<Transaction> TodaysTransactions = new List<Transaction>();
+        public List<List<Transaction>> TransactionHistory = new List<List<Transaction>>();
+        
         public Resource GetHighestOfType(ResourceType type)
         {
             Resource max = null;
@@ -24,18 +32,48 @@ namespace SettlersOfValgard.Model.Resource
             return max;
         }
 
-        public override string ToString()
+        public override void Add(PositiveResourceLedger other)
         {
-            var stringBuilder = new StringBuilder();
-            var first = true;
-            foreach (var (resource, amount) in Contents)
-            {
-                var start = first ? "" : "\n";
-                if(amount > 0) stringBuilder.Append($"{start}{resource} x{amount}");
-                if(first) first = false;
-            }
+            base.Add(other);
+            TodaysTransactions.Add(new Transaction(other));
+        }
 
-            return stringBuilder.ToString();
+        public override bool Remove(PositiveResourceLedger other)
+        {
+            if (base.Remove(other))
+            {
+                TodaysTransactions.Add(new Transaction(other) * -1);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void AddTodaysTransactionsMessage(MessageManager manager)
+        {
+            var transactionSum = TodaysTransactions.Aggregate(new Transaction(), (sum, next) => sum + next);
+            if(!transactionSum.IsEmpty()) // Don't output no transactions
+            {
+                manager.TodaysMessages.Add(new TodaysTransactionsMessage(transactionSum, true));
+                manager.TodaysMessages.Add(new TodaysTransactionsMessage(transactionSum, false));
+            } 
+            else
+            {
+                manager.TodaysMessages.Add(new NoTransactionsMessage());
+            }
+            
+        }
+
+        public void ArchiveTodaysTransactions()
+        {
+            TransactionHistory.Add(TodaysTransactions);
+        }
+
+        public void ClearTodaysTransactions()
+        {
+            TodaysTransactions = new List<Transaction>();
         }
     }
 }

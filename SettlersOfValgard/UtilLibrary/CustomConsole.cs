@@ -5,6 +5,8 @@ namespace SettlersOfValgard.UtilLibrary
 {
     public class CustomConsole
     {
+        public static readonly string Line = "----------"; 
+        
         private static string ColorToken { get; } = "`c";
 
         public static string Black { get; } = ColorToken + "k";
@@ -120,7 +122,7 @@ namespace SettlersOfValgard.UtilLibrary
 
         public static void VerticalLine()
         {
-            WriteLine("----------");
+            WriteLine(Line);
         }
     }
 }
