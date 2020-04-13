@@ -9,6 +9,7 @@ using SettlersOfValgard.Model.Rank;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Settler;
 using SettlersOfValgard.Model.Settler.Event;
+using SettlersOfValgard.Model.Tech;
 using SettlersOfValgard.Model.Time;
 using SettlersOfValgard.UtilLibrary;
 
@@ -38,13 +39,14 @@ namespace SettlersOfValgard.Model.Settlement
         
         public PlayerRank Rank => PlayerRank.GetRank(Settlers.Count);
 
-        public List<Tech.Tech> UnlockedTech { get; } = new List<Tech.Tech>();
+        public TechManager TechManager { get; }
         public List<Blueprint> Blueprints { get; } = new List<Blueprint>();
 
-        public Settlement(string name, Location.Location location)
+        public Settlement(string name, Location.Location location, Culture.Culture culture)
         {
             Name = name;
             Location = location;
+            TechManager = new TechManager(culture.TechTree);
             Stockpile = new Stockpile();
         }
 

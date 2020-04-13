@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using SettlersOfValgard.Model.Building.Residence;
+using SettlersOfValgard.Model.Building.Workplace;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.View.Command.Settlement
@@ -41,7 +43,17 @@ namespace SettlersOfValgard.View.Command.Settlement
                 }
                 else
                 {
-                    CustomConsole.WriteLine($"{bp.Name}: {bp.Description}");
+                    CustomConsole.WriteLine($"{bp.Name}:");
+                    CustomConsole.TitleLine();
+                    if (bp.Building is Workplace)
+                    {
+                        CustomConsole.WriteLine($"Workplace");
+                    } else if (bp.Building is Residence)
+                    {
+                        CustomConsole.WriteLine($"Residence");
+                    }
+                    CustomConsole.WriteLine($"Cost: {bp.Cost}");
+                    CustomConsole.WriteLine($"{bp.Description}");
                 }
             }
             

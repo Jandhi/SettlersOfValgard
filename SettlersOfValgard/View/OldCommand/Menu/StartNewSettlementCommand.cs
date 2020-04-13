@@ -33,7 +33,7 @@ namespace SettlersOfValgard.View.Command.Menu
             var playerName = IOManager.GetName($"What is your name, {PlayerRank.Freeman}?");
             game.PlayerName = playerName;
             var settlementName = IOManager.GetName($"What shall we call our settlement, {PlayerRank.Freeman} {playerName}?");
-            game.Settlement = new Model.Settlement.Settlement(settlementName, new TemperateLocation());
+            game.Settlement = new Model.Settlement.Settlement(settlementName, new TemperateLocation(), new VarskCulture());
             SetUpSettlement(game.Settlement);
             new StatusCommand().AttemptExecution(new string[0], game);
         }

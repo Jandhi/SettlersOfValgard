@@ -9,7 +9,11 @@ namespace SettlersOfValgard.Model.Building.Workplace.Harvest
     {
         public abstract Dictionary<Resource.Resource, double> BaseRates { get; }
 
-        public abstract double BuildingEfficiency(Settlement.Settlement settlement, Resource.Resource resource, Settler.Settler worker);
+        public virtual double BuildingEfficiency(Settlement.Settlement settlement, Resource.Resource resource,
+            Settler.Settler worker)
+        {
+            return 1.0;
+        }
 
         public double WorkerEfficiency(Settler.Settler worker)
         {
