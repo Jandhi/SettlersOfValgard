@@ -10,5 +10,10 @@
             Temperature = temperature;
             Precipitation = precipitation;
         }
+        
+        public override string ToString()
+        {
+            return $"{Precipitation} [Temperature: {Temperature}]";
+        }
     }
 }

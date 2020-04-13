@@ -120,7 +120,7 @@ namespace SettlersOfValgard.UtilLibrary
             return ColorToString(color) + s + White;
         }
 
-        public static void VerticalLine()
+        public static void TitleLine()
         {
             WriteLine(Line);
         }

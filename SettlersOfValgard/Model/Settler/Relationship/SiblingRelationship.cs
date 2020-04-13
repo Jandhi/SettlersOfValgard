@@ -10,13 +10,13 @@ namespace SettlersOfValgard.Model.Settler.Relationship
         public static readonly RelationshipRole Brother = new RelationshipRole("Brother", Sibling.Value, CustomConsole.Cyan);
         public static readonly RelationshipRole Sister = new RelationshipRole("Sister", Sibling.Value, CustomConsole.Magenta);
         
-        private SiblingRelationship(int value, Settler sibling1, Settler sibling2) : base(value, sibling1, GetSiblingRole(sibling1), sibling2, GetSiblingRole(sibling2))
+        private SiblingRelationship(SettlerManager sm, int value, Settler sibling1, Settler sibling2) : base(sm, value, sibling1, GetSiblingRole(sibling1), sibling2, GetSiblingRole(sibling2))
         {
         }
 
-        public static void Make(int value, Settler sibling1, Settler sibling2)
+        public static void Make(SettlerManager sm, int value, Settler sibling1, Settler sibling2)
         {
-            new SiblingRelationship(0, sibling1, sibling2);
+            new SiblingRelationship(sm, 0, sibling1, sibling2);
         }
 
         public static RelationshipRole GetSiblingRole(Settler s)

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SettlersOfValgard.Model.Core;
 
 namespace SettlersOfValgard.Model.Building.Workplace
 {
@@ -17,7 +16,7 @@ namespace SettlersOfValgard.Model.Building.Workplace
             worker.Workplace = this;
         }
 
-        public abstract void HostWork(Settler.Settler worker, Settlement settlement);
+        public abstract void HostWork(Settler.Settler worker, Settlement.Settlement settlement);
         
         public virtual Settler.Settler GetWorkerToReplace()
         {

@@ -1,5 +1,5 @@
 ﻿using System;
-using SettlersOfValgard.RandomLibrary;
+using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Name
 {
@@ -18,7 +18,7 @@ namespace SettlersOfValgard.Model.Name
         public override string Generate()
         {
             var rand = new RandomUtil();
-            return $"{rand.Get(_prefix)}{rand.Get(_suffix)}";
+            return $"{RandomUtil.Get(_prefix)}{RandomUtil.Get(_suffix)}";
         }
     }
 }

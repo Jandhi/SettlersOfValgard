@@ -15,7 +15,7 @@ namespace SettlersOfValgard.Model.Settler.Relationship
         public static readonly RelationshipRole Son = new RelationshipRole("Son", Child.Value, CustomConsole.Cyan);
         public static readonly RelationshipRole Daughter = new RelationshipRole("Daughter", Child.Value, CustomConsole.Magenta);
 
-        private ParentChildRelationship(int value, Settler parent, Settler child) : base(value, parent, GetParentRole(parent), child, GetChildRole(child))
+        private ParentChildRelationship(SettlerManager sm, int value, Settler parent, Settler child) : base(sm, value, parent, GetParentRole(parent), child, GetChildRole(child))
         {
             //Add siblings
             var currentSiblings = SiblingRelationship.GetSiblings(child);
@@ -24,14 +24,14 @@ namespace SettlersOfValgard.Model.Settler.Relationship
             {
                 if (!currentSiblings.Contains(sibling))
                 {
-                    SiblingRelationship.Make(0, child, sibling);
+                    SiblingRelationship.Make(sm, 0, child, sibling);
                 }
             }
         }
 
-        public static void Make(int value, Settler parent, Settler child)
+        public static void Make(SettlerManager sm, int value, Settler parent, Settler child)
         {
-            new ParentChildRelationship(value, parent, child);
+            new ParentChildRelationship(sm, value, parent, child);
         }
 
         public static RelationshipRole GetParentRole(Settler settler)

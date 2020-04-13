@@ -5,6 +5,7 @@ using Microsoft.VisualBasic.CompilerServices;
 using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.UtilLibrary;
 using SettlersOfValgard.View.Command;
+using SettlersOfValgard.View.OldCommand;
 
 namespace SettlersOfValgard.View
 {
@@ -16,9 +17,21 @@ namespace SettlersOfValgard.View
         public static List<string> PreviousList { get; set; } = new List<string>();
         public static readonly CommandManager CommandManager = new CommandManager();
 
-        public static string GetName()
+        private const string ListOption = "list";
+
+        public static string GetName(string query)
         {
-            return CustomConsole.ReadLine();
+            CustomConsole.WriteLine(query);
+            var s = CustomConsole.ReadLine();
+
+            while (s.Trim().Length < 1)
+            {
+                CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: A name cannot be empty!");
+                CustomConsole.WriteLine(query);
+                s = CustomConsole.ReadLine();
+            }
+            
+            return s.Trim();
         }
 
         public static bool GetYesNo(string question)
@@ -131,6 +144,43 @@ namespace SettlersOfValgard.View
                     CustomConsole.WriteLine(name);
                     count++;
                     PreviousList.Add(name);
+                }
+            }
+        }
+
+        public static T ChooseItemFromList<T>(IEnumerable<T> enumerable, Func<T, string> labelFunc)
+        {
+            var list = enumerable.ToList();
+            
+            var number = 1;
+            foreach (var t in list)
+            {
+                CustomConsole.WriteLine($"{number}: {labelFunc(t)}");
+                number++;
+            }
+
+            while (true)
+            {
+                var input = CustomConsole.ReadLine().Trim();
+
+                try
+                {
+                    var index = int.Parse(input) - 1;
+                    return list[index];
+                }
+                catch (FormatException e)
+                {
+                    if (input != ListOption)
+                    {
+                        CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: Must provide the index of an item on the list!");
+                    }
+                }
+                
+                number = 1;
+                foreach (var t in list)
+                {
+                    CustomConsole.WriteLine($"{number}: {labelFunc(t)}");
+                    number++;
                 }
             }
         }

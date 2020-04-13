@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Settler.Skill;
 
@@ -10,7 +9,7 @@ namespace SettlersOfValgard.Model.Building.Workplace.Harvest
     {
         public abstract Dictionary<Resource.Resource, double> BaseRates { get; }
 
-        public abstract double BuildingEfficiency(Settlement settlement, Resource.Resource resource, Settler.Settler worker);
+        public abstract double BuildingEfficiency(Settlement.Settlement settlement, Resource.Resource resource, Settler.Settler worker);
 
         public double WorkerEfficiency(Settler.Settler worker)
         {
@@ -48,7 +47,7 @@ namespace SettlersOfValgard.Model.Building.Workplace.Harvest
             return 1;
         }
 
-        public override void HostWork(Settler.Settler worker, Settlement settlement)
+        public override void HostWork(Settler.Settler worker, Settlement.Settlement settlement)
         {
             var harvest = new Bundle();
             foreach (var (resource, rate) in BaseRates)
@@ -66,7 +65,7 @@ namespace SettlersOfValgard.Model.Building.Workplace.Harvest
             worker.GainXp(settlement, Skill, 1);
         }
 
-        private int GetHarvest(Settlement settlement, Resource.Resource resource, double rate, Settler.Settler worker)
+        private int GetHarvest(Settlement.Settlement settlement, Resource.Resource resource, double rate, Settler.Settler worker)
         {
             var efficiency = BuildingEfficiency(settlement, resource, worker) * WorkerEfficiency(worker);
             var guaranteedHarvest = (int) (rate * efficiency);

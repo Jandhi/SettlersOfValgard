@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using SettlersOfValgard.Model.Building;
-using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Name;
 
 namespace SettlersOfValgard.Model.Tech
@@ -18,7 +17,7 @@ namespace SettlersOfValgard.Model.Tech
         public string Description { get; }
         private List<Blueprint> Blueprints { get; }
 
-        public void Discover(Settlement settlement)
+        public void Discover(Settlement.Settlement settlement)
         {
             //Add all blueprints
             Blueprints.ForEach(blueprint => settlement.Blueprints.Add(blueprint));

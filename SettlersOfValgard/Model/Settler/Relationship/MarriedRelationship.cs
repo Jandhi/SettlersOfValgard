@@ -9,7 +9,7 @@ namespace SettlersOfValgard.Model.Settler.Relationship
         public static readonly RelationshipRole Partner = new RelationshipRole("Partner", 'r', CustomConsole.DarkGreen);
         public static readonly RelationshipRole Husband = new RelationshipRole("Husband", Partner.Value, CustomConsole.Cyan);
         public static readonly RelationshipRole Wife = new RelationshipRole("Wife", Partner.Value, CustomConsole.Magenta);
-        private MarriedRelationship(int value, Settler partner1, Settler partner2) : base(value, partner1, GetMarriedRole(partner1), partner2, GetMarriedRole(partner2))
+        private MarriedRelationship(SettlerManager sm, int value, Settler partner1, Settler partner2) : base(sm, value, partner1, GetMarriedRole(partner1), partner2, GetMarriedRole(partner2))
         {
             //Remove prior loverRelationship
             var loverRelationship =
@@ -33,9 +33,9 @@ namespace SettlersOfValgard.Model.Settler.Relationship
             return Partner;
         }
 
-        public static void Make(int value, Settler settler1, Settler settler2)
+        public static void Make(SettlerManager sm, int value, Settler settler1, Settler settler2)
         {
-            new MarriedRelationship(value, settler1, settler2);
+            new MarriedRelationship(sm, value, settler1, settler2);
         }
     }
 }

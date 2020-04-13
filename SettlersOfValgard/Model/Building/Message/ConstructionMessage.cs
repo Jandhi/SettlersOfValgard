@@ -1,11 +1,10 @@
-﻿using SettlersOfValgard.Model.Core;
-using SettlersOfValgard.Model.Event;
+﻿using SettlersOfValgard.Model.Event;
 using SettlersOfValgard.Model.Message;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Building.Event
 {
-    public class ConstructionMessage : Messages.Message
+    public class ConstructionMessage : Message.Message
     {
         public ConstructionMessage(Building building)
         {

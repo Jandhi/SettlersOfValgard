@@ -1,11 +1,10 @@
-﻿using SettlersOfValgard.Model.Core;
-using SettlersOfValgard.Model.Event;
+﻿using SettlersOfValgard.Model.Event;
 using SettlersOfValgard.Model.Message;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Settler.Event
 {
-    public class SettlerStarvedMessage : Messages.Message
+    public class SettlerStarvedMessage : Message.Message
     {
         public SettlerStarvedMessage(Model.Settler.Settler settler)
         {

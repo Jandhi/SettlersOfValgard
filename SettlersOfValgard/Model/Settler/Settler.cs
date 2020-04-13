@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using SettlersOfValgard.Model.Building.Workplace;
-using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.Model.Settler;
 using SettlersOfValgard.Model.Settler.Skill;
@@ -18,13 +17,13 @@ namespace SettlersOfValgard.Model.Settler
 
         public List<Relationship.Relationship> Relationships = new List<Relationship.Relationship>();
         
-        public abstract bool CanWork(Settlement settlement);
+        public abstract bool CanWork(Settlement.Settlement settlement);
 
-        public int AgeInDays(Settlement settlement)
+        public int AgeInDays(Settlement.Settlement settlement)
         {
             return settlement.TodaysDate.DaysSinceSettlement - Birthday.DaysSinceSettlement;
         }
-        public abstract bool IsUnderage(Settlement settlement);
+        public abstract bool IsUnderage(Settlement.Settlement settlement);
 
         public override string ToString()
         {
@@ -43,7 +42,7 @@ namespace SettlersOfValgard.Model.Settler
             }
         }
 
-        public void GainXp(Settlement settlement, Model.Settler.Skill.Skill skill, int amount)
+        public void GainXp(Settlement.Settlement settlement, Model.Settler.Skill.Skill skill, int amount)
         {
             var before = SkillLevel(skill);
             if (Experience.ContainsKey(skill))
@@ -61,6 +60,6 @@ namespace SettlersOfValgard.Model.Settler
             }
         }
 
-        public abstract void GoEat(Settlement settlement);
+        public abstract void GoEat(Settlement.Settlement settlement);
     }
 }

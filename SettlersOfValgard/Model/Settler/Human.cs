@@ -1,5 +1,4 @@
-﻿using SettlersOfValgard.Model.Core;
-using SettlersOfValgard.Model.Resource;
+﻿using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Settler.Event;
 using SettlersOfValgard.Model.Settler.Gender;
 using SettlersOfValgard.Model.Time;
@@ -19,28 +18,28 @@ namespace SettlersOfValgard.Model.Settler
         /*
          * Humans can work if they are not underage
          */
-        public override bool CanWork(Settlement settlement)
+        public override bool CanWork(Settlement.Settlement settlement)
         {
             return !IsUnderage(settlement);
         }
 
-        public override bool IsUnderage(Settlement settlement)
+        public override bool IsUnderage(Settlement.Settlement settlement)
         {
             return Date.DaysToYears(AgeInDays(settlement)) <= AdultYears;
         }
 
-        public override void GoEat(Settlement settlement)
+        public override void GoEat(Settlement.Settlement settlement)
         {
             var food = settlement.Stockpile.GetHighestOfType(ResourceType.Food);
             if (food == null)
             {
-                settlement.AddEvent(new SettlerStarvedMessage(this));
+                settlement.AddMessage(new SettlerStarvedMessage(this));
             }
             else
             {
                 var meal = new Bundle(food, 1);
                 settlement.Stockpile.Remove(meal);
-                settlement.AddEvent(new SettlerAteMessage(this, meal));
+                settlement.AddMessage(new SettlerAteMessage(this, meal));
             }
         }
 

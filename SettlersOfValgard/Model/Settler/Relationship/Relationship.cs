@@ -11,11 +11,13 @@ namespace SettlersOfValgard.Model.Settler.Relationship
         public Settler Settler2 { get; }
         public RelationshipRole Role2 { get; }
 
+        public Settler[] Settlers => new[] {Settler1, Settler2};
+
         public int Value;
         public const int MinValue = -30;
         public const int MaxValue = 30;
 
-        protected Relationship(int value, Settler settler1, RelationshipRole role1, Settler settler2,
+        protected Relationship(SettlerManager sm, int value, Settler settler1, RelationshipRole role1, Settler settler2,
             RelationshipRole role2)
         {
             Value = value;
@@ -26,6 +28,7 @@ namespace SettlersOfValgard.Model.Settler.Relationship
 
             settler1.Relationships.Add(this);
             settler2.Relationships.Add(this);
+            sm.Add(this);
         }
 
         public bool Contains(Settler settler)

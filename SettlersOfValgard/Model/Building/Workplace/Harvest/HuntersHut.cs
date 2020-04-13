@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SettlersOfValgard.Model.Core;
 using SettlersOfValgard.Model.Location.Weather;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Resource.Food;
@@ -13,7 +12,7 @@ namespace SettlersOfValgard.Model.Building.Workplace.Harvest
         public override string Description => "Performs worse during bad weather.";
         public override Skill Skill => Skill.Hunter;
 
-        public override int Insulation(Settlement settlement) => 0;
+        public override int Insulation(Settlement.Settlement settlement) => 0;
 
         public override Building Construct() => new HuntersHut();
 
@@ -21,7 +20,7 @@ namespace SettlersOfValgard.Model.Building.Workplace.Harvest
 
         public override Dictionary<Resource.Resource, double> BaseRates => new Dictionary<Resource.Resource, double> {{Food.Meat, 2}};
 
-        public override double BuildingEfficiency(Settlement settlement, Resource.Resource resource, Settler.Settler worker)
+        public override double BuildingEfficiency(Settlement.Settlement settlement, Resource.Resource resource, Settler.Settler worker)
         {
             var precipitation = settlement.TodaysWeather.Precipitation;
 

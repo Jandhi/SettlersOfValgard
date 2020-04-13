@@ -6,7 +6,7 @@ using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Resource.Transactions
 {
-    public class TodaysTransactionsMessage : Messages.Message
+    public class TodaysTransactionsMessage : Message.Message
     {
         public TodaysTransactionsMessage(Transaction transactionSum, bool detailed)
         {

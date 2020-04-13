@@ -12,5 +12,10 @@ namespace SettlersOfValgard.Model.Settler.Gender
         public BinaryGender(string name, string symbol, int value, string color) : base(name, symbol, value, color)
         {
         }
+
+        public bool Is(Settler settler)
+        {
+            return settler is IGendered<BinaryGender> gendered && gendered.Gender == this;
+        }
     }
 }

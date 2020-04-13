@@ -1,6 +1,4 @@
-﻿using SettlersOfValgard.Model.Core;
-
-namespace SettlersOfValgard.Model.Time
+﻿namespace SettlersOfValgard.Model.Time
 {
     public class Date
     {
@@ -26,7 +24,7 @@ namespace SettlersOfValgard.Model.Time
             return days / DaysInYear;
         }
 
-        public static int AgeInDays(IDated dated, Settlement settlement)
+        public static int AgeInDays(IDated dated, Settlement.Settlement settlement)
         {
             return settlement.TodaysDate.DaysSinceSettlement - dated.Birthday.DaysSinceSettlement;
         }

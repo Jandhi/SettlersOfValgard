@@ -1,4 +1,4 @@
-﻿using SettlersOfValgard.Model.Core;
+﻿using SettlersOfValgard.Model.Settlement;
 using SettlersOfValgard.UtilLibrary;
 using SettlersOfValgard.View.Command.Menu;
 

@@ -1,12 +1,11 @@
-﻿using SettlersOfValgard.Model.Core;
-using SettlersOfValgard.Model.Event;
+﻿using SettlersOfValgard.Model.Event;
 using SettlersOfValgard.Model.Message;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Settler.Event
 {
-    public class CumulativeSettlerAteMessage : Messages.Message
+    public class CumulativeSettlerAteMessage : Message.Message
     {
         public CumulativeSettlerAteMessage(int eatCount, Bundle meals)
         {

@@ -9,6 +9,13 @@ namespace SettlersOfValgard.Model.Varsk
 {
     public class VarskFactory : ISettlerFactory
     {
+        private readonly SettlerManager _manager;
+
+        public VarskFactory(SettlerManager manager)
+        {
+            _manager = manager;
+        }
+
         public Settler.Settler Generate()
         {
             int age = (new Random().Next(Varsk.VarskElderYears) + Varsk.VarskAdultYears) * Date.DaysInYear;
@@ -38,8 +45,8 @@ namespace SettlersOfValgard.Model.Varsk
             bool isMale = new Random().Next(2) == 0;
             NameFactory name = isMale ? VarskNameFactories.Male() : VarskNameFactories.Female();
             var child = new Varsk(new Date(-1 * age), name.Generate(), $"{father.GivenName}sson", isMale ? BinaryGender.Male : BinaryGender.Female);
-            ParentChildRelationship.Make(0, father, child);
-            ParentChildRelationship.Make(0, mother, child);
+            ParentChildRelationship.Make(_manager,0, father, child);
+            ParentChildRelationship.Make(_manager, 0, mother, child);
             return child;
         }
     }
