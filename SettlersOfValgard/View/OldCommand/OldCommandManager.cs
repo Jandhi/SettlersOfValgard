@@ -5,17 +5,19 @@ using SettlersOfValgard.View.Command.Info;
 using SettlersOfValgard.View.Command.Menu;
 using SettlersOfValgard.View.Command.Settlement;
 using SettlersOfValgard.View.Command.Settler;
+using SettlersOfValgard.View.OldCommand.Settlement;
+using BlueprintCommand = SettlersOfValgard.View.Command.Settlement.BlueprintCommand;
 
 namespace SettlersOfValgard.View.OldCommand
 {
-    public class CommandManager
+    public class OldCommandManager
     {
         private OldCommand.Command[] _gameCommands =
         {
             new AddFamilyCommand(), 
-            new AutoHomeCommand(),
+            //new AutoHomeCommand(),
             new BuildingCommand(),
-            new BlueprintCommand(), 
+            //new BlueprintCommand(), 
             new ConstructCommand(),
             new DayCommand(),
             new GodModeCommand(),

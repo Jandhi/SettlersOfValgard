@@ -1,24 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SettlersOfValgard.Model.Building.Residence;
 using SettlersOfValgard.Model.Building.Workplace;
 using SettlersOfValgard.UtilLibrary;
 
-namespace SettlersOfValgard.View.OldCommand.Settlement
+namespace SettlersOfValgard.View.Command.Settlement
 {
-    public class BlueprintCommand : OldCommand.Command
+    public class BlueprintCommand : Command
     {
-        public override string Name => "Blueprint";
-        public override string[] Aliases { get; } = {"bp", "blueprint", "Blueprint"};
-        public override bool AvailableInMenu => false;
+        public override string Name { get; }
+        public override string[] Aliases { get; }
+        public override List<Argument> Arguments => new List<Argument>();
+        public override List<Argument> OptionalArguments => new List<Argument>{BlueprintName};
+        public override List<Tag> Tags { get; }
+        public override string UseCommandTo { get; }
+        
+        public StringArgument BlueprintName { get; } = new StringArgument("");
 
-        public override string ToolTip =>
-            $"Use \"{Aliases[0]}\" to list your available blueprints, or \"{Aliases[0]} [name]\" to show a specific blueprint.";
-
-        protected override void Execute(string[] args, Game game)
+        public override void Execute(Game game)
         {
-            if (args.Length == 0)
+            if (!BlueprintName.IsUsable())
             {
                 CustomConsole.WriteLine("Blueprints:");
                 CustomConsole.TitleLine();
@@ -26,14 +29,8 @@ namespace SettlersOfValgard.View.OldCommand.Settlement
             }
             else
             {
-                string name;
-                var sb = new StringBuilder(args[0]);
-                for (int i = 1; i < args.Length; i++)
-                {
-                    sb.Append(" ").Append(args[1]);
-                }
-
-                name = sb.ToString();
+                string name = BlueprintName.Contents;
+                
                 var bp = game.Settlement.Blueprints.FirstOrDefault(b =>
                     string.Equals(b.Name, name, StringComparison.CurrentCultureIgnoreCase));
 
@@ -56,7 +53,6 @@ namespace SettlersOfValgard.View.OldCommand.Settlement
                     CustomConsole.WriteLine($"{bp.Description}");
                 }
             }
-            
         }
     }
 }

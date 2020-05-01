@@ -8,15 +8,14 @@ using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Settler.Event
 {
-    public class VengefulDuelEvent : RandomEvent
+    public class VengefulDuelEvent : RelationshipRandomEvent
     {
         public override string Name => "A Vengeful Duel";
 
-        public override string Description => $"{_challenger} has challenged {_relationship.Other(_challenger)} to a duel!";
+        public override string Description => $"{Challenger} has challenged {Relationship.Other(Challenger)} to a duel!";
 
         public override EventRarity Rarity => EventRarity.Common;
-        private Relationship.Relationship _relationship = null;
-        private Settler _challenger = null;
+        public Settler Challenger { get; set; }
 
         public override List<EventOption> Options
         {
@@ -26,7 +25,7 @@ namespace SettlersOfValgard.Model.Settler.Event
                 {
                     new EventOption("Let them fight", settlement =>
                     {
-                        var winner = RandomUtil.CoinFlip() ? _relationship.Settler1 : _relationship.Settler2;
+                        var winner = RandomUtil.CoinFlip() ? Relationship.Settler1 : Relationship.Settler2;
                         CustomConsole.WriteLine($"{winner} won!");
                     }),
                     new EventOption("Prevent them from fighting",
@@ -35,24 +34,14 @@ namespace SettlersOfValgard.Model.Settler.Event
                 return list;
             }
         }
-
-        private void FindRelationship(Settlement.Settlement settlement)
-        {
-            _relationship = RandomUtil.Get(settlement.SettlerManager.Relationships.Where(IsPossibleRelationship).ToArray());
-            _challenger = RandomUtil.CoinFlip() ? _relationship.Settler1 : _relationship.Settler2;
-        }
-
+        
         public override void PreExecute(Settlement.Settlement settlement)
         {
-            FindRelationship(settlement);
+            base.PreExecute(settlement);
+            Challenger = RandomUtil.CoinFlip() ? Relationship.Settler1 : Relationship.Settler2;
         }
 
-        public override bool IsAvailable(Settlement.Settlement settlement)
-        {
-            return settlement.SettlerManager.Relationships.Any(IsPossibleRelationship);
-        }
-
-        private static bool IsPossibleRelationship(Relationship.Relationship relationship)
+        public override bool IsPossibleRelationship(Relationship.Relationship relationship)
         {
             if (relationship.Level > RelationshipLevel.Hate) return false; //Only possible if they hate each other
 
