@@ -3,7 +3,7 @@
     public abstract class StringArgument : Argument
     {
         public string Contents { get; set; }
-
+        public override string Type => "String";
         public override bool IsFilled => Contents != null;
         public override string ContentsAsString => Contents;
 
@@ -12,7 +12,7 @@
             Contents = null;
         }
 
-        protected StringArgument(string name) : base(name)
+        protected StringArgument(string name, string description) : base(name, description)
         {
         }
     }

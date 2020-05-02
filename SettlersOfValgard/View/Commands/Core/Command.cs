@@ -10,6 +10,7 @@ namespace SettlersOfValgard.View.Commands.Core
     {
         public virtual List<Tag> Tags { get; } = new List<Tag>();
         public abstract string[] Aliases { get; }
+        public abstract string UseCommandTo { get; }
 
         public override string FunctionType => "Commmand";
 

@@ -4,7 +4,7 @@ namespace SettlersOfValgard.View.Commands.Core.Arguments
 {
     public class UnlimitedStringArgument : StringArgument
     {
-        public UnlimitedStringArgument(string name) : base(name)
+        public UnlimitedStringArgument(string name, string description) : base(name, description)
         {
         }
 

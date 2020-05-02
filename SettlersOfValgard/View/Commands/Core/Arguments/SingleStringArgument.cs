@@ -2,6 +2,7 @@
 {
     public class SingleStringArgument : StringArgument
     {
+
         public override void ProcessArgs(string[] args)
         {
             if (args.Length != 1)
@@ -14,7 +15,7 @@
             }
         }
 
-        public SingleStringArgument(string name) : base(name)
+        public SingleStringArgument(string name, string description) : base(name, description)
         {
         }
     }

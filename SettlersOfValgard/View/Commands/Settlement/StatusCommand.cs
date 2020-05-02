@@ -7,7 +7,8 @@ namespace SettlersOfValgard.View.Commands.Settlement
     {
         public override string Name => "Status";
         public override string[] Aliases { get; } = {"st", "status"};
-        
+        public override string UseCommandTo => "Get status update of your settlement";
+
         public override void Execute(Game game)
         {
             CustomConsole.WriteLine($"Status of {game.Settlement}:");

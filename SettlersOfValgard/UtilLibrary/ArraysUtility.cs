@@ -1,9 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SettlersOfValgard.UtilLibrary
 {
     public class ArraysUtility
     {
+        public static T[] Add<T>(params T[][] arrays)
+        {
+            List<T> list = new List<T>();
+            foreach (var arr in arrays)
+            {
+                list.AddRange(arr);
+            }
+            return list.ToArray();
+        }
+        
         public static T[] SubArray<T>(T[] arr, int startIndex)
         {
             return SubArray(arr, startIndex, arr.Length - startIndex);

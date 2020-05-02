@@ -7,10 +7,11 @@ namespace SettlersOfValgard.View.Commands.Core.Arguments
         public int Contents { get; set; }
         protected bool IsValid = false;
 
-        public IntegerArgument(string name) : base(name)
+        public IntegerArgument(string name, string description) : base(name, description)
         {
         }
 
+        public override string Type => "Integer";
         public override bool IsFilled => IsValid;
         public override string ContentsAsString => Contents.ToString();
         public override void ProcessArgs(string[] args)

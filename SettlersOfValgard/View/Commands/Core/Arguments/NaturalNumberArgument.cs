@@ -2,7 +2,8 @@
 {
     public class NaturalNumberArgument : IntegerArgument
     {
-        public NaturalNumberArgument(string name) : base(name)
+        public override string Type => "Natural Number";
+        public NaturalNumberArgument(string name, string description) : base(name, description)
         {
         }
 
