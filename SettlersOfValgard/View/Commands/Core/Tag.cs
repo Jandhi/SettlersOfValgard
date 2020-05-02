@@ -9,12 +9,12 @@ namespace SettlersOfValgard.View.Commands.Core
         public override string Name { get; }
         public string UseTagTo { get; }
         public override string FunctionType => "Tag";
-        public override List<Argument> Arguments { get; }
-        public override List<Argument> OptionalArguments { get; }
+        public override List<Argument> Arguments { get; } = new List<Argument>();
+        public override List<Argument> OptionalArguments { get; } = new List<Argument>();
         public bool Used { get; set; }
 
 
-        public Tag(string name, string useTagTo, List<Argument> arguments = null, List<Argument> optionalArguments = null) : base()
+        public Tag(string name, string useTagTo, List<Argument> arguments = null, List<Argument> optionalArguments = null)
         {
             Name = name;
             UseTagTo = useTagTo;

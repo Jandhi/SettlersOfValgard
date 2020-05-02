@@ -22,6 +22,7 @@ namespace SettlersOfValgard.View.Commands
                 StringBuilder sb = new StringBuilder();
                 Arguments.ForEach(arg => sb.Append($"[{arg.Name}] "));
                 OptionalArguments.ForEach(arg => sb.Append($"({arg.Name}) "));
+                if(sb.Length > 0) sb.Remove(sb.Length - 1, 1); // No extra space
                 return sb.ToString();
             }
         }
@@ -126,7 +127,7 @@ namespace SettlersOfValgard.View.Commands
             var unlimitedArgs = new string[args.Length - after.Count - before.Count];
             for (var i = before.Count; i < args.Length - after.Count; i++)
                 unlimitedArgs[i - before.Count] = args[i];
-            unlimitedArg.ProcessArgs(unlimitedArgs);
+            if(unlimitedArgs.Length > 0) unlimitedArg.ProcessArgs(unlimitedArgs);
             for(var i = 0; i < after.Count; i++) after[i].ProcessArgs(new []{args[args.Length - after.Count + i]});
         }
 

@@ -12,12 +12,12 @@ namespace SettlersOfValgard.View.Commands.General
         public override string[] Aliases { get; } = {"help", "Help"};
         public override string UseCommandTo { get; }
 
-        public override List<Argument> OptionalArguments { get; } = new List<Argument>{CommandName};
-        public static SingleStringArgument CommandName = new SingleStringArgument("Command", "The Command for which to get help");
+        public override List<Argument> OptionalArguments { get; } = new List<Argument>{CommandArgument};
+        private static readonly StringArgument CommandArgument = new StringArgument("Command", "The Command for which to get help");
         
         public override void Execute(Game game)
         {
-            if (CommandName.IsFilled)
+            if (CommandArgument.IsFilled)
             {
                 CommandHelp(game);
             }
@@ -35,19 +35,19 @@ namespace SettlersOfValgard.View.Commands.General
         private void CommandHelp(Game game)
         {
             var command = IOManager.CommandManager.GetCurrentCommandList(game)
-                .FirstOrDefault(com => com.Aliases.Any(alias => alias == CommandName.Contents));
+                .FirstOrDefault(com => com.Aliases.Any(alias => alias == CommandArgument.Contents));
             if (command == null)
             {
-                CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: No command named \"{CommandName.Contents}\" exists!");
+                CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: No command named \"{CommandArgument.Contents}\" exists!");
             }
             else
             {
                 CustomConsole.WriteLine($"{command.Name.ToUpper()}");
+                CustomConsole.TitleLine();
                 CustomConsole.WriteLine($"Used to {command.UseCommandTo}");
                 CustomConsole.WriteLine($"Format: \"{command.Aliases[0]} {command.Format}\"");
                 if (command.Arguments.Count > 0)
                 {
-                    CustomConsole.TitleLine();
                     CustomConsole.WriteLine($"Arguments:");
                     foreach (var arg in command.Arguments)
                     {
@@ -60,10 +60,10 @@ namespace SettlersOfValgard.View.Commands.General
                 }
                 if (command.Tags.Count > 0)
                 {
-                    CustomConsole.TitleLine();
+                    CustomConsole.WriteLine($"Tags:");
                     foreach (var tag in command.Tags)
                     {
-                        CustomConsole.WriteLine($"\"{tag.Name} {tag.Format}\": {tag.UseTagTo}");
+                        CustomConsole.WriteLine($"\"{tag.Name}{(tag.Format.Length > 0 ? " " : "")}{tag.Format}\": {tag.UseTagTo}");
                     }
                 }
             }

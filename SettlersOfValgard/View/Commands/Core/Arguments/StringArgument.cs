@@ -1,18 +1,21 @@
 ﻿namespace SettlersOfValgard.View.Commands.Core.Arguments
 {
-    public abstract class StringArgument : Argument
+    public class StringArgument : BaseStringArgument
     {
-        public string Contents { get; set; }
-        public override string Type => "String";
-        public override bool IsFilled => Contents != null;
-        public override string ContentsAsString => Contents;
 
-        public override void Clear()
+        public override void ProcessArgs(string[] args)
         {
-            Contents = null;
+            if (args.Length != 1)
+            {
+                throw new InputArgumentException($"The Argument {Name} is limited to 1 string!");
+            }
+            else
+            {
+                Contents = args[0];
+            }
         }
 
-        protected StringArgument(string name, string description) : base(name, description)
+        public StringArgument(string name, string description) : base(name, description)
         {
         }
     }

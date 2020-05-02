@@ -6,6 +6,10 @@ using SettlersOfValgard.View.Commands.Core.Arguments;
 using SettlersOfValgard.View.Commands.General;
 using SettlersOfValgard.View.Commands.Menu;
 using SettlersOfValgard.View.Commands.Settlement;
+using SettlersOfValgard.View.Commands.Settlement.Auto;
+using SettlersOfValgard.View.Commands.Settlement.Building;
+using SettlersOfValgard.View.Commands.Settlement.Extras;
+using SettlersOfValgard.View.Commands.Settlement.Settler;
 
 namespace SettlersOfValgard.View.Commands.Core
 {
@@ -13,6 +17,10 @@ namespace SettlersOfValgard.View.Commands.Core
     {
         public Command[] GameCommands { get; } =
         {
+            new AutoHomeCommand(),
+            new BlueprintCommand(),
+            new BoopCommand(),
+            new SettlerCommand(),
             new StatusCommand(),
         };
 

@@ -140,7 +140,7 @@ namespace SettlersOfValgard.View
                     {
                         CustomConsole.Write(count + " ");
                     }
-                    CustomConsole.WriteLine(name);
+                    CustomConsole.WriteLine($"{name}");
                     count++;
                     PreviousList.Add(name);
                 }
