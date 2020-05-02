@@ -1,6 +1,5 @@
 ﻿using SettlersOfValgard.Model.Settlement;
 using SettlersOfValgard.UtilLibrary;
-using SettlersOfValgard.View.Command.Menu;
 
 namespace SettlersOfValgard.View
 {
@@ -19,7 +18,7 @@ namespace SettlersOfValgard.View
         public override void Execute()
         {
             CustomConsole.WriteLine($"Welcome to {_title}");
-            CustomConsole.WriteLine($"Use \"{new StartNewSettlementCommand().Aliases[0]}\" to start a new Settlement!");
+            //CustomConsole.WriteLine($"Use \"{new StartNewSettlementCommand().Aliases[0]}\" to start a new Settlement!");
             while (!_endGame)
             {
                 IOManager.GetCommand(this);

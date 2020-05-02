@@ -12,8 +12,8 @@ namespace SettlersOfValgard.View.Command
     {
         public abstract string Name { get; }
         public abstract string [] Aliases { get; }
-        public abstract List<Argument> Arguments { get; }
-        public abstract List<Argument> OptionalArguments { get; }
+        public abstract List<Argument.Argument> Arguments { get; }
+        public abstract List<Argument.Argument> OptionalArguments { get; }
         public abstract List<Tag> Tags { get; }
         public List<Tag> UsedTags = new List<Tag>();
         public abstract string UseCommandTo { get; }

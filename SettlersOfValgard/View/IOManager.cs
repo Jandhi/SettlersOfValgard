@@ -4,8 +4,7 @@ using System.Linq;
 using Microsoft.VisualBasic.CompilerServices;
 using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.UtilLibrary;
-using SettlersOfValgard.View.Command;
-using SettlersOfValgard.View.OldCommand;
+using SettlersOfValgard.View.Commands.Core;
 
 namespace SettlersOfValgard.View
 {

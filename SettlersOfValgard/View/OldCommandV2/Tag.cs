@@ -43,16 +43,16 @@ namespace SettlersOfValgard.View.Command
             }
         }
 
-        public List<Argument> Arguments;
+        public List<Argument.Argument> Arguments;
         
         public Tag(string name, string description)
         {
-            Arguments = new List<Argument>();
+            Arguments = new List<Argument.Argument>();
             Name = name;
             Description = description;
         }
 
-        public Tag(string name, string description, List<Argument> arguments)
+        public Tag(string name, string description, List<Argument.Argument> arguments)
         {
             Arguments = arguments;
             Description = description;

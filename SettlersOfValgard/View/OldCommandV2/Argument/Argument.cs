@@ -1,7 +1,7 @@
 ﻿using System;
 using SettlersOfValgard.Model.Name;
 
-namespace SettlersOfValgard.View.Command
+namespace SettlersOfValgard.View.Command.Argument
 {
     public abstract class Argument : INamed
     {

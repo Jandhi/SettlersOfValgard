@@ -1,9 +1,6 @@
-﻿using System;
-using SettlersOfValgard.Model.Resource.Food;
-using SettlersOfValgard.Model.Resource.Material;
-using SettlersOfValgard.Model.Settler.Relationship;
+﻿using SettlersOfValgard.UtilLibrary;
 using SettlersOfValgard.View;
-using SettlersOfValgard.View.Command;
+using SettlersOfValgard.View.Commands.Settlement;
 
 namespace SettlersOfValgard
 {

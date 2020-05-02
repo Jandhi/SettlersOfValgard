@@ -7,14 +7,20 @@
 
     <ItemGroup>
       <Compile Remove="Old\**" />
+      <Compile Remove="View\OldCommand\**" />
+      <Compile Remove="View\OldCommandV2\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="Old\**" />
+      <EmbeddedResource Remove="View\OldCommand\**" />
+      <EmbeddedResource Remove="View\OldCommandV2\**" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="Old\**" />
+      <None Remove="View\OldCommand\**" />
+      <None Remove="View\OldCommandV2\**" />
     </ItemGroup>
 
 </Project>
