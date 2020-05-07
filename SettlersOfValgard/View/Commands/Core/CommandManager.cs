@@ -18,6 +18,7 @@ namespace SettlersOfValgard.View.Commands.Core
         public Command[] GameCommands { get; } =
         {
             new AutoHomeCommand(),
+            new BuildingCommand(),
             new BlueprintCommand(),
             new BoopCommand(),
             new SettlerCommand(),

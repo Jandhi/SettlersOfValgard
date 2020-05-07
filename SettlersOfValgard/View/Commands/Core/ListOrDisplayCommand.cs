@@ -11,8 +11,9 @@ namespace SettlersOfValgard.View.Commands.Core
     {
         public abstract string Type { get; }
         
-        public override List<Argument> OptionalArguments => new List<Argument>{NameArgument};
+        public override List<Argument> OptionalArguments => new List<Argument>{NameArgument, NumberArgument};
         public UnlimitedStringArgument NameArgument = new UnlimitedStringArgument("Name", "The name of the item to display");
+        public NaturalNumberArgument NumberArgument = new NaturalNumberArgument("Number", "The nth item to display");
         public override List<Tag> Tags => new List<Tag>{NumberedTag, SeparatedTag};
         public readonly Tag NumberedTag = new Tag("-n", "Number the listed items");
         public readonly Tag SeparatedTag = new Tag("-s", "Separate items with the same name");
@@ -21,14 +22,31 @@ namespace SettlersOfValgard.View.Commands.Core
         {
             if (NameArgument.IsFilled)
             {
-                var item = GetList(game).FirstOrDefault(t => string.Equals(t.Name, NameArgument.Contents, StringComparison.CurrentCultureIgnoreCase));
-                if (item == null)
+                if (NumberArgument.IsFilled)
                 {
-                    CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: No {Type} with name {NameArgument.Contents} found!");
+                    var list = GetList(game).Where(t =>
+                            string.Equals(t.Name, NameArgument.Contents, StringComparison.CurrentCultureIgnoreCase))
+                        .ToList();
+                    if(list.Count < NumberArgument.Contents) 
+                    {
+                        CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: There are only {list.Count} items with name {NameArgument.Contents}!");
+                    } 
+                    else
+                    {
+                        Display(list[NumberArgument.Contents - 1]);
+                    }
                 }
                 else
-                {    
-                    Display(item);
+                {
+                    var item = GetList(game).FirstOrDefault(t => string.Equals(t.Name, NameArgument.Contents, StringComparison.CurrentCultureIgnoreCase));
+                    if (item == null)
+                    {
+                        CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: No {Type} with name {NameArgument.Contents} found!");
+                    }
+                    else
+                    {    
+                        Display(item);
+                    }
                 }
             }
             else

@@ -18,6 +18,7 @@ namespace SettlersOfValgard.View.Commands.Settlement.Building
         public override void Display(Model.Building.Building t)
         {
             //TODO
+            throw new System.NotImplementedException();
         }
     }
 }

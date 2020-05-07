@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SettlersOfValgard.Model.Name;
+using SettlersOfValgard.UtilLibrary;
 using SettlersOfValgard.View.Commands.Core.Arguments;
 
 namespace SettlersOfValgard.View.Commands
@@ -75,7 +76,25 @@ namespace SettlersOfValgard.View.Commands
                         optArgs[i - Arguments.Count] = args[i];
                     }
                 }
-                ProcessUnlimited(optArgs, OptionalArguments);
+                
+                var list = ArraysUtility.SubArray(OptionalArguments.ToArray(), 0, optArgs.Length).ToList();
+                
+                //TRIES TO MAXIMIZE OPTIONAL ARGUMENTS ADDED
+
+                for (var i = list.Count; i > 0; i--)
+                {
+                    try
+                    {
+                        ProcessUnlimited(optArgs, list);
+                    }
+                    catch (Exception e)
+                    {
+                        list.RemoveAt(list.Count - 1); //Remove Last Item
+                        continue;
+                    }
+                    
+                    return;
+                }
             }
             else
             {
@@ -100,6 +119,7 @@ namespace SettlersOfValgard.View.Commands
 
         private void ProcessUnlimited(string[] args, List<Argument> arguments)
         {
+            //ASSUMES args.length >= arguments.count!!!
             //Splits arguments before and after unlimited argument and gives unlimited argument the leftovers
             var before = new List<Argument>();
             UnlimitedStringArgument unlimitedArg = null;
