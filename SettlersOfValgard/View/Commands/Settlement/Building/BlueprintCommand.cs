@@ -15,9 +15,6 @@ namespace SettlersOfValgard.View.Commands.Settlement.Building
         public override string Name => "Blueprint";
         public override string[] Aliases { get; } = {"bp", "blueprint", "blueprints"};
 
-        public override string UseCommandTo =>
-            "List your available blueprints or display details on a specific blueprint";
-
         public override string Type { get; } = "Blueprint";
         public override List<Blueprint> GetList(Game game)
         {

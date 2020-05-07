@@ -10,13 +10,21 @@ namespace SettlersOfValgard.View.Commands.Core
     public abstract class ListOrDisplayCommand<T> : Command where T : INamed
     {
         public abstract string Type { get; }
+        public override string UseCommandTo => $"List {Type}s in your settlement, or display information about one.";
         
         public override List<Argument> OptionalArguments => new List<Argument>{NameArgument, NumberArgument};
         public UnlimitedStringArgument NameArgument = new UnlimitedStringArgument("Name", "The name of the item to display");
         public NaturalNumberArgument NumberArgument = new NaturalNumberArgument("Number", "The nth item to display");
-        public override List<Tag> Tags => new List<Tag>{NumberedTag, SeparatedTag};
+        public override List<Tag> Tags => new List<Tag>(AdditionalTags){EndFilterTag, NumberedTag, SeparatedTag};
+        public Tag EndFilterTag;
+        public UnlimitedStringArgument NameEndArgument = new UnlimitedStringArgument("End", "The end of the name");
         public readonly Tag NumberedTag = new Tag("-n", "Number the listed items");
         public readonly Tag SeparatedTag = new Tag("-s", "Separate items with the same name");
+
+        public ListOrDisplayCommand()
+        {
+            EndFilterTag = new Tag("-end", "Specify the end of the name", new List<Argument>{NameEndArgument});
+        }
 
         public override void Execute(Game game)
         {
@@ -57,7 +65,15 @@ namespace SettlersOfValgard.View.Commands.Core
             }
             else
             {
-                Display(GetList(game));
+                var list = GetFilteredList(game);
+                if (list.Count == 0)
+                {
+                    CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: No {Type}s found.");
+                }
+                else
+                {
+                    Display(list);   
+                }
             }
         }
 
@@ -68,10 +84,28 @@ namespace SettlersOfValgard.View.Commands.Core
 
         private List<T> GetFilteredList(Game game)
         {
-            var length = NameArgument.Contents.Length;
-            return GetList(game).Where(item => item.Name.Length >= length && string.Equals(item.Name.Substring(0, length), NameArgument.Contents, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            List<T> list = GetList(game);
+            
+            if(NameArgument.IsFilled) {
+                var length = NameArgument.Contents.Length;
+                list = list.Where(item => item.Name.Length >= length && string.Equals(item.Name.Substring(0, length), NameArgument.Contents, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
+            
+            if (EndFilterTag.Used)
+            {
+                var length = NameEndArgument.Contents.Length;
+                list = list.Where(item => item.Name.Length >= length && string.Equals(item.Name.Substring(item.Name.Length - length, length), NameEndArgument.Contents, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
+            
+            return list.Where(item => AdditionalFilter(item)).ToList();
+        }
+
+        public virtual bool AdditionalFilter(T item)
+        {
+            return true;
         }
         public abstract List<T> GetList(Game game);
         public abstract void Display(T t);
+        public virtual List<Tag> AdditionalTags { get; } = new List<Tag>();
     }
 }

@@ -4,6 +4,11 @@ namespace SettlersOfValgard.Model.Settler.Gender
 {
     public abstract class Gender : CustomEnum
     {
-        protected Gender(string name, string symbol, int value, string color) : base(name, value, color) {}
+        public string Symbol { get; }
+
+        protected Gender(string name, string symbol, int value, string color) : base(name, value, color)
+        {
+            Symbol = symbol;
+        }
     }
 }

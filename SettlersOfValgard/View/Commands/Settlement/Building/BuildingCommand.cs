@@ -7,7 +7,6 @@ namespace SettlersOfValgard.View.Commands.Settlement.Building
     {
         public override string Name => "Building";
         public override string[] Aliases { get; } = {"b"};
-        public override string UseCommandTo => "List buildings in your settlement, or display";
         public override string Type => "Building";
 
         public override List<Model.Building.Building> GetList(Game game)
