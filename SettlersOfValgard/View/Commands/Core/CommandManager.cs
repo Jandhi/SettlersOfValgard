@@ -47,11 +47,17 @@ namespace SettlersOfValgard.View.Commands.Core
                 try
                 {
                     command.AttemptExecution(args, game);
+                    command.Clear();
                 }
                 catch (FormatException e)
                 {
                     CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: {e.Message}");
-                    CustomConsole.WriteLine($"The format of \"{command.Name}\" is: {CustomConsole.Gray}{command.Aliases[0]} {command.Format}");
+                    CustomConsole.WriteLine(
+                        $"The format of \"{command.Name}\" is: {CustomConsole.Gray}{command.Aliases[0]} {command.Format}");
+                }
+                catch (NotImplementedException e)
+                {
+                    CustomConsole.WriteLine($"{CustomConsole.Yellow}Sorry! This feature hasn't been implemented!");
                 }
             }
         }

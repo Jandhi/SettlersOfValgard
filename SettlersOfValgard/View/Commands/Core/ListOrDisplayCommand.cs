@@ -24,13 +24,12 @@ namespace SettlersOfValgard.View.Commands.Core
             {
                 if (NumberArgument.IsFilled)
                 {
-                    var list = GetList(game).Where(t =>
-                            string.Equals(t.Name, NameArgument.Contents, StringComparison.CurrentCultureIgnoreCase))
-                        .ToList();
-                    if(list.Count < NumberArgument.Contents) 
+                    var list = GetFilteredList(game);
+                    if (list.Count < NumberArgument.Contents)
                     {
-                        CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: There are only {list.Count} items with name {NameArgument.Contents}!");
-                    } 
+                        CustomConsole.WriteLine(
+                            $"{CustomConsole.Red}ERROR: There are only {list.Count} items with name starting with {NameArgument.Contents}!");
+                    }
                     else
                     {
                         Display(list[NumberArgument.Contents - 1]);
@@ -38,23 +37,40 @@ namespace SettlersOfValgard.View.Commands.Core
                 }
                 else
                 {
-                    var item = GetList(game).FirstOrDefault(t => string.Equals(t.Name, NameArgument.Contents, StringComparison.CurrentCultureIgnoreCase));
-                    if (item == null)
+                    var list = GetFilteredList(game);
+                    
+                    
+                    if (list.Count == 0)
                     {
-                        CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: No {Type} with name {NameArgument.Contents} found!");
+                        CustomConsole.WriteLine(
+                            $"{CustomConsole.Red}ERROR: No {Type} with name starting with {NameArgument.Contents} found!");
+                    }
+                    else if (list.Count > 1)
+                    {
+                        Display(list);
                     }
                     else
-                    {    
-                        Display(item);
+                    {
+                        Display(list[0]);
                     }
                 }
             }
             else
             {
-                IOManager.ListInConsole(GetList(game), NumberedTag.Used, SeparatedTag.Used);
+                Display(GetList(game));
             }
         }
-        
+
+        private void Display(List<T> list)
+        {
+            IOManager.ListInConsole(list, NumberedTag.Used, SeparatedTag.Used);
+        }
+
+        private List<T> GetFilteredList(Game game)
+        {
+            var length = NameArgument.Contents.Length;
+            return GetList(game).Where(item => item.Name.Length >= length && string.Equals(item.Name.Substring(0, length), NameArgument.Contents, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        }
         public abstract List<T> GetList(Game game);
         public abstract void Display(T t);
     }

@@ -18,7 +18,6 @@ namespace SettlersOfValgard.View.Commands.Core
         {
             ProcessArgs(args);
             Execute(game);
-            Clear();
         }
 
         public override void ProcessArgs(string[] args)
