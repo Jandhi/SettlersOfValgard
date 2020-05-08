@@ -55,8 +55,7 @@ namespace SettlersOfValgard.Model.Settler
             }
             if (before < SkillLevel(skill))
             {
-                //Level Up!
-                //TODO
+                settlement.MessageManager.TodaysMessages.Add(new SkillIncreasedMessage(this, skill, SkillLevel(skill)));
             }
         }
 

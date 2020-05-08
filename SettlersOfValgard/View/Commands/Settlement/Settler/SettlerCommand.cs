@@ -32,7 +32,7 @@ namespace SettlersOfValgard.View.Commands.Settlement.Settler
             {
                 if (item is IGendered<BinaryGender> gendered)
                 {
-                    return StringsUtil.IsMatchingStart(gendered.Gender, GenderArgument.Contents) 
+                    return StringsUtil.IsMatchingStartIgnoreCase(gendered.Gender, GenderArgument.Contents) 
                            || string.Equals(gendered.Gender.Symbol, GenderArgument.Contents, StringComparison.CurrentCultureIgnoreCase);
                 }
                 else

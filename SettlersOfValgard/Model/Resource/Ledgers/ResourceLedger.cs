@@ -25,7 +25,7 @@ namespace SettlersOfValgard.Model.Resource
 
         public override string ToString()
         {
-            var stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder("(");
             var first = true;
             foreach (var (resource, amount) in Contents)
             {
@@ -34,7 +34,7 @@ namespace SettlersOfValgard.Model.Resource
                 if(first) first = false;
             }
 
-            return stringBuilder.ToString();
+            return stringBuilder.Append(")").ToString();
         }
     }
 }

@@ -10,6 +10,7 @@ using SettlersOfValgard.View.Commands.Settlement.Auto;
 using SettlersOfValgard.View.Commands.Settlement.Building;
 using SettlersOfValgard.View.Commands.Settlement.Extras;
 using SettlersOfValgard.View.Commands.Settlement.Settler;
+using SettlersOfValgard.View.Commands.Settlement.Stockpile;
 
 namespace SettlersOfValgard.View.Commands.Core
 {
@@ -18,9 +19,13 @@ namespace SettlersOfValgard.View.Commands.Core
         public Command[] GameCommands { get; } =
         {
             new AutoHomeCommand(),
+            new AutoWorkCommand(),
             new BuildingCommand(),
             new BlueprintCommand(),
             new BoopCommand(),
+            new ConstructCommand(),
+            new PassDayCommand(),
+            new ResourceCommand(),
             new SettlerCommand(),
             new StatusCommand(),
         };
@@ -41,6 +46,20 @@ namespace SettlersOfValgard.View.Commands.Core
             if (command == null)
             {
                 CustomConsole.WriteLine($"{CustomConsole.Red}ERROR: The Commmand \"{commandName}\" does not exist.");
+                command = (!game.IsInMenu ? MenuCommands : GameCommands).FirstOrDefault(com =>
+                    com.Aliases.Any(alias => alias == commandName));
+                if (command != null)
+                {
+                    if (game.IsInMenu)
+                    {
+                        CustomConsole.WriteLine($"{CustomConsole.Gray}The command \"{command}\" is not available in menu.");
+                    }
+                    else
+                    {
+                        CustomConsole.WriteLine(
+                            $"{CustomConsole.Gray}The command \"{command}\" is only available in menu.");
+                    }
+                }
             }
             else
             {

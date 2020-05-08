@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Transactions;
 using SettlersOfValgard.Model.Building.Residence;
+using SettlersOfValgard.Model.Resource.Transactions;
 using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Resource
@@ -91,6 +93,11 @@ namespace SettlersOfValgard.Model.Resource
             stringBuilder.Append(")");
 
             return stringBuilder.ToString();
+        }
+
+        public Transactions.Transaction ToTransaction()
+        {
+            return new Transactions.Transaction(Contents);
         }
     }
 }

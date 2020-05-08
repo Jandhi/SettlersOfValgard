@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SettlersOfValgard.UtilLibrary;
 using SettlersOfValgard.View.Commands.Core;
@@ -10,7 +11,7 @@ namespace SettlersOfValgard.View.Commands.General
     {
         public override string Name => "Help";
         public override string[] Aliases { get; } = {"help", "Help"};
-        public override string UseCommandTo { get; }
+        public override string UseCommandTo => "get information about the game or a command";
 
         public override List<Argument> OptionalArguments { get; } = new List<Argument>{CommandArgument};
         private static readonly StringArgument CommandArgument = new StringArgument("Command", "The Command for which to get help");
@@ -29,7 +30,7 @@ namespace SettlersOfValgard.View.Commands.General
 
         private void GeneralHelp(Game game)
         {
-            
+            throw new NotImplementedException();
         }
 
         private void CommandHelp(Game game)

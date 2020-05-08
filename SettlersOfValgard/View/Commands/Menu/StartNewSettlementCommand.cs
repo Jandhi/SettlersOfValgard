@@ -20,7 +20,7 @@ namespace SettlersOfValgard.View.Commands.Menu
 {
     public class StartNewSettlementCommand : Command
     {
-        public override string Name => "StartNewSettlement";
+        public override string Name => "Start New Settlement";
         public override string[] Aliases { get; } = {"s"};
         public override string UseCommandTo => "Start a new settlement";
 

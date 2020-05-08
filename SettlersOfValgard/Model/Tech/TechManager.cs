@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SettlersOfValgard.Model.Tech
 {
@@ -12,7 +13,11 @@ namespace SettlersOfValgard.Model.Tech
 
         public List<Tech> Discovered { get; }
         public TechTree Tree { get; }
-        
+
+        public List<Tech> GetAvailableTech(Settlement.Settlement settlement)
+        {
+            return Tree.Technologies.Where(tech => !Discovered.Contains(tech) && tech.IsAvailable(settlement)).ToList();
+        }
         public void Discover(Tech tech, Settlement.Settlement settlement)
         {
             //Add all blueprints
