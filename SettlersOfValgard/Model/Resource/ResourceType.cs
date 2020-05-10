@@ -2,7 +2,7 @@
 
 namespace SettlersOfValgard.Model.Resource
 {
-    public class ResourceType : CustomEnum
+    public class ResourceType : CustomEnum<ResourceType>
     {
         public static readonly ResourceType Material =
             new ResourceType("Material", 0, CustomConsole.Green);
@@ -21,5 +21,7 @@ namespace SettlersOfValgard.Model.Resource
         private ResourceType(string name, int value, string color) : base(name, value, color)
         {
         }
+
+        public override ResourceType[] Values => Types;
     }
 }

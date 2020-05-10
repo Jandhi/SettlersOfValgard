@@ -3,7 +3,7 @@ using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Location.Weather
 {
-    public class Temperature : CustomEnum
+    public class Temperature : CustomEnum<Temperature>
     {
         public static readonly Temperature Freezing = new Temperature("Freezing", 0, CustomConsole.Blue);
         public static readonly Temperature Cold = new Temperature("Cold", 1, CustomConsole.Cyan);
@@ -12,6 +12,7 @@ namespace SettlersOfValgard.Model.Location.Weather
         public static readonly Temperature Warm = new Temperature("Warm", 4,CustomConsole.Yellow); 
         public static readonly Temperature Hot = new Temperature("Hot", 5, CustomConsole.Red);
         public static readonly Temperature[] Temperatures = {Freezing, Cold, Cool, Mild, Warm, Hot};
+        public override Temperature[] Values => Temperatures;
 
         private Temperature(string name, int value, string color) : base(name, value, color) {}
     }

@@ -2,7 +2,7 @@
 
 namespace SettlersOfValgard.Model.Settler.Skill
 {
-    public class SkillLevel : CustomEnum
+    public class SkillLevel : CustomEnum<SkillLevel>
     {
         public static readonly SkillLevel Unskilled = new SkillLevel("Unskilled", 0, CustomConsole.Gray);
         public static readonly SkillLevel Novice = new SkillLevel("Novice", 1, CustomConsole.Green);
@@ -45,5 +45,7 @@ namespace SettlersOfValgard.Model.Settler.Skill
         private SkillLevel(string name, int value, string color) : base(name, value, color)
         {
         }
+
+        public override SkillLevel[] Values => Levels;
     }
 }

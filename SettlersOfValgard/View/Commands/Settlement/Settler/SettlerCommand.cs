@@ -46,10 +46,17 @@ namespace SettlersOfValgard.View.Commands.Settlement.Settler
             }
         }
 
-        public override void Display(Model.Settler.Settler t)
+        public override void Display(Model.Settler.Settler settler)
         {
-            //TODO
-            throw new System.NotImplementedException();
+            CustomConsole.WriteLine($"{settler.Name.ToUpper()}:");
+            CustomConsole.TitleLine();
+
+            var traits = settler.MajorTraits();
+            if(traits != "") CustomConsole.WriteLine($"{traits}");
+            if (settler is IGendered<Gender> gendered)
+            {
+                CustomConsole.WriteLine($"Gender: {gendered.Gender}");
+            }
         }
     }
 }

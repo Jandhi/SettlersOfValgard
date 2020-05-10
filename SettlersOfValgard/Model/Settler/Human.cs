@@ -1,11 +1,13 @@
 ﻿using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Settler.Event;
 using SettlersOfValgard.Model.Settler.Gender;
+using SettlersOfValgard.Model.Settler.Traits;
 using SettlersOfValgard.Model.Time;
+using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Settler
 {
-    public abstract class Human : Settler, IGendered<BinaryGender>
+    public abstract class Human : Inheritor, IGendered<BinaryGender>
     {
         protected Human(BinaryGender gender)
         {

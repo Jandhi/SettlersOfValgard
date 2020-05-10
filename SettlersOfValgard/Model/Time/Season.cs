@@ -2,7 +2,7 @@
 
 namespace SettlersOfValgard.Model.Time
 {
-    public class Season : CustomEnum
+    public class Season : CustomEnum<Season>
     {
         public static readonly Season Spring = new Season("Spring", 0, CustomConsole.Green);
         public static readonly Season Summer = new Season("Summer", 1, CustomConsole.Yellow);
@@ -13,5 +13,7 @@ namespace SettlersOfValgard.Model.Time
         private Season(string name, int value, string color) : base(name, value, color)
         {
         }
+
+        public override Season[] Values => Seasons;
     }
 }

@@ -10,6 +10,8 @@ namespace SettlersOfValgard.Model.Resource.Food
         public static readonly Food Fruit = new Food("Fruit", 2, CustomConsole.Blue, "");
         public static readonly Food Pom = new Food("Pom", 2, CustomConsole.Red, "");
         public static readonly Food WildGreens = new Food("Wild Greens", 3, CustomConsole.Green, "");
+        public static readonly Food[] Foods = {Grain, Meat, Fruit, Pom, WildGreens};
+        public override Resource[] Values => Foods;
 
         protected Food(string name, int value, string color, string description) : base(name, value, color, description)
         {

@@ -3,7 +3,7 @@ using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Resource
 {
-    public abstract class Resource : CustomEnum, IDescribed
+    public abstract class Resource : CustomEnum<Resource>, IDescribed
     {
         public abstract ResourceType type { get; }
         

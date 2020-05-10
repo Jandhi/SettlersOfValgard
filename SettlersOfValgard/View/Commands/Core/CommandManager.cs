@@ -25,6 +25,7 @@ namespace SettlersOfValgard.View.Commands.Core
             new BoopCommand(),
             new ConstructCommand(),
             new PassDayCommand(),
+            new RelationshipCommand(),
             new ResourceCommand(),
             new SettlerCommand(),
             new StatusCommand(),

@@ -3,7 +3,7 @@ using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Rank
 {
-    public class PlayerRank : CustomEnum
+    public class PlayerRank : CustomEnum<PlayerRank>
     {
         public static readonly PlayerRank Freeman = new PlayerRank("Freeman", 0, CustomConsole.Green);
         public static readonly PlayerRank Chieftain = new PlayerRank("Chieftain", 1, CustomConsole.Cyan);
@@ -12,6 +12,7 @@ namespace SettlersOfValgard.Model.Rank
         public static readonly PlayerRank Jarl = new PlayerRank("Jarl", 4, CustomConsole.Red);
         public static readonly PlayerRank Konungr = new PlayerRank("Konungr", 5, CustomConsole.Yellow);
         public static readonly PlayerRank[] Ranks = {Freeman, Chieftain, Gothi, Thane, Jarl, Konungr};
+        public override PlayerRank[] Values => Ranks;
 
         public static PlayerRank GetRank(int population)
         {

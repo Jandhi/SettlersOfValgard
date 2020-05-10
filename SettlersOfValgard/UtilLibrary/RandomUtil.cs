@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SettlersOfValgard.UtilLibrary
 {
@@ -18,10 +19,11 @@ namespace SettlersOfValgard.UtilLibrary
         {
             return arr.Length == 0 ? default : arr[new Random().Next(arr.Length)];
         }
-
+        
+        
         public static T WeightedGet<T>(IEnumerable<T> arr, T def, Func<T, int> weightFunc)
         {
-            var roll = new Random().Next(100);
+            var roll = new Random().Next(arr.Aggregate(0, (sum, arg) => sum + weightFunc(arg)));
             var cumulative = 0;
             foreach (var t in arr)
             {
@@ -30,6 +32,11 @@ namespace SettlersOfValgard.UtilLibrary
             }
 
             return def;
+        }
+
+        public static bool Chance(int chance, int total)
+        {
+            return new Random().Next(total) < chance;
         }
     }
 }
