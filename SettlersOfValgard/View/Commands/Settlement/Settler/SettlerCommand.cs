@@ -53,10 +53,13 @@ namespace SettlersOfValgard.View.Commands.Settlement.Settler
 
             var traits = settler.MajorTraits();
             if(traits != "") CustomConsole.WriteLine($"{traits}");
+            
             if (settler is IGendered<Gender> gendered)
             {
                 CustomConsole.WriteLine($"Gender: {gendered.Gender}");
             }
+            
+            CustomConsole.WriteLine($"Prestige: {settler.PrestigeLevel}");
         }
     }
 }

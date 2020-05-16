@@ -17,6 +17,7 @@ namespace SettlersOfValgard.View.Commands.Settlement
             {
                 game.Settlement.StopDayPass = false;
                 for (int i = 0; i < DayAmountArgument.Contents && !game.Settlement.StopDayPass; i++) game.Settlement.PassDay();
+                game.Settlement.StopDayPass = false;
             }
             else
             {

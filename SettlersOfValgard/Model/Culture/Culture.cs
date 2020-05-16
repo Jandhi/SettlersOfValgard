@@ -1,14 +1,12 @@
-﻿using SettlersOfValgard.Model.Tech;
+﻿using SettlersOfValgard.Model.Settler.Prestige;
+using SettlersOfValgard.Model.Tech;
 
 namespace SettlersOfValgard.Model.Culture
 {
-    public class Culture
+    public abstract class Culture
     {
-        public Culture(TechTree techTree)
-        {
-            TechTree = techTree;
-        }
 
-        public TechTree TechTree { get; }
+        public abstract TechTree TechTree { get; }
+        public abstract PrestigeSystem PrestigeSystem { get; }
     }
 }

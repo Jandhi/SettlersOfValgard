@@ -23,8 +23,8 @@ namespace SettlersOfValgard.View.Commands.Settlement.Building
 
         public override void Display(Blueprint bp)
         {
-            CustomConsole.WriteLine($"{bp.Name}:");
             CustomConsole.TitleLine();
+            CustomConsole.WriteLine($"{bp.Name.ToUpper()}:");
             if (bp.Building is Workplace)
             {
                 CustomConsole.WriteLine($"Workplace");

@@ -20,7 +20,8 @@ namespace SettlersOfValgard.Model.Event
             var today = settlement.TodaysDate.DaysSinceSettlement;
             PurgeYesterday(today);
             //Generate a new event if there isn't one
-            return EventCalendar.ContainsKey(today) ? EventCalendar[today] : new List<Event>{Generate(settlement)};
+            if(!EventCalendar.ContainsKey(today)) Generate(settlement);
+            return EventCalendar[today];
         }
 
         private void PurgeYesterday(int today)
@@ -34,14 +35,20 @@ namespace SettlersOfValgard.Model.Event
             var rarity =
                 RandomUtil.WeightedPercentGet(EventRarity.Rarities, null, eventRarity => eventRarity.PercentChance);
             var ev = !(rarity == null) ? RandomUtil.Get(RandomEventArrays[rarity]) : null;
-            EventCalendar.Add(today, new List<Event>{ev}); //Add Today's Event to Calendar
-
-        return ev;
+            
+            //Add Today's Event to Calendar if not null
+            EventCalendar.Add(today, ev != null ? new List<Event> {ev} : new List<Event>());
+            return ev;
         }
 
         public void ExecuteTodaysEvents(Settlement.Settlement settlement)
         {
-            TodaysEvents(settlement)?.ForEach(ev => ev?.Execute(settlement));
+            var list = TodaysEvents(settlement);
+            if (list.Count > 0)
+            {
+                TodaysEvents(settlement).ForEach(ev => ev?.Execute(settlement));
+                settlement.StopDayPass = true;
+            }
         }
     }
 }

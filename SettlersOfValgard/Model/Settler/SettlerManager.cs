@@ -40,5 +40,13 @@ namespace SettlersOfValgard.Model.Settler
                 Families.Add(settler.Family);
             }
         }
+
+        public void UpdatePrestige(Settlement.Settlement settlement)
+        {
+            foreach (var settler in Settlers)
+            {
+                settler.UpdatePrestige(settlement);
+            }
+        }
     }
 }

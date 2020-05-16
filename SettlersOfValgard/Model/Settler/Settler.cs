@@ -23,7 +23,7 @@ namespace SettlersOfValgard.Model.Settler
         public List<Relationship.Relationship> Relationships { get; } = new List<Relationship.Relationship>();
 
         public PrestigeLevel PrestigeLevel => PrestigeLevel.PrestigeToLevel(PrestigeAmount);
-        public int PrestigeAmount { get; }
+        public int PrestigeAmount { get; set; }
 
         public abstract bool CanWork(Settlement.Settlement settlement);
 
@@ -85,6 +85,17 @@ namespace SettlersOfValgard.Model.Settler
             }
 
             return StringsUtil.CommaList(strings.ToArray());
+        }
+
+        //Lazy evaluation of prestige: it is only recalculated after important changes
+        public void UpdatePrestige(Settlement.Settlement settlement)
+        {
+            var oldLevel = PrestigeLevel;
+            PrestigeAmount = settlement.Culture.PrestigeSystem.CalculatePrestige(this);
+            if (oldLevel != PrestigeLevel)
+            {
+                settlement.AddMessage(new SettlerPrestigeChangeMessage(this, oldLevel));
+            }
         }
     }
 }

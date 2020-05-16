@@ -40,6 +40,7 @@ namespace SettlersOfValgard.Model.Settlement
         
         public PlayerRank Rank => PlayerRank.GetRank(Settlers.Count);
 
+        public Culture.Culture Culture { get; }
         public TechManager TechManager { get; }
         public List<Blueprint> Blueprints { get; } = new List<Blueprint>();
 
@@ -48,6 +49,7 @@ namespace SettlersOfValgard.Model.Settlement
             Name = name;
             Location = location;
             TechManager = new TechManager(culture.TechTree);
+            Culture = culture;
             Stockpile = new Stockpile();
             TodaysWeather = Location.GenerateWeather();
         }
@@ -58,6 +60,8 @@ namespace SettlersOfValgard.Model.Settlement
             DoWork();
             FeedSettlers();
             
+            Update();
+
             Stockpile.AddTodaysTransactionsMessage(MessageManager);
             Stockpile.ArchiveTodaysTransactions();
             Stockpile.ClearTodaysTransactions();
@@ -93,6 +97,11 @@ namespace SettlersOfValgard.Model.Settlement
             
             AddCumulativeSettlerAteEvent();
             AddCumulativeSettlerStarvedEvent();
+        }
+
+        public void Update()
+        {
+            SettlerManager.UpdatePrestige(this);
         }
 
         private void AddCumulativeSettlerAteEvent()
