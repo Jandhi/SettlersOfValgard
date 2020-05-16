@@ -33,6 +33,19 @@ namespace SettlersOfValgard.UtilLibrary
 
             return def;
         }
+        
+        public static T WeightedPercentGet<T>(IEnumerable<T> arr, T def, Func<T, int> weightFunc)
+        {
+            var roll = new Random().Next(100);
+            var cumulative = 0;
+            foreach (var t in arr)
+            {
+                cumulative += weightFunc(t);
+                if (roll < cumulative) return t;
+            }
+
+            return def;
+        }
 
         public static bool Chance(int chance, int total)
         {

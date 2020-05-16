@@ -47,7 +47,7 @@ namespace SettlersOfValgard.Model.Varsk
             int age = new Random().Next(minParentAge - Varsk.VarskAdultYears * Date.DaysInYear);
             bool isMale = new Random().Next(2) == 0;
             NameFactory name = isMale ? VarskNameFactories.Male() : VarskNameFactories.Female();
-            var child = new Varsk(new Date(-1 * age), name.Generate(), $"{father.GivenName}sson", isMale ? BinaryGender.Male : BinaryGender.Female);
+            var child = new Varsk(new Date(-1 * age), name.Generate(), $"{(father.PrestigeLevel >= mother.PrestigeLevel ? father.GivenName : mother.GivenName)}sson", isMale ? BinaryGender.Male : BinaryGender.Female);
             ParentChildRelationship.Make(_manager,0, father, child);
             ParentChildRelationship.Make(_manager, 0, mother, child);
             Inheritor.GenerateChildTraits(child);

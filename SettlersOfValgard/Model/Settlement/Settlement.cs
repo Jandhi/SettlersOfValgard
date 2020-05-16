@@ -9,6 +9,7 @@ using SettlersOfValgard.Model.Rank;
 using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Settler;
 using SettlersOfValgard.Model.Settler.Event;
+using SettlersOfValgard.Model.Settler.Message;
 using SettlersOfValgard.Model.Tech;
 using SettlersOfValgard.Model.Time;
 using SettlersOfValgard.UtilLibrary;
@@ -48,6 +49,7 @@ namespace SettlersOfValgard.Model.Settlement
             Location = location;
             TechManager = new TechManager(culture.TechTree);
             Stockpile = new Stockpile();
+            TodaysWeather = Location.GenerateWeather();
         }
 
         public void PassDay()
@@ -64,8 +66,7 @@ namespace SettlersOfValgard.Model.Settlement
             MessageManager.ArchiveTodaysMessages();
             MessageManager.ClearTodaysMessages();
 
-            var ev = EventManager.TodaysEvent(this);
-            ev?.Execute(this);
+            EventManager.ExecuteTodaysEvents(this);
         }
 
         public void StartDay()

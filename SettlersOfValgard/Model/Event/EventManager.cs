@@ -6,7 +6,7 @@ namespace SettlersOfValgard.Model.Event
 {
     public class EventManager
     {
-        public Dictionary<int, Event> EventCalendar { get; }= new Dictionary<int, Event>();
+        public Dictionary<int, List<Event>> EventCalendar { get; }= new Dictionary<int, List<Event>>();
 
         public Dictionary<EventRarity, RandomEvent[]> RandomEventArrays { get; } = new Dictionary<EventRarity, RandomEvent[]>
         {
@@ -15,11 +15,12 @@ namespace SettlersOfValgard.Model.Event
             {EventRarity.Legendary, RandomEvent.Legendary}
         };
 
-        public Event TodaysEvent(Settlement.Settlement settlement)
+        public List<Event> TodaysEvents(Settlement.Settlement settlement)
         {
             var today = settlement.TodaysDate.DaysSinceSettlement;
             PurgeYesterday(today);
-            return EventCalendar.ContainsKey(today) ? EventCalendar[today] : Generate(settlement);
+            //Generate a new event if there isn't one
+            return EventCalendar.ContainsKey(today) ? EventCalendar[today] : new List<Event>{Generate(settlement)};
         }
 
         private void PurgeYesterday(int today)
@@ -31,10 +32,16 @@ namespace SettlersOfValgard.Model.Event
         {
             var today = settlement.TodaysDate.DaysSinceSettlement;
             var rarity =
-                RandomUtil.WeightedGet(EventRarity.Rarities, null, eventRarity => eventRarity.PercentChance);
+                RandomUtil.WeightedPercentGet(EventRarity.Rarities, null, eventRarity => eventRarity.PercentChance);
             var ev = !(rarity == null) ? RandomUtil.Get(RandomEventArrays[rarity]) : null;
-            EventCalendar.Add(today, ev); //Add Today's Event to Calendar
-            return ev;
+            EventCalendar.Add(today, new List<Event>{ev}); //Add Today's Event to Calendar
+
+        return ev;
+        }
+
+        public void ExecuteTodaysEvents(Settlement.Settlement settlement)
+        {
+            TodaysEvents(settlement)?.ForEach(ev => ev?.Execute(settlement));
         }
     }
 }

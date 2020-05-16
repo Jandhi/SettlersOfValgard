@@ -2,6 +2,7 @@
 using SettlersOfValgard.Model.Event;
 using SettlersOfValgard.Model.Resource.Transactions;
 using SettlersOfValgard.Model.Settler.Event;
+using SettlersOfValgard.Model.Settler.Message;
 
 namespace SettlersOfValgard.Model.Message
 {

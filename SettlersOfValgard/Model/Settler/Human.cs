@@ -1,6 +1,7 @@
 ﻿using SettlersOfValgard.Model.Resource;
 using SettlersOfValgard.Model.Settler.Event;
 using SettlersOfValgard.Model.Settler.Gender;
+using SettlersOfValgard.Model.Settler.Message;
 using SettlersOfValgard.Model.Settler.Traits;
 using SettlersOfValgard.Model.Time;
 using SettlersOfValgard.UtilLibrary;

@@ -1,11 +1,10 @@
 ﻿using SettlersOfValgard.Model.Event;
 using SettlersOfValgard.Model.Message;
 using SettlersOfValgard.Model.Resource;
-using SettlersOfValgard.UtilLibrary;
 
-namespace SettlersOfValgard.Model.Settler.Event
+namespace SettlersOfValgard.Model.Settler.Message
 {
-    public class SettlerAteMessage : Message.Message
+    public class SettlerAteMessage : Model.Message.Message
     {
         public SettlerAteMessage(Model.Settler.Settler settler, Bundle meal)
         {

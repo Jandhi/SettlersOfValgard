@@ -3,6 +3,7 @@ using System.Linq;
 using SettlersOfValgard.Model.Building.Workplace;
 using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.Model.Settler;
+using SettlersOfValgard.Model.Settler.Prestige;
 using SettlersOfValgard.Model.Settler.Skill;
 using SettlersOfValgard.Model.Settler.Traits;
 using SettlersOfValgard.Model.Time;
@@ -21,6 +22,9 @@ namespace SettlersOfValgard.Model.Settler
 
         public List<Relationship.Relationship> Relationships { get; } = new List<Relationship.Relationship>();
 
+        public PrestigeLevel PrestigeLevel => PrestigeLevel.PrestigeToLevel(PrestigeAmount);
+        public int PrestigeAmount { get; }
+
         public abstract bool CanWork(Settlement.Settlement settlement);
 
         public int AgeInDays(Settlement.Settlement settlement)
@@ -31,7 +35,7 @@ namespace SettlersOfValgard.Model.Settler
 
         public override string ToString()
         {
-            return $"{CustomConsole.Green}{Name}{CustomConsole.White}";
+            return $"{PrestigeLevel.Color}{Name}{CustomConsole.White}";
         }
 
         public SkillLevel SkillLevel(Model.Settler.Skill.Skill skill)

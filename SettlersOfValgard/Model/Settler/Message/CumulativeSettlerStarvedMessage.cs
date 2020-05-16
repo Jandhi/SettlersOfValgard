@@ -4,7 +4,7 @@ using SettlersOfValgard.UtilLibrary;
 
 namespace SettlersOfValgard.Model.Settler.Event
 {
-    public class CumulativeSettlerStarvedMessage : Message.Message
+    public class CumulativeSettlerStarvedMessage : Model.Message.Message
     {
         public CumulativeSettlerStarvedMessage(int eatCount)
         {

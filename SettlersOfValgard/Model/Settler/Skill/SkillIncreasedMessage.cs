@@ -3,7 +3,7 @@ using SettlersOfValgard.Model.Message;
 
 namespace SettlersOfValgard.Model.Settler.Skill
 {
-    public class SkillIncreasedMessage : Message.Message
+    public class SkillIncreasedMessage : Model.Message.Message
     {
         public SkillIncreasedMessage(Settler settler, Skill skill, SkillLevel level)
         {
