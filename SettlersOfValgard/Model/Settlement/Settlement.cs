@@ -42,6 +42,9 @@ namespace SettlersOfValgard.Model.Settlement
 
         public Culture.Culture Culture { get; }
         public TechManager TechManager { get; }
+
+        public int ResearchRate => 3;
+
         public List<Blueprint> Blueprints { get; } = new List<Blueprint>();
 
         public Settlement(string name, Location.Location location, Culture.Culture culture)
@@ -83,8 +86,7 @@ namespace SettlersOfValgard.Model.Settlement
         {
             foreach (var settler in Settlers)
             {
-                var work = settler.Workplace;
-                work?.HostWork(settler, this);
+                settler.DoWork(this);
             }
         }
 
@@ -95,30 +97,13 @@ namespace SettlersOfValgard.Model.Settlement
                 settler.GoEat(this);
             }
             
-            AddCumulativeSettlerAteEvent();
-            AddCumulativeSettlerStarvedEvent();
+            AddMessage(new CumulativeSettlerAteMessage(MessageManager.TodaysMessages));
+            AddMessage(new CumulativeSettlerStarvedMessage(MessageManager.TodaysMessages));
         }
 
         public void Update()
         {
             SettlerManager.UpdatePrestige(this);
-        }
-
-        private void AddCumulativeSettlerAteEvent()
-        {
-            var eatCount = MessageManager.TodaysMessages.OfType<SettlerAteMessage>().Count();
-            var meals = new Bundle();
-            foreach (var settlerAte in MessageManager.TodaysMessages.OfType<SettlerAteMessage>())
-            {
-                meals += settlerAte.Meal;
-            }
-            if(eatCount > 0) MessageManager.TodaysMessages.Add(new CumulativeSettlerAteMessage(eatCount, meals));
-        }
-        
-        private void AddCumulativeSettlerStarvedEvent()
-        {
-            var starveCount = MessageManager.TodaysMessages.OfType<SettlerStarvedMessage>().Count();
-            MessageManager.TodaysMessages.Add(new CumulativeSettlerStarvedMessage(starveCount));
         }
 
         public override string ToString()

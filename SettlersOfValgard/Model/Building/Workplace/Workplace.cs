@@ -14,6 +14,7 @@ namespace SettlersOfValgard.Model.Building.Workplace
             if (IsFull) return; //Can't add worker if full
             Workers.Add(worker);
             worker.Workplace = this;
+            ;
         }
 
         public abstract void HostWork(Settler.Settler worker, Settlement.Settlement settlement);

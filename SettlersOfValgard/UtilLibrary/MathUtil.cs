@@ -21,6 +21,18 @@ namespace SettlersOfValgard.UtilLibrary
             return list.Aggregate(0, (sum, i) => sum + i) / list.Length;
         }
 
+        public static int RoundUp(double num)
+        {
+            if (num - (int) num > 0)
+            {
+                return (int) num + 1;
+            }
+            else
+            {
+                return (int) num;
+            }
+        }
+
         public static int RoundTowardsZero(double num)
         {
             if (num > 0)

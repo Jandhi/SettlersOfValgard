@@ -25,9 +25,11 @@ namespace SettlersOfValgard.Model.Settler.Traits
         public static Trait Beauty = new Trait("Beauty", 8, CustomConsole.Magenta, CustomConsole.Magenta, "Fair", CustomConsole.Gray, "Ugly");
         //Likelihood to make good relationships
         public static Trait Charm = new Trait("Charm", 9, CustomConsole.Green, CustomConsole.Magenta, "Charming", CustomConsole.Gray, "Boring");
-
+        //likehood to work, be productive
+        public static Trait Discipline = new Trait("Discipline", 10, CustomConsole.DarkGreen, CustomConsole.Cyan, "Disciplined", CustomConsole.Gray, "Lazy");
+        
         public static Trait[] Traits =
-            {Kindness, Strength, Cleverness, Honour, Bravery, Health, Fertility, Beauty, Charm};
+            {Kindness, Strength, Cleverness, Honour, Bravery, Health, Fertility, Beauty, Charm, Discipline};
         
         protected Trait(string name, int value, string color, string positiveColor, string positiveDescriptor, string negativeColor, string negativeDescriptor) : base(name, value, color)
         {

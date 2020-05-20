@@ -3,6 +3,7 @@ using System.Linq;
 using SettlersOfValgard.Model.Building.Workplace;
 using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.Model.Settler;
+using SettlersOfValgard.Model.Settler.Message;
 using SettlersOfValgard.Model.Settler.Prestige;
 using SettlersOfValgard.Model.Settler.Skill;
 using SettlersOfValgard.Model.Settler.Traits;
@@ -64,6 +65,25 @@ namespace SettlersOfValgard.Model.Settler
             if (before < SkillLevel(skill))
             {
                 settlement.MessageManager.TodaysMessages.Add(new SkillIncreasedMessage(this, skill, SkillLevel(skill)));
+            }
+        }
+
+        public virtual void DoWork(Settlement.Settlement settlement)
+        {
+            //Can't work
+            if (Workplace == null) return;
+            
+            var discipline = Traits[Trait.Discipline];
+            if (discipline == TraitLevel.BelowAverage && RandomUtil.Chance(1, 40) || 
+                discipline == TraitLevel.Low && RandomUtil.Chance(1, 20) ||
+                discipline == TraitLevel.VeryLow && RandomUtil.Chance(1, 10))
+            {
+                //skipped work
+                settlement.AddMessage(new SettlerSkippedWorkMessage(this));
+            }
+            else
+            {
+                Workplace.HostWork(this, settlement);
             }
         }
 

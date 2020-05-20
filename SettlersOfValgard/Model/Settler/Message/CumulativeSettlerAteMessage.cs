@@ -1,21 +1,28 @@
-﻿using SettlersOfValgard.Model.Event;
+﻿using System.Collections.Generic;
+using SettlersOfValgard.Model.Event;
 using SettlersOfValgard.Model.Message;
 using SettlersOfValgard.Model.Resource;
 
 namespace SettlersOfValgard.Model.Settler.Message
 {
-    public class CumulativeSettlerAteMessage : Model.Message.Message
+    public class CumulativeSettlerAteMessage : CumulativeMessage<SettlerAteMessage>
     {
-        public CumulativeSettlerAteMessage(int eatCount, Bundle meals)
+        public CumulativeSettlerAteMessage(List<Model.Message.Message> todaysMessages) : base(todaysMessages)
         {
-            EatCount = eatCount;
-            Meals = meals;
+        }
+
+        public override void ProcessMessage(SettlerAteMessage tMessage)
+        {
+            Meals.Add(tMessage.Meal);
+            base.ProcessMessage(tMessage);
         }
 
         public override MessageType Type => MessageType.Settlement;
+
         public override MessagePriority Priority => MessagePriority.Important;
-        public int EatCount { get; }
-        public Bundle Meals { get; }
-        public override string Contents => $"{EatCount} settlers ate. {Meals}";
+
+        public Bundle Meals { get; } = new Bundle();
+
+        public override string Contents => $"{Count} settlers ate. {Meals}";
     }
 }

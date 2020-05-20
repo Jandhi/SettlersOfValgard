@@ -25,8 +25,9 @@ namespace SettlersOfValgard.View.Commands.Settlement.Auto
                 var employedCount = 0;
                 foreach (var unemployedSettler in unemployed)
                 {
-                    var unfilledWorkplace =
-                        game.Settlement.Buildings.Where(building => building is Workplace workplace && !workplace.IsFull) as Workplace;
+                    var workplace =
+                        game.Settlement.Buildings.OfType<Workplace>();
+                    var unfilledWorkplace = workplace.FirstOrDefault(work => !work.IsFull);
                     if (unfilledWorkplace == null) break;
                     unfilledWorkplace.AddWorker(unemployedSettler);
                     employedCount++;

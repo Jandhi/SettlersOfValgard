@@ -13,6 +13,7 @@ namespace SettlersOfValgard.Model.Tech
 
         public List<Tech> Discovered { get; }
         public TechTree Tree { get; }
+        public Tech CurrentResearch { get; set; }
 
         public List<Tech> GetAvailableTech(Settlement.Settlement settlement)
         {

@@ -11,6 +11,7 @@ using SettlersOfValgard.View.Commands.Settlement.Building;
 using SettlersOfValgard.View.Commands.Settlement.Extras;
 using SettlersOfValgard.View.Commands.Settlement.Settler;
 using SettlersOfValgard.View.Commands.Settlement.Stockpile;
+using SettlersOfValgard.View.Commands.Settlement.Tech;
 
 namespace SettlersOfValgard.View.Commands.Core
 {
@@ -30,6 +31,7 @@ namespace SettlersOfValgard.View.Commands.Core
             new ResourceCommand(),
             new SettlerCommand(),
             new StatusCommand(),
+            new TechCommand(),
         };
 
         public Command [] MenuCommands { get; } = 
