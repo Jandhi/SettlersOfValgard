@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SettlersOfValgard.Model.Settler
 {
@@ -9,6 +10,7 @@ namespace SettlersOfValgard.Model.Settler
         public Dictionary<Type, List<Relationship.Relationship>> RelationshipsByType { get; } = new Dictionary<Type, List<Relationship.Relationship>>();
         public List<Settler> Settlers { get; } = new List<Settler>();
         public List<Family> Families { get; } = new List<Family>();
+        public List<Settler> Graveyard { get; } = new List<Settler>();
 
         public void Add(Relationship.Relationship relationship)
         {

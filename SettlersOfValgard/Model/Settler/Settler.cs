@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using SettlersOfValgard.Model.Building.Workplace;
 using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.Model.Settler;
@@ -22,6 +24,7 @@ namespace SettlersOfValgard.Model.Settler
 
         public abstract int MaxHealth { get; }
         public int Health { get; set; }
+        public bool IsAlive => HealthLevel != HealthLevel.Dead;
         public virtual bool Diseased { get; } = false;
 
         public HealthLevel HealthLevel => HealthLevel.Get(Health / (double) MaxHealth, Diseased);
@@ -101,7 +104,9 @@ namespace SettlersOfValgard.Model.Settler
             }
         }
 
-        public abstract void GoEat(Settlement.Settlement settlement);
+        public abstract bool GoEat(Settlement.Settlement settlement);
+        public abstract void Starve(Settlement.Settlement settlement);
+        public abstract void Relax(Settlement.Settlement settlement);
 
         public string MajorTraits()
         {
@@ -130,6 +135,37 @@ namespace SettlersOfValgard.Model.Settler
             {
                 settlement.AddMessage(new SettlerPrestigeChangeMessage(this, oldLevel));
             }
+        }
+
+        public void Heal(int amount)
+        {
+            if(amount < 0) throw new ArgumentException("Heal only takes positive integers!");
+            Health += amount;
+            if (Health > MaxHealth) Health = MaxHealth;
+        }
+
+        public void Harm(int amount, Settlement.Settlement settlement, CauseOfDeath causeOfDeath)
+        {
+            if(amount < 0) throw new ArgumentException("Harm only takes positive integers!");
+            Health -= amount;
+            if (Health < 0)
+            {
+                Health = 0;
+                Die(settlement, causeOfDeath);
+            }
+        }
+
+        public void Die(Settlement.Settlement settlement, CauseOfDeath causeOfDeath)
+        {
+            Relationships.ForEach(rel => rel.Other(this).NotifyDeath(rel));
+            settlement.SettlerManager.Settlers.Remove(this);
+            settlement.SettlerManager.Graveyard.Add(this);
+            settlement.AddMessage(new SettlerDeathMessage(this, causeOfDeath));
+        }
+
+        public void NotifyDeath(Relationship.Relationship relationship)
+        {
+            
         }
     }
 }

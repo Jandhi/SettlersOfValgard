@@ -45,6 +45,7 @@ namespace SettlersOfValgard.Model.Settler.Event
 
         public override bool IsPossibleRelationship(Relationship.Relationship relationship)
         {
+            if (relationship.Either(settler => !settler.IsAlive)) return false; // No dead people allowed!
             if (relationship.Level > RelationshipLevel.Hate) return false; //Only possible if they hate each other
 
             if (!(relationship.Settler1 is IGendered<BinaryGender> settler1) ||

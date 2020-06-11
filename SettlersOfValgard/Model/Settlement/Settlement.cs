@@ -92,10 +92,23 @@ namespace SettlersOfValgard.Model.Settlement
 
         public void FeedSettlers()
         {
+            var starved = new List<Settler.Settler>();
+            var ate = new List<Settler.Settler>();
+
             foreach (var settler in Settlers)
             {
-                settler.GoEat(this);
+                if (settler.GoEat(this))
+                {
+                    ate.Add(settler);
+                }
+                else
+                {
+                    starved.Add(settler);
+                }
             }
+            
+            starved.ForEach(settler => settler.Starve(this));
+            ate.ForEach(settler => settler.Relax(this));
 
             var ateMessage = new CumulativeSettlerAteMessage(MessageManager.TodaysMessages);
             if(ateMessage.Count > 0) AddMessage(ateMessage);

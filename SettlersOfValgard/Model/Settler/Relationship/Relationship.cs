@@ -36,6 +36,16 @@ namespace SettlersOfValgard.Model.Settler.Relationship
             return settler == Settler1 || settler == Settler2;
         }
 
+        public bool Either(Func<Settler, bool> func)
+        {
+            return func(Settler1) || func(Settler2);
+        }
+
+        public bool Both(Func<Settler, bool> func)
+        {
+            return func(Settler1) && func(Settler2);
+        }
+
         public bool Contains(Settler settler1, Settler settler2)
         {
             return (settler1 == Settler1 && settler2 == Settler2) && (settler2 == Settler1 && settler1 == Settler2);
