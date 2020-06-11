@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SettlersOfValgard.Model.Event;
+using SettlersOfValgard.Model.Resource.Transactions;
 using SettlersOfValgard.Model.Settler.Message;
 using SettlersOfValgard.UtilLibrary;
 
@@ -10,12 +11,15 @@ namespace SettlersOfValgard.Model.Message
     {
         public List<Message> TodaysMessages { get; set; } = new List<Message>();
         public List<List<Message>> MessageHistory { get; }  = new List<List<Message>>();
-        public List<IMessageFilter> Filters { get; } = new List<IMessageFilter>
+        public List<IMessageFilter> Filters => new List<IMessageFilter>
         {
             new CumulativeFilter<SettlerStarvedMessage>(true),
             new CumulativeFilter<SettlerAteMessage>(true),
-            new CumulativeFilter<SettlerUnemployedMessage>(true)
+            new CumulativeFilter<SettlerUnemployedMessage>(true),
+            TodaysTransactionMessageFilter,
         };
+        
+        public TodaysTransactionsMessage.TodaysTransactionMessageFilter TodaysTransactionMessageFilter = new TodaysTransactionsMessage.TodaysTransactionMessageFilter();
 
         public void GoThroughMessages(Settlement.Settlement settlement)
         {

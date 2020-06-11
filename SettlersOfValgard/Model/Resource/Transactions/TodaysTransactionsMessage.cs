@@ -14,6 +14,23 @@ namespace SettlersOfValgard.Model.Resource.Transactions
             Detailed = detailed;
         }
 
+        public class TodaysTransactionMessageFilter : IMessageFilter
+        {
+            public bool Detailed { get; } = false;
+            
+            public bool OutputMessage(Message.Message message)
+            {
+                if (message is TodaysTransactionsMessage transactionsMessage)
+                {
+                    return transactionsMessage.Detailed == Detailed;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
         public Transaction TransactionSum { get; }
 
         public override MessageType Type => MessageType.Stockpile;
@@ -27,7 +44,7 @@ namespace SettlersOfValgard.Model.Resource.Transactions
             }
         }
         
-        public string ContentsBrief => $"Today's Transactions: ({TransactionSum})";
+        public string ContentsBrief => $"Today's Transactions: {TransactionSum}";
 
         public string ContentsDetailed
         {
@@ -40,7 +57,6 @@ namespace SettlersOfValgard.Model.Resource.Transactions
                 {
                     sb.AppendLine($"{res}: {(amount < 0 ? "-" : "+")}{Math.Abs(amount)}");
                 }
-
                 return sb.ToString();
             }
         }

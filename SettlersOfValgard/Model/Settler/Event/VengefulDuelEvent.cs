@@ -28,8 +28,10 @@ namespace SettlersOfValgard.Model.Settler.Event
                         var winner = RandomUtil.CoinFlip() ? Relationship.Settler1 : Relationship.Settler2;
                         CustomConsole.WriteLine($"{winner} won!");
                     }),
-                    new EventOption("Prevent them from fighting",
-                        settlement => { CustomConsole.WriteLine("They are grumpy."); })
+                    new EventOption("Prevent them from fighting", settlement =>
+                    {
+                        CustomConsole.WriteLine("They are grumpy.");
+                    }),
                 };
                 return list;
             }

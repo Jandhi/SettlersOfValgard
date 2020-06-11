@@ -17,6 +17,7 @@ namespace SettlersOfValgard.Model.Settler
 
         public abstract int AdultYears { get; }
         public abstract int ElderYears { get; }
+        public override int MaxHealth { get; }
 
         /*
          * Humans can work if they are not underage

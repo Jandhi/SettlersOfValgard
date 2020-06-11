@@ -121,8 +121,9 @@ namespace SettlersOfValgard.View
                     {
                         CustomConsole.Write($"{count} ");
                     }
-                    
-                    CustomConsole.Write($"{name}");
+
+                    var color = items[0] is IColored colored ? colored.Color : ""; 
+                    CustomConsole.Write($"{color}{name}");
                     CustomConsole.Write(items.Count > 1 ? $" x{items.Count}" : ""); // amount
                     CustomConsole.Write(func == null ? "" : $" {func(items[0])}"); // additional function
                     CustomConsole.WriteLine();
@@ -134,15 +135,16 @@ namespace SettlersOfValgard.View
             {
                 var count = 1;
                 PreviousList = new List<string>();
-                foreach (var name in list.Select(item => item.ToString()))
+                foreach (var item in list)
                 {
                     if (numbered)
                     {
                         CustomConsole.Write(count + " ");
                     }
-                    CustomConsole.WriteLine($"{name}");
+                    var color = item is IColored colored ? colored.Color : ""; 
+                    CustomConsole.WriteLine($"{color}{item.Name}");
                     count++;
-                    PreviousList.Add(name);
+                    PreviousList.Add(item.Name);
                 }
             }
         }

@@ -76,7 +76,7 @@ namespace SettlersOfValgard.View.Commands.Settlement.Tech
                 
                 if (currentTech == null)
                 {
-                    CustomConsole.WriteLine("Not currently researching any tech.");
+                    CustomConsole.WriteLine($"{CustomConsole.Red}Not currently researching any tech.");
                 }
                 else
                 {

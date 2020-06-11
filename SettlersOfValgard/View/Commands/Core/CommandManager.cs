@@ -28,6 +28,7 @@ namespace SettlersOfValgard.View.Commands.Core
             new HomeCommand(),
             new PassDayCommand(),
             new RelationshipCommand(),
+            new ResearchCommand(),
             new ResourceCommand(),
             new SettlerCommand(),
             new StatusCommand(),

@@ -96,14 +96,18 @@ namespace SettlersOfValgard.Model.Settlement
             {
                 settler.GoEat(this);
             }
-            
-            AddMessage(new CumulativeSettlerAteMessage(MessageManager.TodaysMessages));
-            AddMessage(new CumulativeSettlerStarvedMessage(MessageManager.TodaysMessages));
+
+            var ateMessage = new CumulativeSettlerAteMessage(MessageManager.TodaysMessages);
+            if(ateMessage.Count > 0) AddMessage(ateMessage);
+
+            var starveMessage = new CumulativeSettlerStarvedMessage(MessageManager.TodaysMessages);
+            if(starveMessage.Count > 0) AddMessage(starveMessage);
         }
 
         public void Update()
         {
             SettlerManager.UpdatePrestige(this);
+            TechManager.MakeProgress(this);
         }
 
         public override string ToString()

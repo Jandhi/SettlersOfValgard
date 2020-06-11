@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using SettlersOfValgard.Model.Event;
-
-namespace SettlersOfValgard.Model.Message
+﻿namespace SettlersOfValgard.Model.Message
 {
     public interface IMessageFilter
     {

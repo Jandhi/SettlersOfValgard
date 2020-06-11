@@ -3,6 +3,7 @@ using System.Linq;
 using SettlersOfValgard.Model.Building.Workplace;
 using SettlersOfValgard.Model.Name;
 using SettlersOfValgard.Model.Settler;
+using SettlersOfValgard.Model.Settler.Health;
 using SettlersOfValgard.Model.Settler.Message;
 using SettlersOfValgard.Model.Settler.Prestige;
 using SettlersOfValgard.Model.Settler.Skill;
@@ -18,8 +19,21 @@ namespace SettlersOfValgard.Model.Settler
         public Family Family { get; set; } // Home is determined by family
         public abstract Date Birthday { get; }
         public Workplace Workplace { get; set; }
+
+        public abstract int MaxHealth { get; }
+        public int Health { get; set; }
+        public virtual bool Diseased { get; } = false;
+
+        public HealthLevel HealthLevel => HealthLevel.Get(Health / (double) MaxHealth, Diseased);
         public Dictionary<Model.Settler.Skill.Skill, int> Experience { get; } = new Dictionary<Model.Settler.Skill.Skill, int>();
         public DefaultValueDictionary<Trait, TraitLevel> Traits = new DefaultValueDictionary<Trait, TraitLevel>(TraitLevel.Average);
+
+        protected Settler() {}
+
+        public void Setup()
+        {
+            Health = MaxHealth;
+        }
 
         public List<Relationship.Relationship> Relationships { get; } = new List<Relationship.Relationship>();
 

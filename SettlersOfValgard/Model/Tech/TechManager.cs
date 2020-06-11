@@ -19,8 +19,23 @@ namespace SettlersOfValgard.Model.Tech
         {
             return Tree.Technologies.Where(tech => !Discovered.Contains(tech) && tech.IsAvailable(settlement)).ToList();
         }
+
+        public void MakeProgress(Settlement.Settlement settlement)
+        {
+            if (CurrentResearch != null)
+            {
+                CurrentResearch.Progress += settlement.ResearchRate;
+                if (CurrentResearch.Progress >= CurrentResearch.Cost)
+                {
+                    Discover(CurrentResearch, settlement);
+                    CurrentResearch = null;
+                }
+            }
+        }
+        
         public void Discover(Tech tech, Settlement.Settlement settlement)
         {
+            settlement.AddMessage(new TechDiscoveredMessage(tech));
             //Add all blueprints
             tech.Blueprints.ForEach(blueprint => settlement.Blueprints.Add(blueprint));
             Discovered.Add(tech);

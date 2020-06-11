@@ -2,6 +2,6 @@
 {
     public interface ISettlerFactory
     {
-        Model.Settler.Settler Generate();
+        Settler Generate();
     }
 }

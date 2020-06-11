@@ -35,6 +35,7 @@ namespace SettlersOfValgard.Model.Settler
         public void Add(Settler settler)
         {
             Settlers.Add(settler);
+            settler.Setup();
             if (!Families.Contains(settler.Family))
             {
                 Families.Add(settler.Family);
