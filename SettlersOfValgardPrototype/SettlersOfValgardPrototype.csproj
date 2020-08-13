@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <RootNamespace>SettlersOfValgard</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Old\**" />
+      <Compile Remove="View\OldCommand\**" />
+      <Compile Remove="View\OldCommandV2\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Old\**" />
+      <EmbeddedResource Remove="View\OldCommand\**" />
+      <EmbeddedResource Remove="View\OldCommandV2\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Old\**" />
+      <None Remove="View\OldCommand\**" />
+      <None Remove="View\OldCommandV2\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SettlersOfValgard\SettlersOfValgard.csproj" />
+    </ItemGroup>
+
+</Project>

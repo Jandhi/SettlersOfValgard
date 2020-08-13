@@ -1,14 +1,17 @@
-﻿using SettlersOfValgard.UtilLibrary;
-using SettlersOfValgard.View;
-using SettlersOfValgard.View.Commands.Settlement;
+﻿using SettlersOfValgard.Game.Resources;
+using SettlersOfValgard.Game.Resources.Food;
+using SettlersOfValgard.Game.Resources.Material;
+using SettlersOfValgard.Interface.Console;
 
 namespace SettlersOfValgard
 {
-    internal class Program
+    class Program
     {
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
-            new Game().Execute();
+            var a = new Bundle{{Material.Wood, 1}};
+            var b = new Bundle{{Food.Meat, 3}};
+            VConsole.WriteLine($"{a} + {b} = {a + b}");
         }
     }
 }
