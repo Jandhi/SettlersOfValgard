@@ -17,8 +17,8 @@ namespace SettlersOfValgard.Model.Building
 
         public Temperature GetIndoorTemperature(Settlement.Settlement settlement)
         {
-            int raisedTempVal = settlement.TodaysWeather.Temperature.Value + Insulation(settlement);
-            int warm = Temperature.Warm.Value;
+            var raisedTempVal = settlement.TodaysWeather.Temperature.Value + Insulation(settlement);
+            var warm = Temperature.Warm.Value;
             return Temperature.Temperatures[Math.Min(raisedTempVal, warm)];
         }
 
