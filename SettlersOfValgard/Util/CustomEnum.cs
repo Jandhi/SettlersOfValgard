@@ -18,7 +18,7 @@ namespace SettlersOfValgard.Util
             Description = description;
         }
 
-        public CustomEnum<T> Get(int value)
+        public T Get(int value)
         {
             foreach (var item in Values)
             {
