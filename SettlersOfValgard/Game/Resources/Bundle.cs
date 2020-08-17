@@ -19,6 +19,16 @@ namespace SettlersOfValgard.Game.Resources
                 }
             }
         }
+
+        public Bundle(Resource resource, int amount)
+        {
+            Add(resource, amount);
+        }
+
+        public int Size
+        {
+            get { return this.Aggregate(0, (sum, next) => sum + next.Key.Size * next.Value); }
+        }
         
         //Adds two bundles
         public static Bundle operator +(Bundle b1, Bundle b2)
