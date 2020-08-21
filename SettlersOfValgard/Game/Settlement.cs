@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using SettlersOfValgard.Game.Assets;
+using SettlersOfValgard.Game.Blueprints;
 using SettlersOfValgard.Game.Buildings;
 using SettlersOfValgard.Game.Regions;
 using SettlersOfValgard.Game.Resources;
@@ -13,12 +12,14 @@ namespace SettlersOfValgard.Game
 {
     public class Settlement : INamed, IColored
     {
-        public Settlement(string name, List<Settler> settlers, List<Region> regions, Stockpile stockpile)
+        public Settlement(string name, List<Settler> settlers, List<Region> regions, Stockpile stockpile, List<Blueprint> blueprints)
         {
             Name = name;
             Settlers = settlers;
             Regions = regions;
             Stockpile = stockpile;
+            Blueprints = blueprints;
+            Pile = new Bundle();
         }
 
         public string Name { get; }
@@ -42,33 +43,21 @@ namespace SettlersOfValgard.Game
                 return total;
             });
 
+        public List<Blueprint> Blueprints { get; }
+        
         public Stockpile Stockpile { get; } // Resources
         public Bundle Pile { get; set; } // Emptied every night
 
         public void AddResource(Resource res, int amount)
         {
-            var leftovers = Stockpile.Add(new Bundle(res, amount));
+            var leftovers = Stockpile.Add(new Bundle(res, amount), this);
             Pile += leftovers;
         }
         
         public void AddResource(Bundle bundle)
         {
-            var leftovers = Stockpile.Add(bundle);
+            var leftovers = Stockpile.Add(bundle, this);
             Pile += leftovers;
-        }
-        
-        public Dictionary<Asset, int> Assets { get; }
-
-        public void AddAsset(Asset asset, int amount)
-        {
-            if (Assets.ContainsKey(asset))
-            {
-                Assets[asset] = Math.Min(Assets[asset] + amount, asset.Limit(this));
-            }
-            else
-            {
-                Assets.Add(asset, Math.Min(amount, asset.Limit(this)));
-            }
         }
     }
 }

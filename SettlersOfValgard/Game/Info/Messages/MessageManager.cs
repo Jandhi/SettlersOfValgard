@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SettlersOfValgard.Interface.Console;
 
 namespace SettlersOfValgard.Game.Info.Messages
 {
     public class MessageManager
     {
         public List<List<Message>> MessageHistory { get; } = new List<List<Message>>();
-        public List<Message> TodaysMessages { get; set; }
+        public List<Message> TodaysMessages { get; set; } = new List<Message>();
 
         public List<Message> FilteredMessages
         {
@@ -17,6 +18,11 @@ namespace SettlersOfValgard.Game.Info.Messages
         public void Add(Message message)
         {
             TodaysMessages.Add(message);
+        }
+        
+        public void DisplayTodaysMessages()
+        {
+            TodaysMessages.ForEach(msg => VConsole.WriteLine($"{msg}"));
         }
 
         public void ArchiveMessages()

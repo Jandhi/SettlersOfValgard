@@ -6,12 +6,12 @@ namespace SettlersOfValgard.Game.Buildings.Work
 {
     public abstract class Workplace : Building
     {
-        protected Workplace(Region region, List<Settler> workers) : base(region)
+        protected Workplace(Region region, List<Settler> workers = null) : base(region)
         {
-            Workers = workers;
+            Workers = workers ?? new List<Settler>();
         }
 
-        public abstract void HostWork(Settler worker);
+        public abstract void HostWork(Settler worker, Game game);
         public List<Settler> Workers { get; }
     }
 }

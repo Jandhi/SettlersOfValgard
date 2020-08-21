@@ -13,7 +13,7 @@ namespace SettlersOfValgard.Game.Buildings
         public Region Region { get; }
         
         //Creates a copy of this building
-        public abstract Building Build();
+        public abstract Building Build(Region region);
 
         protected Building(Region region)
         {

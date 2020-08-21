@@ -24,18 +24,12 @@ namespace SettlersOfValgard.Game.Resources
         {
             Add(resource, amount);
         }
-
-        public int Size
-        {
-            get { return this.Aggregate(0, (sum, next) => sum + next.Key.Size * next.Value); }
-        }
         
         //Adds two bundles
         public static Bundle operator +(Bundle b1, Bundle b2)
         {
             var result = new Bundle();
-            
-            foreach (var transaction in new []{b1, b2})
+            foreach (var transaction in new[] {b1, b2})
             {
                 foreach (var (res, amount) in transaction)
                 {

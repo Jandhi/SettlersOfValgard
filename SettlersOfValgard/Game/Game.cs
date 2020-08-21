@@ -1,12 +1,17 @@
-﻿using SettlersOfValgard.Game.Assets;
-using SettlersOfValgard.Game.Info.Messages;
+﻿using SettlersOfValgard.Game.Info.Messages;
+using SettlersOfValgard.Game.Resources.Assets;
 
 namespace SettlersOfValgard.Game
 {
     public class Game
     {
+        public Game(Settlement settlement)
+        {
+            Settlement = settlement;
+        }
+
         //Managers
-        public MessageManager MessageManager { get; }
+        public MessageManager MessageManager { get; } = new MessageManager();
         
         //Game Classes
         public Settlement Settlement { get; }
@@ -15,29 +20,36 @@ namespace SettlersOfValgard.Game
         {
             Work();
             Labour();
+            MessageManager.DisplayTodaysMessages();
         }
 
         public void Work()
         {
             foreach (var settler in Settlement.Settlers)
             {
-                settler.Workplace?.HostWork(settler);
+                settler.Workplace?.HostWork(settler, this);
             }
         }
 
         public void Labour()
         {
+            var totalLabour = 0;
             foreach (var settler in Settlement.Settlers)
             {
+                int amount;
                 if (settler.Workplace == null)
                 {
-                    Settlement.AddAsset(Asset.Labour, 2);
+                    amount = 2;
+                    
                 }
                 else
                 {
-                    Settlement.AddAsset(Asset.Labour, 1);
+                    amount = 1;
                 }
+                Settlement.AddResource(Asset.Labour, amount);
+                totalLabour += amount;
             }
+            MessageManager.Add(new AssetGainMessage(totalLabour, Asset.Labour));
         }
     }
 }

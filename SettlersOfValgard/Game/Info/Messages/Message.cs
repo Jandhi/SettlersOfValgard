@@ -3,15 +3,14 @@
     /*
      * Basic class to get one-way information to the player
      */
-    public class Message
+    public abstract class Message
     {
-        public Message(string content, MessagePriority priority)
-        {
-            Content = content;
-            Priority = priority;
-        }
 
-        public string Content { get; }
-        public MessagePriority Priority { get; }
+        public abstract string Content { get; }
+        public abstract MessagePriority Priority { get; }
+        public override string ToString()
+        {
+            return Content;
+        }
     }
 }

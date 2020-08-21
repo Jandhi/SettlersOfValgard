@@ -1,10 +1,9 @@
 ﻿using System;
 using SettlersOfValgard.Interface.Console;
-using SettlersOfValgard.Util;
 
-namespace SettlersOfValgard.Game.Assets
+namespace SettlersOfValgard.Game.Resources.Assets
 {
-    public class Asset : CustomEnum<Asset>
+    public class Asset : Resource
     {
         public Func<Settlement, int> Limit { get; }
         
@@ -15,11 +14,14 @@ namespace SettlersOfValgard.Game.Assets
         
         public static readonly Asset Labour = new Asset("Labour", "Hours of sweat and blood.", 0, VColor.Red, LabourLimit);
 
-        public override Asset[] Values => new[] {Labour};
+        public override Resource[] Values => new Resource[] {Labour};
 
         public static int LabourLimit(Settlement settlement)
         {
             return settlement.Settlers.Count * 5;
         }
+
+        public override ResourceType Type => ResourceType.Asset;
+        public override int Size => 0;
     }
 }

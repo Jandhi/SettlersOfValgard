@@ -1,6 +1,8 @@
 ﻿using SettlersOfValgard.Game.Resources;
+using SettlersOfValgard.Game.Resources.Assets;
 using SettlersOfValgard.Game.Resources.Food;
 using SettlersOfValgard.Game.Resources.Material;
+using SettlersOfValgard.Game.Testing;
 using SettlersOfValgard.Interface.Console;
 
 namespace SettlersOfValgard
@@ -9,9 +11,7 @@ namespace SettlersOfValgard
     {
         static void Main(string[] args)
         {
-            var a = new Bundle{{Material.Wood, 1}};
-            var b = new Bundle{{Food.Meat, 3}};
-            VConsole.WriteLine($"{a} + {b} = {a + b}");
+            var game = new Game.Game(new TestSettlement());
         }
     }
 }

@@ -18,10 +18,16 @@ namespace SettlersOfValgard.Game.Resources
             set => Items[key] = value;
         }
 
-        public virtual bool Add(Resource res, int amount)
+        public void Add(Resource res, int amount)
         {
-            Items.Add(res, amount);
-            return true;
+            if (Items.ContainsKey(res))
+            {
+                Items[res] += amount;
+            }
+            else if(amount != 0)
+            {
+                Items.Add(res, amount);
+            }
         }
 
         public bool Remove(Resource res)
