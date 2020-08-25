@@ -44,7 +44,6 @@ namespace SettlersOfValgard.Game
                 Settlement.AddResource(Asset.Labour, amount);
                 totalLabour += amount;
             }
-            MessageManager.Add(new ResourceGainMessage(totalLabour, Asset.Labour));
         }
 
         private static int CalculateSettlerLabour(Settler settler)

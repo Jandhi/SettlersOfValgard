@@ -63,10 +63,7 @@ namespace SettlersOfValgard.Interface.Commands
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder(base.ToString());
-            foreach (var VARIABLE in Tags.Where(tag => tag.Used))
-            {
-                Tags.ForEach(tag => sb.Append($" {tag}"));
-            }
+            Tags.Select(tag => tag.Used).ToList().ForEach(tag => sb.Append($" {tag}"));
             return sb.ToString();
         }
 

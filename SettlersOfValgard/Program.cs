@@ -1,18 +1,23 @@
-﻿using SettlersOfValgard.Game.Resources;
-using SettlersOfValgard.Game.Resources.Assets;
-using SettlersOfValgard.Game.Resources.Food;
-using SettlersOfValgard.Game.Resources.Material;
-using SettlersOfValgard.Game.Testing;
-using SettlersOfValgard.Interface.Console;
+﻿using SettlersOfValgard.Game.Testing;
+using SettlersOfValgard.Interface.Commands;
 
 namespace SettlersOfValgard
 {
-    class Program
+    static class Program
     {
+        public static CommandManager CommandManager { get; } = new CommandManager(); 
+        public static bool stopGame = false;
+        public static bool isInMenu = false; // Not starting in menu yet
+        public static bool isDebug = true;
+        public static Game.Game Game;
+
         static void Main(string[] args)
         {
-            var game = new Game.Game(new TestSettlement());
-            game.PassDay();
+            Game = new Game.Game(new TestSettlement());
+            while (!stopGame)
+            {
+                CommandManager.GetCommand();
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace SettlersOfValgard.Interface.Console
 
                 if (response.Length != 1)
                 {
-                    YesOrNoError.Execute();
+                    YesOrNoError.Write();
                     continue;
                 }
                 
@@ -39,7 +39,7 @@ namespace SettlersOfValgard.Interface.Console
                     return false;
                 }
 
-                YesOrNoError.Execute();
+                YesOrNoError.Write();
             }
         }
     }

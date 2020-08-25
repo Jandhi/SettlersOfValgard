@@ -41,7 +41,7 @@ namespace SettlersOfValgard.Game.Testing
                 {
                     if (i % 3 == 0)
                     {
-                        list.Add(new Settler($"Settlers_{i + 1}", new Family()));
+                        list.Add(new Settler($"Settler_{i + 1}", new Family()));
                     }
                     else
                     {

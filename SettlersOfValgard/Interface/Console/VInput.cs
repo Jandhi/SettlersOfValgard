@@ -28,10 +28,10 @@ namespace SettlersOfValgard.Interface.Console
             {
                 try
                 {
-                    var index = int.Parse(arg.Substring(1));
+                    var index = int.Parse(arg.Substring(1)) - 1; //-1 to fit computer ordering
                     if (PreviousList.Count < index)
                     {
-                        new GameError($"The index {index} is out of bounds!").Execute();
+                        new GameError($"The index {index} is out of bounds!").Write();
                     }
                     else
                     {

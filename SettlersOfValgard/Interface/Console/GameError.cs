@@ -1,6 +1,6 @@
 ﻿namespace SettlersOfValgard.Interface.Console
 {
-    public class GameError
+    public class GameError : TextEffect
     {
         public GameError(string contents)
         {
@@ -8,8 +8,8 @@
         }
 
         public string Contents { get; }
-        
-        public void Execute()
+
+        public override void Write()
         {
             VConsole.WriteLine($"{VColor.Red}ERROR: {Contents}");
         }
