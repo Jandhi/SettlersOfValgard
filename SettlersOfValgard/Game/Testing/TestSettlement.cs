@@ -4,6 +4,7 @@ using SettlersOfValgard.Game.Regions;
 using SettlersOfValgard.Game.Resources;
 using SettlersOfValgard.Game.Resources.Food;
 using SettlersOfValgard.Game.Resources.Material;
+using SettlersOfValgard.Game.Resources.Storage;
 using SettlersOfValgard.Game.Settlers;
 using SettlersOfValgard.Interface.Console;
 

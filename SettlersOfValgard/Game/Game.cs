@@ -1,5 +1,8 @@
-﻿using SettlersOfValgard.Game.Info.Messages;
+﻿using System.Linq;
+using SettlersOfValgard.Game.Info.Messages;
+using SettlersOfValgard.Game.Resources;
 using SettlersOfValgard.Game.Resources.Assets;
+using SettlersOfValgard.Game.Settlers;
 
 namespace SettlersOfValgard.Game
 {
@@ -18,12 +21,14 @@ namespace SettlersOfValgard.Game
 
         public void PassDay()
         {
+            Settlement.Stockpile.ClearLeftovers();
             Work();
-            Labour();
+            AggregateLabour();
             MessageManager.DisplayTodaysMessages();
+            DoArchiving();
         }
 
-        public void Work()
+        private void Work()
         {
             foreach (var settler in Settlement.Settlers)
             {
@@ -31,25 +36,26 @@ namespace SettlersOfValgard.Game
             }
         }
 
-        public void Labour()
+        private void AggregateLabour()
         {
             var totalLabour = 0;
-            foreach (var settler in Settlement.Settlers)
+            foreach (var amount in Settlement.Settlers.Select(CalculateSettlerLabour))
             {
-                int amount;
-                if (settler.Workplace == null)
-                {
-                    amount = 2;
-                    
-                }
-                else
-                {
-                    amount = 1;
-                }
                 Settlement.AddResource(Asset.Labour, amount);
                 totalLabour += amount;
             }
-            MessageManager.Add(new AssetGainMessage(totalLabour, Asset.Labour));
+            MessageManager.Add(new ResourceGainMessage(totalLabour, Asset.Labour));
+        }
+
+        private static int CalculateSettlerLabour(Settler settler)
+        {
+            return settler.Workplace == null ? 2 : 1;
+        }
+
+        private void DoArchiving()
+        {
+            MessageManager.ArchiveMessages();
+            Settlement.Stockpile.ArchiveTransactions();
         }
     }
 }

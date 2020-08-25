@@ -12,6 +12,7 @@ namespace SettlersOfValgard
         static void Main(string[] args)
         {
             var game = new Game.Game(new TestSettlement());
+            game.PassDay();
         }
     }
 }

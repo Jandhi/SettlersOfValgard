@@ -84,6 +84,17 @@ namespace SettlersOfValgard.Game.Resources
             }
         }
 
+        public bool Remove(Resource resource, int amount)
+        {
+            if (ContainsResource(resource) && this[resource] >= amount)
+            {
+                this[resource] -= amount;
+                return true;
+            }
+
+            return false;
+        }
+
         public override string ToString()
         {
             var list = this.Select(pair => $"x{pair.Value} {pair.Key}").ToList();

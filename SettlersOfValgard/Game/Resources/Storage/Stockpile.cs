@@ -1,72 +1,90 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using SettlersOfValgard.Game.Resources.Assets;
 
-namespace SettlersOfValgard.Game.Resources
+namespace SettlersOfValgard.Game.Resources.Storage
 {
     /*
-     * A bundle with size limits
+     * A pile that takes transactions and has leftovers. Settlement storage.
      */
-    public class Stockpile : Bundle
+    public class Stockpile
     {
+        public Pile Contents { get; set; } // Contents
+        public Bundle Leftovers { get; set; } = new Bundle();// Leftovers 
+        public List<Transaction> TodaysTransactions { get; set; } = new List<Transaction>();
+        public List<List<Transaction>> TransactionHistory { get; } = new List<List<Transaction>>();
+
         public Stockpile(int maxSize)
         {
-            MaxSize = maxSize;
+            Contents = new Pile(maxSize);
         }
 
-        public int MaxSize { get; set; }
-
-        public int Size => this.Aggregate(0, (total, next) => total + next.Key.Size * next.Value);
-        public int Space => MaxSize - Size;
-        
-
-        //Adds as much as possible, returns rest
-        public Bundle Add(Bundle bundle, Settlement settlement)
+        public void AddResource(Resource res, int amount, Settlement settlement)
         {
-            var leftovers = new Bundle();
+            TodaysTransactions.Add(new Transaction(res, amount));
+            Leftovers += Contents.AddBundleAndReturnLeftovers(new Bundle(res, amount), settlement);
+        }
+
+        public void AddResource(Bundle bundle, Settlement settlement)
+        {
+            TodaysTransactions.Add(bundle);
+            Leftovers += Contents.AddBundleAndReturnLeftovers(bundle, settlement);
+        }
+
+        public bool Remove(Bundle bundle)
+        {
+            var hasAllResources = bundle.All(pair => Contains(pair.Key, pair.Value));
+            if (hasAllResources)
+            {
+                TodaysTransactions.Add(bundle * -1);
+                RemoveBundleInStockpile(bundle);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void RemoveBundleInStockpile(Bundle bundle)
+        {
             foreach (var (resource, amount) in bundle)
             {
-                if (resource is Asset asset)
-                {
-                    leftovers.Add(asset, Add(asset, amount, settlement));
-                }
-                else
-                {
-                    leftovers.Add(resource, Add(resource, amount, settlement));
-                }
-            }
-
-            return leftovers;
-        }
-
-        public int Add(Resource resource, int amount, Settlement settlement)
-        {
-            if (amount * resource.Size < Space)
-            {
-                Add(resource, amount);
-                return 0;
-            }
-            else
-            {
-                Add(resource, Space / resource.Size);
-                return amount - Space / resource.Size;
+                RemoveResourceInStockpile(resource, amount);
             }
         }
 
-        //Overload
-        public int Add(Asset asset, int amount, Settlement settlement)
+        private void RemoveResourceInStockpile(Resource resource, int amount)
         {
-            var inStockpile = this.ContainsResource(asset) ? this[asset] : 0;
-            var space = asset.Limit(settlement) - inStockpile;
-            if (amount < space)
+            var amountInLeftovers = Leftovers.ContainsResource(resource) ? Leftovers[resource] : 0;
+            if (amount > amountInLeftovers)
             {
-                Add(asset, amount);
-                return 0;
+                Leftovers.Remove(resource, amountInLeftovers);
+                Contents.Remove(resource, amount - amountInLeftovers);
             }
             else
             {
-                Add(asset, space);
-                return amount - space;
+                Leftovers.Remove(resource, amount);
             }
+        }
+
+        public bool Contains(Resource resource, int amount)
+        {
+            var amountInLeftovers = Leftovers.ContainsResource(resource) ? Leftovers[resource] : 0;
+            var amountInContents = Contents.ContainsResource(resource) ? Contents[resource] : 0;
+            return amountInContents + amountInLeftovers >= amount;
+        }
+
+        public void ClearLeftovers()
+        {
+            TodaysTransactions.Add(Leftovers * -1);
+            Leftovers = new Bundle();
+        }
+
+        public void ArchiveTransactions()
+        {
+            TransactionHistory.Add(TodaysTransactions);
+            TodaysTransactions = new List<Transaction>();
         }
     }
 }

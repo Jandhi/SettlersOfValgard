@@ -12,6 +12,11 @@ namespace SettlersOfValgard.Game.Resources
             Items = items ?? new Dictionary<Resource, int>();
         }
 
+        public Transaction(Resource resource, int amount)
+        {
+            Items = new Dictionary<Resource, int>{{resource, amount}};
+        }
+
         public int this[Resource key]
         {
             get => Items[key];

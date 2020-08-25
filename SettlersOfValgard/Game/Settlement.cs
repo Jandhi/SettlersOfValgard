@@ -4,6 +4,7 @@ using SettlersOfValgard.Game.Blueprints;
 using SettlersOfValgard.Game.Buildings;
 using SettlersOfValgard.Game.Regions;
 using SettlersOfValgard.Game.Resources;
+using SettlersOfValgard.Game.Resources.Storage;
 using SettlersOfValgard.Game.Settlers;
 using SettlersOfValgard.Interface.Console;
 using SettlersOfValgard.Util;
@@ -19,7 +20,6 @@ namespace SettlersOfValgard.Game
             Regions = regions;
             Stockpile = stockpile;
             Blueprints = blueprints;
-            Pile = new Bundle();
         }
 
         public string Name { get; }
@@ -46,18 +46,20 @@ namespace SettlersOfValgard.Game
         public List<Blueprint> Blueprints { get; }
         
         public Stockpile Stockpile { get; } // Resources
-        public Bundle Pile { get; set; } // Emptied every night
-
+        
         public void AddResource(Resource res, int amount)
         {
-            var leftovers = Stockpile.Add(new Bundle(res, amount), this);
-            Pile += leftovers;
+            Stockpile.AddResource(res, amount, this);
         }
-        
+
         public void AddResource(Bundle bundle)
         {
-            var leftovers = Stockpile.Add(bundle, this);
-            Pile += leftovers;
+            Stockpile.AddResource(bundle, this);
+        }
+
+        public bool Remove(Bundle bundle)
+        {
+            return Stockpile.Remove(bundle);
         }
     }
 }
