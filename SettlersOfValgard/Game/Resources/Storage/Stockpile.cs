@@ -85,6 +85,7 @@ namespace SettlersOfValgard.Game.Resources.Storage
         {
             TransactionHistory.Add(TodaysTransactions);
             TodaysTransactions = new List<Transaction>();
+            
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SettlersOfValgard.Util
 {
-    public class ArraysUtility
+    public static class ArraysUtility
     {
         public static T[] Add<T>(params T[][] arrays)
         {
@@ -14,13 +14,13 @@ namespace SettlersOfValgard.Util
             }
             return list.ToArray();
         }
-        
-        public static T[] SubArray<T>(T[] arr, int startIndex)
+
+        public static T[] SubArray<T>(this T[] arr, int startIndex)
         {
-            return SubArray(arr, startIndex, arr.Length - startIndex);
+            return arr.SubArray(startIndex, arr.Length - startIndex);
         }
         
-        public static T[] SubArray<T>(T[] arr, int startIndex, int length)
+        public static T[] SubArray<T>(this T[] arr, int startIndex, int length)
         {
             if (arr.Length - startIndex < length)
             {

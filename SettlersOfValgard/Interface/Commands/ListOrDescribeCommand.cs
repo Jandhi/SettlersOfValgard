@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SettlersOfValgard.Interface.Commands.Arguments;
 using SettlersOfValgard.Interface.Console;
+using SettlersOfValgard.Interface.Console.List;
 using SettlersOfValgard.Util;
 
 namespace SettlersOfValgard.Interface.Commands
@@ -8,7 +9,7 @@ namespace SettlersOfValgard.Interface.Commands
     public abstract class ListOrDescribeCommand<T> : Command where T : INamed
     {
         public abstract List<T> List(Game.Game game);
-        public abstract void Describe(T t);
+        public abstract void Describe(T item);
         public abstract string TypeName { get; }
         public override string UseCommandTo => $"Get details about your settlement's {TypeName}s"; 
 
@@ -46,7 +47,11 @@ namespace SettlersOfValgard.Interface.Commands
             } 
             else if (list.Count > 1)
             {
-                new TextList<T>(list, NumberedTag.Used, !SeparatedTag.Used).Write();
+                var format = new TextListFormat<T>
+                {
+                    Func = item => item.Name, IsNumbered = NumberedTag.Used, IsGrouped = !SeparatedTag.Used
+                };
+                new TextList<T>(list, format).Write();
             }
             else
             {

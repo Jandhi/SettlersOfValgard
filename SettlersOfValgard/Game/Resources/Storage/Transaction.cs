@@ -23,6 +23,17 @@ namespace SettlersOfValgard.Game.Resources
             set => Items[key] = value;
         }
 
+        public Transaction PurgeZeroes()
+        {
+            var t = new Transaction();
+            foreach (var (resource, amount) in this)
+            {
+                if(amount != 0) t.Add(resource, amount);
+            }
+
+            return t;
+        }
+
         public void Add(Resource res, int amount)
         {
             if (Items.ContainsKey(res))

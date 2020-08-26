@@ -2,22 +2,23 @@
 using System.Linq;
 using SettlersOfValgard.Util;
 
-namespace SettlersOfValgard.Interface.Console
+namespace SettlersOfValgard.Interface.Console.List
 {
-    public class TextList<T> : TextEffect where T : INamed
+    public class TextList<T> : TextEffect
     {
         private int _count = 1;
-        public bool IsNumbered { get; }
-        public bool IsGrouped { get; }
+        public TextListFormat<T> Format { get; }
+        public bool UpdatePreviousList { get; }
+        
 
-        public TextList(List<T> contents, bool isNumbered = false, bool isGrouped = true)
+        public TextList(IEnumerable<T> contents, TextListFormat<T> format = null, bool updatePreviousList = true)
         {
             Contents = contents;
-            IsNumbered = isNumbered;
-            IsGrouped = isGrouped;
+            Format = format ?? new TextListFormat<T>();
+            UpdatePreviousList = updatePreviousList;
         }
 
-        public List<T> Contents { get; }
+        public IEnumerable<T> Contents { get; }
         
         public override void Write()
         {
@@ -25,7 +26,7 @@ namespace SettlersOfValgard.Interface.Console
             {
                 WriteItem(item, amount);
             }
-            VInput.PreviousList = Contents as List<INamed>;
+            if(UpdatePreviousList) VInput.PreviousList = Contents as List<INamed>;
         }
 
         public Dictionary<T, int> ProcessContents()
@@ -33,14 +34,14 @@ namespace SettlersOfValgard.Interface.Console
             var dictionary = new Dictionary<T, int>();
             foreach (var item in Contents)
             {
-                if (!IsGrouped)
+                if (!Format.IsGrouped)
                 {
                     dictionary.Add(item, 1);
                     continue;
                 }
                 
-                var match = dictionary.Select(pair => pair.Key).FirstOrDefault(t => t.Name == item.Name);
-                if (match != null)
+                var match = dictionary.Select(pair => pair.Key).FirstOrDefault(t => Format.Func(t) == Format.Func(item));
+                if (match != null && !match.Equals(default(T)))
                 {
                     dictionary[match]++;
                 }
@@ -56,8 +57,10 @@ namespace SettlersOfValgard.Interface.Console
         {
             var colorString = item is IColored colored ? colored.Color : VColor.White;
             var amountString = amount > 1 ? $" x{amount}" : "";
-            var numberString = IsNumbered ? $"{_count}: " : "";
-            VConsole.WriteLine($"{numberString}{colorString}{item.Name}{VColor.White}{amountString}");
+            var numberString = Format.IsNumbered ? $"{_count}: " : "";
+            var indent = "";
+            for (var i = 0; i < Format.Indent; i++) indent += " ";
+            VConsole.WriteLine($"{indent}{numberString}{colorString}{Format.Func(item)}{VColor.White}{amountString}");
             _count++;
         }
     }

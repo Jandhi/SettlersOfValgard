@@ -13,9 +13,9 @@ namespace SettlersOfValgard.Interface.Commands.Settlement
             return game.Settlement.Settlers;
         }
 
-        public override void Describe(Settler t)
+        public override void Describe(Settler item)
         {
-            new Title<Settler>(t).Write();
+            new Title<Settler>(item).Write();
         }
 
         public override string TypeName => "settler";

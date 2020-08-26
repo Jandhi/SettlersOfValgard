@@ -2,6 +2,7 @@
 using SettlersOfValgard.Game.Info.Messages;
 using SettlersOfValgard.Game.Resources;
 using SettlersOfValgard.Game.Resources.Assets;
+using SettlersOfValgard.Game.Resources.Storage;
 using SettlersOfValgard.Game.Settlers;
 
 namespace SettlersOfValgard.Game
@@ -24,8 +25,19 @@ namespace SettlersOfValgard.Game
             Settlement.Stockpile.ClearLeftovers();
             Work();
             AggregateLabour();
+            AddTransactionMessage();
             MessageManager.DisplayTodaysMessages();
             DoArchiving();
+        }
+
+        private void AddTransactionMessage()
+        {
+            var netTransactions =
+                Settlement.Stockpile.TodaysTransactions.Aggregate(new Transaction(), (next, total) => next + total).PurgeZeroes();
+            if (netTransactions.Count() != 0)
+            {
+                MessageManager.TodaysMessages.Add(new TransactionMessage(netTransactions));
+            }
         }
 
         private void Work()
@@ -53,8 +65,8 @@ namespace SettlersOfValgard.Game
 
         private void DoArchiving()
         {
-            MessageManager.ArchiveMessages();
             Settlement.Stockpile.ArchiveTransactions();
+            MessageManager.ArchiveMessages();
         }
     }
 }
