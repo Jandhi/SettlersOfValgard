@@ -6,7 +6,7 @@ namespace SettlersOfValgard.Util
     {
         public static void Repeat(this Action action, int num)
         {
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < num; i++)
             {
                 action.Invoke();
             }

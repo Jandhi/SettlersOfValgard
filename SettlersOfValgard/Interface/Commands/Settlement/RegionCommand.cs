@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using SettlersOfValgard.Game.Buildings;
 using SettlersOfValgard.Game.Regions;
-using SettlersOfValgard.Game.Resources;
+using SettlersOfValgard.Game.Regions.Features;
 using SettlersOfValgard.Interface.Console;
 using SettlersOfValgard.Interface.Console.List;
 
@@ -19,15 +20,13 @@ namespace SettlersOfValgard.Interface.Commands.Settlement
         {
             new Title<Region>(item).Write();
             VConsole.WriteLine($"{item.Description}");
-            VConsole.WriteLine("Resources/Day:");
-            new TextList<KeyValuePair<Resource, int>>(item.ResourceLimits,
-                new TextListFormat<KeyValuePair<Resource, int>> {Func = pair => $"{pair.Key} x{pair.Value}", Indent = 1}, false).Write();
+            if(item.Features.Count != 0) VConsole.WriteLine("Features:");
+            new TextList<Feature>(item.Features,
+                new TextListFormat<Feature> {Func = ft => $"{ft}", Indent = 1}, false).Write();
             
-            VConsole.WriteLine($"Buildings:");
-            foreach (var building in item.Buildings)
-            {
-                VConsole.WriteLine($" {building}");
-            }
+            if(item.Buildings.Count != 0) VConsole.WriteLine($"Buildings:");
+            new TextList<Building>(item.Buildings,
+                new TextListFormat<Building>{Func = bd => $"{bd}", Indent = 1}, false).Write();
         }
  
         public override string TypeName => "region";

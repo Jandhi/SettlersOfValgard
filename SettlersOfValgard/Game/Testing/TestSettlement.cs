@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using SettlersOfValgard.Game.Blueprints;
 using SettlersOfValgard.Game.Regions;
+using SettlersOfValgard.Game.Regions.Features;
 using SettlersOfValgard.Game.Resources;
 using SettlersOfValgard.Game.Resources.Food;
 using SettlersOfValgard.Game.Resources.Material;
 using SettlersOfValgard.Game.Resources.Storage;
 using SettlersOfValgard.Game.Settlers;
 using SettlersOfValgard.Interface.Console;
+using SettlersOfValgard.Util;
 
 namespace SettlersOfValgard.Game.Testing
 {
@@ -22,12 +24,8 @@ namespace SettlersOfValgard.Game.Testing
         {
             get
             {
-                var limits = new Bundle(new Dictionary<Resource, int>
-                {
-                    {Material.Wood, 20},
-                    {Food.Meat, 10}
-                });
-                var region = new Region("Region_1", VColor.Green,"", limits);
+                var features = new List<Feature>{Feature.Forest, Feature.Forest, Feature.Forest, Feature.Plain, Feature.Plain};
+                var region = new Region("Region_1", VColor.Green,"", features);
                 return new List<Region>{region};
             }
         }
@@ -37,18 +35,12 @@ namespace SettlersOfValgard.Game.Testing
             get
             {
                 var list = new List<Settler>();
-                for (var i = 0; i < 9; i++)
+                var i = 1;
+                ActionUtility.Repeat(() =>
                 {
-                    if (i % 3 == 0)
-                    {
-                        list.Add(new Settler($"Settler_{i + 1}", new Family()));
-                    }
-                    else
-                    {
-                        list.Add(new Settler($"Settler_{i + 1}", list[i - 1].Family));
-                    }
-                }
-
+                    list.Add(new Settler($"settler_{i}"));
+                    i++;
+                }, 9);
                 return list;
             }
         }

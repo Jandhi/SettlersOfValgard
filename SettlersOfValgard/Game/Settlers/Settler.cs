@@ -8,16 +8,13 @@ namespace SettlersOfValgard.Game.Settlers
     {
         
         
-        public Settler(string name, Family family)
+        public Settler(string name)
         {
             Name = name;
-            Family = family;
-            family.Members.Add(this);
         }
 
         public string Name { get; }
         public VColor Color { get; } = VColor.Cyan; //PLACEHOLDER
-        public Family Family { get; }
         public Workplace Workplace { set; get; }
 
         public override string ToString()

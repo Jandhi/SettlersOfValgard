@@ -25,14 +25,6 @@ namespace SettlersOfValgard.Game
         public string Name { get; }
         public VColor Color { get; } = VColor.Green; //TODO Update color
         public List<Settler> Settlers { get; }
-        //Finds all unique families 
-        public List<Family> Families => Settlers.Aggregate(
-            new List<Family>(),
-            (total, next) =>
-            {
-                if (!total.Contains(next.Family)) total.Add(next.Family);
-                return total;
-            });
         public List<Region> Regions { get; } //Regions that are a part of this settlement
         //Finds all buildings in all regions
         public List<Building> Buildings => Regions.Aggregate(

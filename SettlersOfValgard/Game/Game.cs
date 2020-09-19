@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using SettlersOfValgard.Game.Info.Messages;
+using SettlersOfValgard.Game.Regions;
 using SettlersOfValgard.Game.Resources;
 using SettlersOfValgard.Game.Resources.Assets;
 using SettlersOfValgard.Game.Resources.Storage;
@@ -42,9 +43,9 @@ namespace SettlersOfValgard.Game
 
         private void Work()
         {
-            foreach (var settler in Settlement.Settlers)
+            foreach (var region in Settlement.Regions)
             {
-                settler.Workplace?.HostWork(settler, this);
+                region.Work(this);
             }
         }
 
