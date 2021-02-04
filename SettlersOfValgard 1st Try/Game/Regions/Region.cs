@@ -4,6 +4,7 @@ using System.Linq;
 using SettlersOfValgard.Game.Buildings;
 using SettlersOfValgard.Game.Buildings.Home;
 using SettlersOfValgard.Game.Buildings.Work;
+using SettlersOfValgard.Game.Buildings.Work.Harvesters;
 using SettlersOfValgard.Game.Regions.Features;
 using SettlersOfValgard.Game.Resources;
 using SettlersOfValgard.Game.Settlers;
@@ -46,7 +47,21 @@ namespace SettlersOfValgard.Game.Regions
             var workplaces = Buildings.OfType<Workplace>().ToList();
             //Sort workplace by amount of workers- most workers get priority
             workplaces.Sort((workplace1, workplace2) => workplace1.Workers.Count.CompareTo(workplace2.Workers.Count));
-            
+            foreach (var workplace in workplaces)
+            {
+                if (workplace is Harvester harvester)
+                {
+                    if (harvester.RequiredFeatures.TrueForAll(ft => availableFeatures.Contains(ft)))
+                    {
+                        availableFeatures.RemoveAll(ft => harvester.RequiredFeatures.Contains(ft));
+                        harvester.Workers.ForEach(worker => worker.Workplace.HostWork(worker, game));
+                    }
+                }
+                else
+                {
+                    workplace.Workers.ForEach(worker => worker.Workplace.HostWork(worker, game));
+                }
+            }
         }
     }
 }

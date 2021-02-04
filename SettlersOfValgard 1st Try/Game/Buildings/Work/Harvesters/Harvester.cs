@@ -10,6 +10,7 @@ namespace SettlersOfValgard.Game.Buildings.Work.Harvesters
     {
         public Harvester(Region region, List<Settler> workers = null) : base(region, workers) {}
         public abstract Dictionary<Resource, int> Rates { get; }
+        public abstract List<Feature> RequiredFeatures { get; }
 
         public override void HostWork(Settler worker, Game game)
         {

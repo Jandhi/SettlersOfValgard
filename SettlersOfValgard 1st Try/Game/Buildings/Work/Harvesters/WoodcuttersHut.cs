@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SettlersOfValgard.Game.Regions;
+using SettlersOfValgard.Game.Regions.Features;
 using SettlersOfValgard.Game.Resources;
 using SettlersOfValgard.Game.Resources.Material;
 using SettlersOfValgard.Game.Settlers;
@@ -22,5 +23,6 @@ namespace SettlersOfValgard.Game.Buildings.Work.Harvesters
         }
 
         public override Dictionary<Resource, int> Rates => new Dictionary<Resource, int>{{Material.Wood, 1}};
+        public override List<Feature> RequiredFeatures => new List<Feature>{Feature.Forest};
     }
 }

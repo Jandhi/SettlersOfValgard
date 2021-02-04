@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SettlersOfValgard.Game.Regions;
+using SettlersOfValgard.Game.Regions.Features;
 using SettlersOfValgard.Game.Resources;
 using SettlersOfValgard.Game.Resources.Food;
 using SettlersOfValgard.Interface.Console;
@@ -9,6 +10,7 @@ namespace SettlersOfValgard.Game.Buildings.Work.Harvesters
     public class HuntersHut : Harvester
     {
         public override Dictionary<Resource, int> Rates => new Dictionary<Resource, int>{{Food.Meat, 2}};
+        public override List<Feature> RequiredFeatures => new List<Feature>{Feature.Forest};
 
         public HuntersHut(Region region) : base(region)
         {
