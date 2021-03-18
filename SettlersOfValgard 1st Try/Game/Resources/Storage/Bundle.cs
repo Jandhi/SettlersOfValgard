@@ -25,6 +25,10 @@ namespace SettlersOfValgard.Game.Resources
             Add(resource, amount);
         }
         
+        public Bundle(params Tuple<Resource, int>[] items) : base(items)
+        {
+        }
+        
         //Adds two bundles
         public static Bundle operator +(Bundle b1, Bundle b2)
         {

@@ -1,0 +1,41 @@
+﻿A GUIDE TO VTEXT
+
+VText is a way to add Color and Boldness to Console Output
+
+VTEXT
+to import use:
+    using SettlersOfValgardGame.ui.console.text;
+   
+functions:
+    public abstract VText Plus(VText other);
+        Creates a new VText Object that appends the other text to this
+        This is used to allow for VText v3 = v1 + v2;
+    
+    public abstract VText Apply(VTextTransform transform);
+        Applies a transform to the VText. See TRANSFORMS.
+        
+    public abstract string GetContentRaw();
+        Gets the raw string content without ANSI codes.
+        
+    public abstract VText Copy();
+        Creates a copy of the VText object. Called by most other functions. 
+----------
+THE CONSOLE
+to import use:
+    using static SettlersOfValgardGame.ui.console.VConsole;
+
+functions:
+    public static VText Text(string text, VColor foregroundColor = null, VColor backgroundColor = null,
+        A way to turn strings into VText objects, which can be output by the console. 
+----------
+COLORS
+to import use:
+    using static SettlersOfValgardGame.ui.console.color.VColor
+    
+allows you to get colors
+----------
+TRANSFORMS
+to import use:
+    using static SettlersOfValgardGame.ui.console.text.VTextTransform
+
+used to apply changes to VText objects, such as changing colors or text itself

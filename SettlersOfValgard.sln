@@ -1,12 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettlersOfValgard 2nd Try", "SettlersOfValgard 2nd Try\SettlersOfValgard 2nd Try.csproj", "{9EE7A3AA-BB47-45FF-A2A6-6305F752BECC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettlersOfValgard 1st Try", "SettlersOfValgard 1st Try\SettlersOfValgard 1st Try.csproj", "{30DC204B-182B-4916-B060-F301DAC319D1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Old", "Old", "{F1EBB001-A20C-4EB2-9B4F-50566E9BB4CA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettlersOfValgardGame", "SettlersOfValgardGame\SettlersOfValgardGame.csproj", "{F423D19F-23AC-4D9E-A255-B74B6CA73064}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettlersOfValgard", "SettlersOfValgard\SettlersOfValgard.csproj", "{F423D19F-23AC-4D9E-A255-B74B6CA73064}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,21 +8,11 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9EE7A3AA-BB47-45FF-A2A6-6305F752BECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9EE7A3AA-BB47-45FF-A2A6-6305F752BECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9EE7A3AA-BB47-45FF-A2A6-6305F752BECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9EE7A3AA-BB47-45FF-A2A6-6305F752BECC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30DC204B-182B-4916-B060-F301DAC319D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30DC204B-182B-4916-B060-F301DAC319D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30DC204B-182B-4916-B060-F301DAC319D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30DC204B-182B-4916-B060-F301DAC319D1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F423D19F-23AC-4D9E-A255-B74B6CA73064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F423D19F-23AC-4D9E-A255-B74B6CA73064}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F423D19F-23AC-4D9E-A255-B74B6CA73064}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F423D19F-23AC-4D9E-A255-B74B6CA73064}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{30DC204B-182B-4916-B060-F301DAC319D1} = {F1EBB001-A20C-4EB2-9B4F-50566E9BB4CA}
-		{9EE7A3AA-BB47-45FF-A2A6-6305F752BECC} = {F1EBB001-A20C-4EB2-9B4F-50566E9BB4CA}
 	EndGlobalSection
 EndGlobal
