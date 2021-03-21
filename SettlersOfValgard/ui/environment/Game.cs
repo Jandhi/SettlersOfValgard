@@ -4,13 +4,14 @@ using SettlersOfValgardGame.ui.commands;
 using SettlersOfValgardGame.ui.commands.basic;
 using SettlersOfValgardGame.ui.console.color;
 using SettlersOfValgardGame.ui.elements;
+using SettlersOfValgardGame.ui.environment.events;
 using SettlersOfValgardGame.ui.environment.settings;
 using SettlersOfValgardGame.ui.player;
 using SettlersOfValgardGame.util.random;
 
 namespace SettlersOfValgardGame.ui.environment
 {
-    public class Game : ISeeded
+    public class Game : ISeeded 
     {
         public static Game Instance;
         public virtual List<Command> GlobalCommands { get; } = new List<Command>(BasicCommands.Commands);
@@ -28,6 +29,7 @@ namespace SettlersOfValgardGame.ui.environment
         public List<InputLoop> InputLoops { get; } = new List<InputLoop>();
         public List<IUiElement> Elements { get; } = new List<IUiElement>();
         public List<Command> GameCommands { get; }
+        public GameEventHandler GameEventHandler { get; } = new GameEventHandler();
 
         public void Run()
         {

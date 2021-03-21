@@ -1,12 +1,14 @@
-﻿using SettlersOfValgardGame.settlersOfValgard.buildings;
+﻿using System.Collections.Generic;
+using SettlersOfValgardGame.settlersOfValgard.buildings;
 using SettlersOfValgardGame.settlersOfValgard.content.buildings;
+using SettlersOfValgardGame.settlersOfValgard.regions;
 using SettlersOfValgardGame.settlersOfValgard.settlers;
 
 namespace SettlersOfValgardGame.settlersOfValgard.testing
 {
     public class TestSettlement : Settlement
     {
-        public TestSettlement() : base("Test Settlement")
+        public TestSettlement(World testWorld) : base("Test Settlement", new List<Region>{testWorld.StartingRegion})
         {
             GenerateSettlers();
             for (var i = 0; i < 5; i++)

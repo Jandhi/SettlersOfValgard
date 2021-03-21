@@ -44,7 +44,7 @@ namespace SettlersOfValgardGame.ui.console
         public static void WriteError(VText error, bool deadly = false)
         {
             error = Text("ERROR: ").Plus(error);
-            error = error.Apply(VTextTransform.SetForeground(VColor.Red, true));
+            error = error.Apply(VTextTransform.SetForeground(ColorStandards.Error, true));
             Log.Add(error.ToString(), Log.MessageType.Error);
             Console.WriteLine(error);
         }
@@ -57,7 +57,7 @@ namespace SettlersOfValgardGame.ui.console
         public static void WriteWarning(VText warning)
         {
             warning = Text("WARNING: ").Plus(warning);
-            warning.Apply(VTextTransform.SetForeground(VColor.Orange, true));
+            warning.Apply(VTextTransform.SetForeground(ColorStandards.Warning, true));
             Log.Add(warning.ToString(), Log.MessageType.Warning);
             Console.WriteLine(warning);
         }
@@ -70,7 +70,7 @@ namespace SettlersOfValgardGame.ui.console
         public static void WriteDebug(VText debug)
         {
             debug = Text("DEBUG: ").Plus(debug);
-            debug.Apply(VTextTransform.SetForeground(VColor.Yellow, true));
+            debug.Apply(VTextTransform.SetForeground(ColorStandards.Debug, true));
             Log.Add(debug.ToString(), Log.MessageType.Debug);
             Console.WriteLine(debug);
         }

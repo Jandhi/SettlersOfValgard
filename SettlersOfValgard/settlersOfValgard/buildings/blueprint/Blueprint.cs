@@ -1,5 +1,5 @@
 ﻿using SettlersOfValgardGame.settlersOfValgard.buildings.prototypes;
-using SettlersOfValgardGame.settlersOfValgard.resources.bundles;
+using SettlersOfValgardGame.settlersOfValgard.resources.storage;
 using SettlersOfValgardGame.ui.models;
 
 namespace SettlersOfValgardGame.settlersOfValgard.buildings.blueprint

@@ -80,6 +80,7 @@ namespace SettlersOfValgardGame.ui.commands
                 catch (Exception e)
                 {
                     WriteError(Text(e.Message));
+                    WriteError(Text(e.StackTrace));
                 }
             }
             

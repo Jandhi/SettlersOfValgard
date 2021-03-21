@@ -23,7 +23,20 @@ namespace SettlersOfValgardGame.ui.console.color
         
         // REDS
         public static VColor Red = new VColor("Red", 9);
+        public static VColor Cherry = new VColor("Cherry", 125);
+        public static VColor Crimson = new VColor("Crimson", 124);
+        public static VColor Maroon = new VColor("Maroon", 1);
+        public static VColor India = new VColor("India", 203);
+        public static VColor Salmon = new VColor("Salmon", 210);
         
+        // BROWNS
+        public static VColor Fur = new VColor("Fur", 130);
+        public static VColor Wood = new VColor("Wood", 94);
+        public static VColor Tan = new VColor("Tan", 180);
+        public static VColor Caramel = new VColor("Caramel", 136);
+        public static VColor Thatch = new VColor("Thatch", 58);
+        public static VColor Hay = new VColor("Hay", 101);
+
         // ORANGES
         public static VColor Glow = new VColor("Glow", 216);
         public static VColor Orange = new VColor("Orange", 208);
@@ -72,6 +85,21 @@ namespace SettlersOfValgardGame.ui.console.color
         public static VColor Sapphire = new VColor("Sapphire", 26);
         public static VColor Blue = new VColor("Blue", 21);
         public static VColor Navy = new VColor("Navy", 18);
+        
+        // GREYS
+        public static VColor Black = new VColor("Black", 16);
+        public static VColor Night = new VColor("Night", 233);
+        public static VColor Steel = new VColor("Steel", 146);
+        public static VColor Stone = new VColor("Stone", 145);
+        public static VColor Silver = new VColor("Silver", 7);
+        public static VColor Grey = new VColor("Grey", 8);
+        public static VColor Iron = new VColor("Iron", 238);
+        public static VColor Meteor = new VColor("Meteor", 236);
+        public static VColor Mithril = new VColor("Mithril", 252);
+        
+        // WHITES
+        public static VColor Eggshell = new VColor("Eggshell", 253);
+        public static VColor White = new VColor("White", 15);
         
         //VColor Class
         public int Value { get; }

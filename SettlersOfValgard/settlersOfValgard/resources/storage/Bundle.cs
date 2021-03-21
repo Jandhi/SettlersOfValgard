@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using SettlersOfValgardGame.settlersOfValgard.resources.storage;
 using SettlersOfValgardGame.ui.environment;
 
-namespace SettlersOfValgardGame.settlersOfValgard.resources.bundles
+namespace SettlersOfValgardGame.settlersOfValgard.resources.storage
 {
     //A ledger with positive amounts
     public class Bundle : Ledger
@@ -38,7 +36,7 @@ namespace SettlersOfValgardGame.settlersOfValgard.resources.bundles
             VerifyIntegrity();
         }
 
-        protected virtual void VerifyIntegrity()
+        protected void VerifyIntegrity()
         {
             Size = new Dictionary<StorageType, int>();
             foreach (var (resource, amount) in Contents)

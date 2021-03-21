@@ -1,15 +1,23 @@
-﻿using SettlersOfValgardGame.ui.console.text;
+﻿using SettlersOfValgardGame.settlersOfValgard.buildings;
+using SettlersOfValgardGame.settlersOfValgard.settlers;
+using SettlersOfValgardGame.ui.console;
+using SettlersOfValgardGame.ui.console.text;
 
 namespace SettlersOfValgardGame.settlersOfValgard.work
 {
     public class WorkplaceOccupation : IOccupation
     {
-
-        public VText Description { get; }
-        
-        public void Work(SettlersOfValgard game)
+        public WorkplaceOccupation(Workplace workplace)
         {
-            throw new System.NotImplementedException();
+            Workplace = workplace;
+        }
+
+        public Workplace Workplace { get; }
+        public VText Description => VConsole.Text("Works at ") + Workplace;
+
+        public void Work(SettlersOfValgard game, Settler settler)
+        {
+            Workplace.WorkplacePrototype.HostWorker(game, settler);
         }
     }
 }

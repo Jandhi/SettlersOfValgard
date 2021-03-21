@@ -70,24 +70,24 @@ namespace SettlersOfValgardGame.ui.elements
         }
         
         public static Command PageCommand<TItem>() where TItem : VText
-        {
-            var pageArgument = new IntegerArgument("page", Text("The page you would like to go to"));
-
-            void PageAction<TItemInner>(Game game, Command command) where TItemInner : VText
-            {
-                var element = game.Elements[^1] as MultiPageListElement<TItemInner>;
-                var page = pageArgument.IsFilled() ? pageArgument.Content : 1;
-                element.CurrentPageNum = page;
-                element.DisplayPage(element.CurrentPageNum);
-            }
-
-            return new CommandBuilder()
-                .WithName("page")
-                .WithDescription(Text("go to the given page"))
-                .WithArguments(pageArgument)
-                .WithAction(PageAction<TItem>)
-                .Build();
-        }
+                 {
+                     var pageArgument = new IntegerArgument("page", Text("The page you would like to go to"));
+         
+                     void PageAction<TItemInner>(Game game, Command command) where TItemInner : VText
+                     {
+                         var element = game.Elements[^1] as MultiPageListElement<TItemInner>;
+                         var page = pageArgument.IsFilled() ? pageArgument.Content : 1;
+                         element.CurrentPageNum = page;
+                         element.DisplayPage(element.CurrentPageNum);
+                     }
+         
+                     return new CommandBuilder()
+                         .WithName("page")
+                         .WithDescription(Text("go to the given page"))
+                         .WithArguments(pageArgument)
+                         .WithAction(PageAction<TItem>)
+                         .Build();
+                 }
 
         
         public int ItemsPerPage { get; }

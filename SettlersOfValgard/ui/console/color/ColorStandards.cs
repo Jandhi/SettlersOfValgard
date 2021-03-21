@@ -2,6 +2,9 @@
 {
     public static class ColorStandards
     {
+        public static readonly VColor Error = VColor.Red;
+        public static readonly VColor Warning = VColor.Orange;
+        public static readonly VColor Debug = VColor.Yellow;
         public static readonly VColor Input = VColor.Lake;
         public static readonly VColor Argument = VColor.Orange;
         public static readonly VColor Optional = VColor.Sky;

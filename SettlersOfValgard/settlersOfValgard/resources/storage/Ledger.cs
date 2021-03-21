@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SettlersOfValgardGame.settlersOfValgard.resources.bundles;
+using SettlersOfValgardGame.ui.console;
+using SettlersOfValgardGame.ui.console.text;
+using SettlersOfValgardGame.ui.models;
 
 namespace SettlersOfValgardGame.settlersOfValgard.resources.storage
 {
-    public class Ledger : IEnumerable<(Resource, int)>
+    public class Ledger : GeneratedVText, IEnumerable<(Resource, int)>
     {
         public Ledger(Dictionary<Resource, int> contents)
         {
@@ -89,6 +91,17 @@ namespace SettlersOfValgardGame.settlersOfValgard.resources.storage
             }
 
             return list;
+        }
+
+        public override VText ToVText()
+        {
+            var text = VConsole.Text("[");
+            foreach (var (resource, amount) in this)
+            {
+                text += VConsole.Text(amount + "x" + resource + ", ");
+            }
+
+            return text;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using SettlersOfValgardGame.settlersOfValgard.buildings.blueprint;
 using SettlersOfValgardGame.settlersOfValgard.buildings.prototypes;
 using SettlersOfValgardGame.settlersOfValgard.resources;
-using SettlersOfValgardGame.settlersOfValgard.resources.bundles;
+using SettlersOfValgardGame.settlersOfValgard.resources.storage;
 using SettlersOfValgardGame.ui.console.color;
 
 namespace SettlersOfValgardGame.settlersOfValgard.content.buildings

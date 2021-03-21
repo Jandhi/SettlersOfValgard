@@ -20,10 +20,12 @@ namespace SettlersOfValgardGame.settlersOfValgard
             list.AddRange(BuildingCommands.Commands);
             list.AddRange(FamilyCommands.Commands);
             list.AddRange(ResourceCommands.Commands);
+            list.AddRange(RegionCommands.Commands);
             return list;
         }
         public Settlement Settlement { get; }
         public World World { get; }
+        public new SettlersOfValgard Instance => Game.Instance as SettlersOfValgard;
 
         private static void OnStartAction(Game game)
         {
@@ -38,7 +40,7 @@ namespace SettlersOfValgardGame.settlersOfValgard
         public SettlersOfValgard(Profile profile) : base(profile, 13, GetSettlersOfValgardCommands(), OnStartAction, OnCloseAction)
         {
             World = new TestWorld();
-            Settlement = new TestSettlement();
+            Settlement = new TestSettlement(World);
         }
     }
 }

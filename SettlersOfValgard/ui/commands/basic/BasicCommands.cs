@@ -12,7 +12,7 @@ namespace SettlersOfValgardGame.ui.commands.basic
 {
     public static class BasicCommands
     {
-        public static List<Command> Commands => new List<Command>{HelpCommand.Help, _quit, _debug, _colors, _commands, _setSeed, _getSeed, _random};
+        public static List<Command> Commands => new List<Command>{_quit, _debug, _back, _colors, _commands, _setSeed, _getSeed, _random};
 
         private static Command _quit = new CommandBuilder()
             .WithName("Quit")
@@ -23,6 +23,22 @@ namespace SettlersOfValgardGame.ui.commands.basic
                 {
                     loop.IsLooping = false;
                 }
+            })
+            .Build();
+        
+        private static Command _back = new CommandBuilder()
+            .WithName("Back")
+            .WithDescription(Text("return to previous options"))
+            .WithAction((game, command) =>
+            {
+                if(game.InputLoops.Count == 1) throw new GameException("You can't go further back!");
+
+                foreach (var loop in game.InputLoops)
+                {
+                    loop.IsLooping = false;
+                }
+
+                game.InputLoops[0].IsLooping = true;
             })
             .Build();
 

@@ -7,7 +7,7 @@ namespace SettlersOfValgardGame.settlersOfValgard.resources
 {
     public abstract class Resource : NamedObject
     {
-        public Resource(string nameText, VColor nameForeground, int size)
+        public Resource(string nameText, VColor nameForeground, int size = 1)
         {
             NameText = nameText;
             NameForeground = nameForeground;

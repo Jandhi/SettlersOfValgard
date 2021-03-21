@@ -1,6 +1,7 @@
 ﻿
 
 using System;
+using System.Linq;
 
 namespace SettlersOfValgardGame.util.random
 {
@@ -29,6 +30,11 @@ namespace SettlersOfValgardGame.util.random
             mangled *= bitNoise3;
             mangled ^= (mangled >> 8);
             return mangled;
+        }
+
+        public static uint GetRecursiveNoise(uint seed, params int[] positions)
+        {
+            return positions.Aggregate(seed, (current, position) => GetNoise(position, current));
         }
     }
 }
